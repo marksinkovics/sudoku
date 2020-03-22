@@ -11,27 +11,31 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Spacer()
-            Board()
-                .environmentObject(sudoku.data)
+            Board(boardData: sudoku.data)
                 .aspectRatio(1.0, contentMode: .fit)
                 .padding()
             Spacer()
-            Numpad()
-                .environmentObject(sudoku.data)
+            Numpad(boardData: sudoku.data)
                 .aspectRatio(9/1, contentMode: .fit)
                 .padding(.leading)
                 .padding(.trailing)
             Spacer()
-            HStack {
+            HStack(alignment: .center) {
                 Text("Generate")
+                    .font(.body)
                     .foregroundColor(Color(.label))
                     .onTapGesture { self.sudoku.generate() }
+                    .frame(width: 80)
                 Text("Solve")
+                    .font(.body)
                     .foregroundColor(Color(.label))
                     .onTapGesture { self.sudoku.solve() }
+                    .frame(width: 80)
                 Text("Clear")
+                    .font(.body)
                     .foregroundColor(Color(.label))
                     .onTapGesture { self.sudoku.clear() }
+                    .frame(width: 80)
             }
             Spacer()
         }.background(Color(.systemBackground).edgesIgnoringSafeArea(.all))

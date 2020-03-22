@@ -10,8 +10,8 @@ import SwiftUI
 
 struct BoardCell: View {
     
-    @EnvironmentObject var item: Item
-    
+    @ObservedObject var item: Item
+        
     func borderColor() -> Color {
         self.item.selected ? Color(.systemRed) : Color.black
     }
@@ -34,10 +34,9 @@ struct BoardCell: View {
 
 struct BoardCell_Previews: PreviewProvider {
     
-    private static var item = Item()
-    
+    private static var item: Item = Item()
+
     static var previews: some View {
-        BoardCell()
-            .environmentObject(item)
+        BoardCell(item: item)
     }
 }
