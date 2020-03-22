@@ -16,6 +16,9 @@ class Item: ObservableObject {
         self.fixed = fixed
     }
     
+    var str: String {
+        return number == 0 ? "" : "\(number)"
+    }
 }
 
 extension Item: Equatable {
@@ -23,6 +26,16 @@ extension Item: Equatable {
         return lhs.number == rhs.number &&
             lhs.selected == rhs.selected &&
             lhs.fixed == rhs.fixed
+    }
+}
+
+extension Item: CustomStringConvertible,  CustomDebugStringConvertible {
+    var description: String {
+        return "\(number)"
+    }
+    
+    var debugDescription: String {
+        return "\(number)"
     }
 }
 

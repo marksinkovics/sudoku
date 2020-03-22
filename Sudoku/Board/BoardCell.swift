@@ -11,13 +11,23 @@ import SwiftUI
 struct BoardCell: View {
     
     @EnvironmentObject var item: Item
+    
+    func borderColor() -> Color {
+        self.item.selected ? Color(.systemRed) : Color.black
+    }
+    
+    func borderSize() -> CGFloat {
+        self.item.selected ? 4 : 1
+    }
             
     var body: some View {
         GeometryReader { geometry in
-            Text("\(self.item.number)")
+            Text(self.item.str)
                 .font(Font.system(size: 30))
+                .foregroundColor(Color(.label))
                 .frame(width: geometry.size.width, height: geometry.size.height)
-                .border(Color.black, width: self.item.selected ? 4 : 1)
+                .border(self.borderColor(), width: self.borderSize())
+                .background(self.item.fixed ? Color(.systemTeal) : Color(.systemFill) )
         }
     }
 }

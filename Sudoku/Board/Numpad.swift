@@ -28,7 +28,7 @@ struct Numpad: View {
 
 struct Numpad_Previews: PreviewProvider {
     
-    private static var boardData: BoardData = BoardData(rows: 9, columns: 9)
+    private static var boardData: BoardData = BoardData()
 
     static var previews: some View {
         Numpad()

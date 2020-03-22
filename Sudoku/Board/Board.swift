@@ -20,7 +20,7 @@ struct Board: View {
 
 struct Board_Previews: PreviewProvider {
     
-    private static var boardData: BoardData = BoardData(rows: 9, columns: 9)
+    private static var boardData: BoardData = BoardData()
 
     static var previews: some View {
         Board()

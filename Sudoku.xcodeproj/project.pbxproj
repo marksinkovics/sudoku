@@ -19,8 +19,11 @@
 		1190F9EE2408967E001A940F /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1190F9ED2408967E001A940F /* Item.swift */; };
 		1190F9F6240B5930001A940F /* Numpad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1190F9F5240B5930001A940F /* Numpad.swift */; };
 		1190F9F9240C5B1C001A940F /* BoardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1190F9F8240C5B1C001A940F /* BoardData.swift */; };
-		1190FA01240C6458001A940F /* SudokuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1190FA00240C6458001A940F /* SudokuTests.swift */; };
 		1190FA0A240C64A6001A940F /* BoardDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1190FA09240C64A6001A940F /* BoardDataTests.swift */; };
+		C3D0E5B9242041DC00DE7FFA /* Solver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D0E5B8242041DC00DE7FFA /* Solver.swift */; };
+		C3D0E5BB2420428600DE7FFA /* SolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D0E5BA2420428600DE7FFA /* SolverTests.swift */; };
+		C3D0E5BD242042B000DE7FFA /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D0E5BC242042B000DE7FFA /* Generator.swift */; };
+		C3D0E5BF24243B2F00DE7FFA /* Sudoku.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D0E5BE24243B2F00DE7FFA /* Sudoku.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,9 +52,12 @@
 		1190F9F5240B5930001A940F /* Numpad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Numpad.swift; sourceTree = "<group>"; };
 		1190F9F8240C5B1C001A940F /* BoardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardData.swift; sourceTree = "<group>"; };
 		1190F9FE240C6458001A940F /* SudokuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudokuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1190FA00240C6458001A940F /* SudokuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuTests.swift; sourceTree = "<group>"; };
 		1190FA02240C6458001A940F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1190FA09240C64A6001A940F /* BoardDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardDataTests.swift; sourceTree = "<group>"; };
+		C3D0E5B8242041DC00DE7FFA /* Solver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solver.swift; sourceTree = "<group>"; };
+		C3D0E5BA2420428600DE7FFA /* SolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolverTests.swift; sourceTree = "<group>"; };
+		C3D0E5BC242042B000DE7FFA /* Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
+		C3D0E5BE24243B2F00DE7FFA /* Sudoku.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sudoku.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +152,9 @@
 			isa = PBXGroup;
 			children = (
 				1190F9F8240C5B1C001A940F /* BoardData.swift */,
+				C3D0E5B8242041DC00DE7FFA /* Solver.swift */,
+				C3D0E5BC242042B000DE7FFA /* Generator.swift */,
+				C3D0E5BE24243B2F00DE7FFA /* Sudoku.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -154,7 +163,6 @@
 			isa = PBXGroup;
 			children = (
 				1190FA08240C6484001A940F /* Data */,
-				1190FA00240C6458001A940F /* SudokuTests.swift */,
 				1190FA02240C6458001A940F /* Info.plist */,
 			);
 			path = SudokuTests;
@@ -164,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				1190FA09240C64A6001A940F /* BoardDataTests.swift */,
+				C3D0E5BA2420428600DE7FFA /* SolverTests.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -269,11 +278,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3D0E5B9242041DC00DE7FFA /* Solver.swift in Sources */,
 				1190F9D02403445D001A940F /* AppDelegate.swift in Sources */,
+				C3D0E5BF24243B2F00DE7FFA /* Sudoku.swift in Sources */,
 				1190F9F6240B5930001A940F /* Numpad.swift in Sources */,
 				1190F9D22403445D001A940F /* SceneDelegate.swift in Sources */,
 				1190F9E72404A520001A940F /* Board.swift in Sources */,
 				1190F9E524034560001A940F /* GridStack.swift in Sources */,
+				C3D0E5BD242042B000DE7FFA /* Generator.swift in Sources */,
 				1190F9F9240C5B1C001A940F /* BoardData.swift in Sources */,
 				1190F9EE2408967E001A940F /* Item.swift in Sources */,
 				1190F9EB2407E367001A940F /* BoardCell.swift in Sources */,
@@ -285,8 +297,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3D0E5BB2420428600DE7FFA /* SolverTests.swift in Sources */,
 				1190FA0A240C64A6001A940F /* BoardDataTests.swift in Sources */,
-				1190FA01240C6458001A940F /* SudokuTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

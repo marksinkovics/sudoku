@@ -1,19 +1,17 @@
 import SwiftUI
 
 class BoardData: ObservableObject  {
-    
-    let rows: Int
-    let columns: Int
-    var grid: [Item]
-    
-    init(rows: Int, columns: Int) {
-        self.rows = rows
-        self.columns = columns
-        self.grid = []
         
-        for _ in 1...(rows * columns) {
-            grid.append(Item())
-        }
+    let rows: Int = 9
+    let columns: Int = 9
+    var grid: [Item] = (1...81).map { _ in Item() }
+    
+    init() {}
+    
+    convenience init(_ numbers: [Int]) {
+        precondition(numbers.count == 81, "The count of the input numbers must be 81")
+        self.init()
+        self.grid = numbers.map { Item(number: $0) }
     }
 
     func indexIsValid(row: Int, column: Int) -> Bool {
@@ -64,7 +62,77 @@ class BoardData: ObservableObject  {
         for index in 0..<grid.count {
             let row = index / columns
             let column = index % columns
-            self[row, column].number = action(row, column)
+            grid[index].number = action(row, column)
         }
+    }
+    
+    func forEach(action: (Item, Int, Int) -> Void) {
+        for index in 0..<grid.count {
+            let row = index / columns
+            let column = index % columns
+            action(grid[index], row, column)
+        }
+    }
+    
+    func reset() {
+        grid.forEach {
+            $0.number = 0
+            $0.fixed = false
+        }
+    }
+    
+    func neigbourhood(at row: Int, _ column: Int) -> [Item] {
+        precondition(indexIsValid(row: row, column: column), "Index out of range")
+        let i = (row / 3) * 3
+        let j = (column / 3) * 3
+        
+        return [
+            self[i    , j], self[i    , j + 1], self[i    , j + 2],
+            self[i + 1, j], self[i + 1, j + 1], self[i + 1, j + 2],
+            self[i + 2, j], self[i + 2, j + 1], self[i + 2, j + 2]
+        ]
+    }
+    
+    func isValid(number: Int, at row: Int, column: Int) -> Bool {
+        let row_numbers = self.row(at: row).map { $0.number }
+        let column_numbers = self.column(at: column).map { $0.number }
+        let neighbours = self.neigbourhood(at: row, column).map { $0.number }
+        let isContained = row_numbers.contains(number)
+            || column_numbers.contains(number)
+            || neighbours.contains(number)
+        
+        return !isContained
+    }
+    
+    func possibleNumbers(at row: Int, column: Int) -> [Int] {
+        return (1...9).filter { isValid(number: $0, at: row, column: column) }
+    }
+        
+//    func generate(_ missingCount: Int = 50) {
+//        reset()
+//        solve(at: 0, column: 0)
+//        var possibleIndicies: [Int] = Array(0...80)
+//
+//        for _ in 1...missingCount {
+//            while true {
+//                let index = possibleIndicies.randomElement()!
+//                let row = index / rows
+//                let column = index % columns
+//                let originalValue = self[row, column].number
+//                if !solve(at: 0, column: 0, forbiddenRow: row, forbiddenColumn: column, forbiddenValue: originalValue) {
+//                    self[row, column].number = 0
+//                    possibleIndicies.removeAll(where: { $0 == index })
+//                    break
+//                }
+//                self[row, column].number = originalValue
+//            }
+//        }
+//    }
+}
+
+extension BoardData: CustomStringConvertible {
+    
+    var description: String {
+        (0..<self.rows).map { self.row(at: $0).map { "\($0)" }.joined(separator: " ") }.joined(separator: "\n")
     }
 }
