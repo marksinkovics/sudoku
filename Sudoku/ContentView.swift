@@ -11,11 +11,11 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Spacer()
-            Board(boardData: sudoku.data)
+            Board(sudoku: sudoku)
                 .aspectRatio(1.0, contentMode: .fit)
                 .padding()
             Spacer()
-            Numpad(boardData: sudoku.data)
+            Numpad(sudoku: sudoku)
                 .aspectRatio(9/1, contentMode: .fit)
                 .padding(.leading)
                 .padding(.trailing)

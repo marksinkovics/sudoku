@@ -58,6 +58,10 @@ class BoardData: ObservableObject  {
         return grid.forEach { $0.selected = false }
     }
     
+    func unhighlightAll() {
+        return grid.forEach { $0.highlighted = false }
+    }
+    
     func assignNumber(action: (Int, Int) -> Int) {
         for index in 0..<grid.count {
             let row = index / columns
@@ -75,10 +79,7 @@ class BoardData: ObservableObject  {
     }
     
     func reset() {
-        grid.forEach {
-            $0.number = 0
-            $0.fixed = false
-        }
+        grid.forEach { $0.number = 0; $0.fixed = false }
     }
     
     func neigbourhood(at row: Int, _ column: Int) -> [Item] {
@@ -107,27 +108,6 @@ class BoardData: ObservableObject  {
     func possibleNumbers(at row: Int, column: Int) -> [Int] {
         return (1...9).filter { isValid(number: $0, at: row, column: column) }
     }
-        
-//    func generate(_ missingCount: Int = 50) {
-//        reset()
-//        solve(at: 0, column: 0)
-//        var possibleIndicies: [Int] = Array(0...80)
-//
-//        for _ in 1...missingCount {
-//            while true {
-//                let index = possibleIndicies.randomElement()!
-//                let row = index / rows
-//                let column = index % columns
-//                let originalValue = self[row, column].number
-//                if !solve(at: 0, column: 0, forbiddenRow: row, forbiddenColumn: column, forbiddenValue: originalValue) {
-//                    self[row, column].number = 0
-//                    possibleIndicies.removeAll(where: { $0 == index })
-//                    break
-//                }
-//                self[row, column].number = originalValue
-//            }
-//        }
-//    }
 }
 
 extension BoardData: CustomStringConvertible {

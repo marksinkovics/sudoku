@@ -1,11 +1,3 @@
-//
-//  GridStack.swift
-//  Sudoku
-//
-//  Created by Mark Sinkovics on 2020. 02. 23..
-//  Copyright © 2020. Mark Sinkovics. All rights reserved.
-//
-
 import SwiftUI
 
 struct GridStack<Content: View>: View {

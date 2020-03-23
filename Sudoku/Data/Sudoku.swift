@@ -4,6 +4,9 @@ class Sudoku: ObservableObject {
     
     let data: BoardData
     let solver: Solver
+    var selectedItem: Item?
+    var selectedRow: Int?
+    var selectedColumn: Int?
     
     init() {
         data = BoardData()
@@ -16,6 +19,31 @@ class Sudoku: ObservableObject {
     
     func clear() {
         data.grid.forEach { if !$0.fixed { $0.number = 0 } }
+    }
+    
+    func select(item: Item, atRow row: Int, column: Int) {
+        guard selectedRow != row || selectedColumn != column else {
+            return
+        }
+
+        self.selectedItem?.selected = false
+        self.selectedItem = item
+        self.selectedItem?.selected = true
+        self.selectedRow = row
+        self.selectedColumn = column
+
+        self.data.unhighlightAll()
+
+        self.data.row(at: self.selectedRow!).forEach { $0.highlighted = true }
+        self.data.column(at: column).forEach { $0.highlighted = true }
+        self.data.neigbourhood(at: row, column).forEach { $0.highlighted = true }
+    }
+    
+    func set(number: Int) {
+        guard let selectedItem = self.selectedItem, !selectedItem.fixed else {
+            return
+        }
+        selectedItem.number = number
     }
     
     func generate() {

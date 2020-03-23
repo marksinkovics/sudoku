@@ -1,33 +1,33 @@
-//
-//  BoardCell.swift
-//  Sudoku
-//
-//  Created by Mark Sinkovics on 2020. 02. 26..
-//  Copyright © 2020. Mark Sinkovics. All rights reserved.
-//
-
 import SwiftUI
 
 struct BoardCell: View {
     
     @ObservedObject var item: Item
+    
+    func backgroundColor() -> Color {
+        item.highlighted ? Color(.systemTeal).opacity(0.3) : Color(.systemFill)
+    }
+    
+    func textColor() -> Color {
+        item.fixed ? Color(.secondaryLabel) : Color(.label)
+    }
         
     func borderColor() -> Color {
-        self.item.selected ? Color(.systemRed) : Color.black
+        item.selected ? Color(.systemRed) : Color.black
     }
     
     func borderSize() -> CGFloat {
-        self.item.selected ? 4 : 1
+        item.selected ? 4 : 1
     }
             
     var body: some View {
         GeometryReader { geometry in
             Text(self.item.str)
                 .font(Font.system(size: 30))
-                .foregroundColor(Color(.label))
+                .foregroundColor(self.textColor())
                 .frame(width: geometry.size.width, height: geometry.size.height)
                 .border(self.borderColor(), width: self.borderSize())
-                .background(self.item.fixed ? Color(.systemTeal) : Color(.systemFill) )
+                .background(self.backgroundColor())
         }
     }
 }
