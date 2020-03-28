@@ -21,13 +21,13 @@ class Sudoku: ObservableObject {
         data.grid.forEach { if !$0.fixed { $0.number = 0 } }
     }
     
-    func select(item: Item, atRow row: Int, column: Int) {
+    func select(row: Int, column: Int) {
         guard selectedRow != row || selectedColumn != column else {
             return
         }
 
         self.selectedItem?.selected = false
-        self.selectedItem = item
+        self.selectedItem = data[row, column]
         self.selectedItem?.selected = true
         self.selectedRow = row
         self.selectedColumn = column

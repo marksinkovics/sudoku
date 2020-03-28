@@ -11,13 +11,15 @@ struct Board: View {
     }
 
     var body: some View {
-        GeometryReader { geometry in
-            GridStack(rows: 9, columns: 9) { row, column in
-                BoardCell(item: self.boardData[row, column])
+        GridStack(rows: 3, columns: 3) { outerRow, outerColumn in
+            GridStack(rows: 3, columns: 3) { row, column in
+                BoardCell(item: self.boardData[ (3 * outerRow) + row, (3 * outerColumn) + column])
                     .onTapGesture {
-                        self.sudoku.select(item: self.boardData[row, column], atRow: row, column: column)
+                        let selecterRow = (3 * outerRow) + row
+                        let selectedColumn = (3 * outerColumn) + column
+                        self.sudoku.select(row: selecterRow, column: selectedColumn)
                 }
-            }
+            }.padding(2)
         }
     }
 }
