@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    private let sudoku: Sudoku
+    @ObservedObject var sudoku: Sudoku
     
     public init(sudoku: Sudoku) {
         self.sudoku = sudoku
@@ -10,6 +10,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
+            Text(sudoku.finished ? "Congratulation" : "Sudoku")
             Spacer()
             Board(sudoku: sudoku)
                 .aspectRatio(1.0, contentMode: .fit)
@@ -31,11 +32,17 @@ struct ContentView: View {
                     .foregroundColor(Color(.label))
                     .onTapGesture { self.sudoku.solve() }
                     .frame(width: 80)
+                Text("Clear All")
+                    .font(.body)
+                    .foregroundColor(Color(.label))
+                    .onTapGesture { self.sudoku.clearAll() }
+                    .frame(width: 80)
                 Text("Clear")
                     .font(.body)
                     .foregroundColor(Color(.label))
-                    .onTapGesture { self.sudoku.clear() }
+                    .onTapGesture { self.sudoku.clearSelected() }
                     .frame(width: 80)
+
             }
             Spacer()
         }.background(Color(.systemBackground).edgesIgnoringSafeArea(.all))

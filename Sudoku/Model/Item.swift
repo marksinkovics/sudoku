@@ -6,16 +6,18 @@ class Item: ObservableObject {
     @Published var selected: Bool
     @Published var highlighted: Bool
     @Published var fixed: Bool
+    @Published var error: Bool
     
     convenience init() {
         self.init(number: 0, selected: false, highlighted: false, fixed: false)
     }
     
-    init(number: Int = 0, selected: Bool = false, highlighted: Bool = false, fixed: Bool = false) {
+    init(number: Int = 0, selected: Bool = false, highlighted: Bool = false, fixed: Bool = false, error: Bool = false) {
         self.number = number
         self.selected = selected
         self.highlighted = highlighted
         self.fixed = fixed
+        self.error = error
     }
     
     var str: String {

@@ -1,24 +1,46 @@
 import SwiftUI
 
+extension Collection {
+    func count(where test:(Element) throws -> Bool) rethrows -> Int {
+        return try self.filter(test).count
+    }
+}
+
 class Sudoku: ObservableObject {
     
     let data: BoardData
     let solver: Solver
+    let generator: Generator
     var selectedItem: Item?
     var selectedRow: Int?
     var selectedColumn: Int?
     
+    var solution: [Int] =  Array(repeating: 81, count: 0)
+    
+    @Published var finished: Bool
+    
     init() {
         data = BoardData()
         solver = Solver(data: self.data)
+        generator = Generator(data: data, solver: solver)
+        finished = false
     }
     
     func solve() {
-        solver.solve(atRow: 0, column: 0)
+        data.grid.enumerated().forEach { index, item in
+            if !item.fixed {
+                item.number = solution[index]
+            }
+        }
     }
     
-    func clear() {
+    func clearAll() {
         data.grid.forEach { if !$0.fixed { $0.number = 0 } }
+        solution = Array(repeating: 81, count: 0)
+    }
+    
+    func clearSelected() {
+        set(number: 0)
     }
     
     func select(row: Int, column: Int) {
@@ -40,22 +62,36 @@ class Sudoku: ObservableObject {
     }
     
     func set(number: Int) {
-        guard let selectedItem = self.selectedItem, !selectedItem.fixed else {
+        guard let selectedItem = self.selectedItem,
+            let selectedRow = self.selectedRow,
+            let selectedColumn = self.selectedColumn,
+            !selectedItem.fixed else {
             return
         }
         selectedItem.number = number
+                
+        if validate(number: selectedItem.number, atRow: selectedRow, column: selectedColumn) {
+            selectedItem.error = false
+            validateBoard();
+        } else {
+            selectedItem.error = true
+        }
+    }
+    
+    func validate(number: Int, atRow row: Int, column: Int) -> Bool {
+        guard number != 0 else {
+            return true
+        }
+        
+        let index = row * data.rows + column;
+        return solution[index] == data[row, column].number
+     }
+    
+    func validateBoard() {
+        self.finished = data.grid.count { $0.number == 0 } == 0
     }
     
     func generate() {
-        data.reset()
-        let row = [1, 2, 3, 4, 5, 6, 7, 8, 9].shuffled()
-        data.row(at: 0).enumerated().forEach { $1.number = row[$0]; }
-        self.solver.solve(atRow: 1, column: 0)
-        
-        let countOfRemovable = 40;
-        
-        let removableElements = data.grid.shuffled().prefix(countOfRemovable);
-        removableElements.forEach { $0.number = 0 }
-        data.grid.forEach { if $0.number != 0 { $0.fixed = true }}
+        generator.generate(countOfRemovable: 40, solution: &solution)
     }
 }

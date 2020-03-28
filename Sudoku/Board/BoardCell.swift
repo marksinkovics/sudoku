@@ -5,7 +5,13 @@ struct BoardCell: View {
     @ObservedObject var item: Item
     
     func backgroundColor() -> Color {
-        item.highlighted ? Color(.systemTeal).opacity(0.3) : Color(.systemFill)
+        if item.error {
+            return Color(.red).opacity(0.4)
+        }
+        if item.highlighted {
+            return Color(.systemTeal).opacity(0.2)
+        }
+        return Color(.systemFill)
     }
     
     func textColor() -> Color {
