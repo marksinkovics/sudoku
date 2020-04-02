@@ -56,9 +56,14 @@ class Sudoku: ObservableObject {
 
         self.data.unhighlightAll()
 
-        self.data.row(at: self.selectedRow!).forEach { $0.highlighted = true }
+        self.data.row(at: row).forEach { $0.highlighted = true }
         self.data.column(at: column).forEach { $0.highlighted = true }
         self.data.neigbourhood(at: row, column).forEach { $0.highlighted = true }
+        self.data.grid.filter { $0.number == selectedItem!.number }.forEach {
+            if $0.number > 0 {
+                $0.highlighted = true;
+            }
+        }
     }
     
     func set(number: Int) {
