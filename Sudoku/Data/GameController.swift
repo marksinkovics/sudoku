@@ -6,7 +6,7 @@ extension Collection {
     }
 }
 
-class Sudoku: ObservableObject {
+class GameController: ObservableObject {
     
     let data: BoardData
     let solver: Solver

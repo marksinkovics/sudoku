@@ -2,10 +2,10 @@ import SwiftUI
 
 struct Numpad: View {
     
-    let sudoku: Sudoku
+    let controller: GameController
     
-    init(sudoku: Sudoku) {
-        self.sudoku = sudoku
+    init(controller: GameController) {
+        self.controller = controller
     }
 
     var numpadItems = Array(1...9).map { Item(number: $0) }
@@ -15,7 +15,7 @@ struct Numpad: View {
             GridStack(rows: 1, columns: self.numpadItems.count) { row, column in
                 BoardCell(item: self.numpadItems[column])
                     .onTapGesture {
-                        self.sudoku.set(number: self.numpadItems[column].number)
+                        self.controller.set(number: self.numpadItems[column].number)
                     }
             }
         }
@@ -24,9 +24,9 @@ struct Numpad: View {
 
 struct Numpad_Previews: PreviewProvider {
     
-    private static var sudoku: Sudoku = Sudoku()
+    private static var controller: GameController = GameController()
 
     static var previews: some View {
-        Numpad(sudoku: sudoku)
+        Numpad(controller: controller)
     }
 }
