@@ -3,9 +3,13 @@ import SwiftUI
 struct GameView: View {
     @ObservedObject var controller: GameController
     
-    public init(controller: GameController) {
+    public init(controller: GameController = GameController(), newGame: Bool = true) {
         self.controller = controller
-        self.controller.generate()
+        if newGame {
+            self.controller.generate()
+        } else {
+            self.controller.load()
+        }
     }
     
     var body: some View {
@@ -53,6 +57,6 @@ struct GameView_Previews: PreviewProvider {
     private static var controller: GameController = GameController()
 
     static var previews: some View {
-        GameView(controller: GameController())
+        GameView()
     }
 }

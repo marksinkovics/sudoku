@@ -1,17 +1,34 @@
 import SwiftUI
 
-class BoardData: ObservableObject  {
+class BoardData: ObservableObject, Codable  {
         
     let rows: Int = 9
     let columns: Int = 9
     var grid: [Item] = (1...81).map { _ in Item() }
-    
-    init() {}
-    
+    var solution: [Int] =  Array(repeating: 81, count: 0)
+
     convenience init(_ numbers: [Int]) {
         precondition(numbers.count == 81, "The count of the input numbers must be 81")
         self.init()
         self.grid = numbers.map { Item(number: $0) }
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case grid
+        case solution
+    }
+    
+    required convenience init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.grid = try container.decode([Item].self, forKey: .grid)
+        self.solution = try container.decode([Int].self, forKey: .solution)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(grid, forKey: .grid)
+        try container.encode(solution, forKey: .solution)
     }
 
     func indexIsValid(row: Int, column: Int) -> Bool {
@@ -52,6 +69,20 @@ class BoardData: ObservableObject  {
     
     func selectedItem() -> Item? {
         return grid.filter { $0.selected }.first
+    }
+    
+    func selectedRow() -> Int? {
+        guard let selectedItem = selectedItem(), let index = grid.firstIndex(of: selectedItem) else {
+            return nil
+        }
+        return index / columns;
+    }
+    
+    func selectedColumn() -> Int? {
+        guard let selectedItem = selectedItem(), let index = grid.firstIndex(of: selectedItem) else {
+            return nil
+        }
+        return index % columns;
     }
     
     func deselectAll() {

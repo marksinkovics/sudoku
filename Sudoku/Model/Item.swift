@@ -1,28 +1,46 @@
 import SwiftUI
 
-class Item: ObservableObject {
+class Item: ObservableObject, Codable {
     
-    @Published var number: Int
-    @Published var selected: Bool
-    @Published var highlighted: Bool
-    @Published var fixed: Bool
-    @Published var error: Bool
+    @Published var number: Int = 0
+    @Published var selected: Bool = false
+    @Published var highlighted: Bool = false
+    @Published var fixed: Bool = false
+    @Published var error: Bool = false
     
-    convenience init() {
-        self.init(number: 0, selected: false, highlighted: false, fixed: false)
-    }
-    
-    init(number: Int = 0, selected: Bool = false, highlighted: Bool = false, fixed: Bool = false, error: Bool = false) {
+    convenience init(number: Int) {
+        self.init()
         self.number = number
-        self.selected = selected
-        self.highlighted = highlighted
-        self.fixed = fixed
-        self.error = error
     }
     
     var str: String {
         return number == 0 ? "" : "\(number)"
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case number
+        case selected
+        case fixed
+        case error
+    }
+    
+    required convenience init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.number = try container.decode(Int.self, forKey: .number)
+        self.selected = try container.decode(Bool.self, forKey: .selected)
+        self.fixed = try container.decode(Bool.self, forKey: .fixed)
+        self.error = try container.decode(Bool.self, forKey: .error)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(number, forKey: .number)
+        try container.encode(selected, forKey: .selected)
+        try container.encode(fixed, forKey: .fixed)
+        try container.encode(error, forKey: .error)
+    }
+
 }
 
 extension Item: Equatable {

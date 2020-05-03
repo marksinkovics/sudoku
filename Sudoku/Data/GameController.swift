@@ -8,15 +8,13 @@ extension Collection {
 
 class GameController: ObservableObject {
     
-    let data: BoardData
+    var data: BoardData
     let solver: Solver
     let generator: Generator
     var selectedItem: Item?
     var selectedRow: Int?
     var selectedColumn: Int?
-    
-    var solution: [Int] =  Array(repeating: 81, count: 0)
-    
+        
     @Published var finished: Bool
     
     init() {
@@ -29,14 +27,14 @@ class GameController: ObservableObject {
     func solve() {
         data.grid.enumerated().forEach { index, item in
             if !item.fixed {
-                item.number = solution[index]
+                item.number = data.solution[index]
             }
         }
     }
     
     func clearAll() {
         data.grid.forEach { if !$0.fixed { $0.number = 0 } }
-        solution = Array(repeating: 81, count: 0)
+        data.solution = Array(repeating: 81, count: 0)
     }
     
     func clearSelected() {
@@ -53,12 +51,24 @@ class GameController: ObservableObject {
         self.selectedItem?.selected = true
         self.selectedRow = row
         self.selectedColumn = column
-
+        
+        highlight(row: row, column: column)
+        save()
+    }
+    
+    func highlight(row: Int, column: Int) {
         self.data.unhighlightAll()
-
-        self.data.row(at: row).forEach { $0.highlighted = true }
-        self.data.column(at: column).forEach { $0.highlighted = true }
-        self.data.neigbourhood(at: row, column).forEach { $0.highlighted = true }
+        
+        //row
+//        self.data.row(at: row).forEach { $0.highlighted = true }
+        
+        // column
+//        self.data.column(at: column).forEach { $0.highlighted = true }
+        
+        // neighbourhood
+//        self.data.neigbourhood(at: row, column).forEach { $0.highlighted = true }
+        
+        // same numbers
         self.data.grid.filter { $0.number == selectedItem!.number }.forEach {
             if $0.number > 0 {
                 $0.highlighted = true;
@@ -73,7 +83,11 @@ class GameController: ObservableObject {
             !selectedItem.fixed else {
             return
         }
+        
         selectedItem.number = number
+        highlight(row: selectedRow, column: selectedColumn)
+        
+        save();
                 
         if validate(number: selectedItem.number, atRow: selectedRow, column: selectedColumn) {
             selectedItem.error = false
@@ -89,7 +103,7 @@ class GameController: ObservableObject {
         }
         
         let index = row * data.rows + column;
-        return solution[index] == data[row, column].number
+        return data.solution[index] == data[row, column].number
      }
     
     func validateBoard() {
@@ -97,6 +111,42 @@ class GameController: ObservableObject {
     }
     
     func generate() {
-        generator.generate(countOfRemovable: 40, solution: &solution)
+        generator.generate(countOfRemovable: 40)
+        save()
+    }
+    
+    func save() {
+        let encoder = JSONEncoder()
+        do {
+            let encodedData = try encoder.encode(data)
+            UserDefaults.standard.set(encodedData, forKey: "saved")
+        } catch {
+            debugPrint(error)
+        }
+    }
+    
+    func load() {
+        guard let encodedData = UserDefaults.standard.data(forKey: "saved") else {
+            debugPrint("Missing data. Re-generate.")
+            generate()
+            return
+        }
+        
+        let decoder = JSONDecoder()
+        
+        do {
+            data = try decoder.decode(BoardData.self, from: encodedData)
+            selectedItem = data.selectedItem()
+            selectedRow = data.selectedRow()
+            selectedColumn = data.selectedColumn()
+            
+            if selectedRow != nil && selectedColumn != nil {
+                highlight(row: selectedRow!, column: selectedColumn!)
+            }
+            
+        } catch {
+            debugPrint("Decoding failed. Re-generate.")
+            generate()
+        }
     }
 }
