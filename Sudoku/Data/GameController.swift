@@ -34,7 +34,6 @@ class GameController: ObservableObject {
     
     func clearAll() {
         data.grid.forEach { if !$0.fixed { $0.number = 0 } }
-        data.solution = Array(repeating: 81, count: 0)
     }
     
     func clearSelected() {

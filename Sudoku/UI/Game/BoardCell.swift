@@ -9,17 +9,17 @@ struct BoardCell: View {
             return Color(.red).opacity(0.4)
         }
         if item.highlighted {
-            return Color(.systemTeal).opacity(0.2)
+            return Color("highlighted_color")
         }
-        return Color(.systemFill)
-    }
-    
-    func textColor() -> Color {
-        item.fixed ? Color(.secondaryLabel) : Color(.label)
+        return Color("background_color")
     }
         
+    func textWeight() -> Font.Weight {
+        item.fixed ? .bold : .regular
+    }
+    
     func borderColor() -> Color {
-        item.selected ? Color(.systemRed) : Color.black
+        item.selected ? Color("selected_color") : Color("text_color")
     }
     
     func borderSize() -> CGFloat {
@@ -30,7 +30,8 @@ struct BoardCell: View {
         GeometryReader { geometry in
             Text(self.item.str)
                 .font(Font.system(size: 30))
-                .foregroundColor(self.textColor())
+                .fontWeight(self.textWeight())
+                .foregroundColor(Color("text_color"))
                 .frame(width: geometry.size.width, height: geometry.size.height)
                 .border(self.borderColor(), width: self.borderSize())
                 .background(self.backgroundColor())
