@@ -10,7 +10,7 @@ struct MenuItemView: View {
     
     var body: some View {
         Text(title)
-        .foregroundColor(Color("text_color"))
+        .foregroundColor(Color.sText)
         .font(Font.system(size: 30))
         .fontWeight(.semibold)
     }
@@ -26,7 +26,7 @@ struct MenuItemView_Previews: PreviewProvider {
                     MenuItemView("Settings")
                 }
                 .padding()
-                .background(Color("background_color"))
+                .background(Color.sBackground)
                 .environment(\.colorScheme, .dark)
                 .previewLayout(.sizeThatFits)
             }
@@ -37,7 +37,7 @@ struct MenuItemView_Previews: PreviewProvider {
                     MenuItemView("Settings")
                 }
                 .padding()
-                .background(Color("background_color"))
+                .background(Color.sBackground)
                 .environment(\.colorScheme, .light)
                 .previewLayout(.sizeThatFits)
             }

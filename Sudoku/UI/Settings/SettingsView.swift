@@ -1,11 +1,3 @@
-//
-//  SettingsView.swift
-//  Sudoku
-//
-//  Created by Mark Sinkovics on 2020-04-03.
-//  Copyright © 2020 Mark Sinkovics. All rights reserved.
-//
-
 import SwiftUI
 
 struct SettingsView: View {

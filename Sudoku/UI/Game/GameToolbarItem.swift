@@ -18,11 +18,11 @@ struct GameToolbarItem: View {
                     image!
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .accentColor(Color("text_color"))
+                        .accentColor(Color.sText)
                 }
                 Text(label)
                     .font(Font.body.weight(.semibold))
-                    .foregroundColor(Color("text_color"))
+                    .foregroundColor(Color.sText)
             }
             .frame(width: 80, height: 60, alignment: .center)
             .padding(.vertical)

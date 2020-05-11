@@ -6,20 +6,22 @@ struct BoardCell: View {
     
     func backgroundColor() -> Color {
         if item.error {
-            return Color(.red).opacity(0.4)
+            return .sError
         }
+        
         if item.highlighted {
-            return Color("highlighted_color")
+            return .sHighlighted
         }
-        return Color("background_color")
+        
+        return .sBackground
     }
         
-    func textWeight() -> Font.Weight {
-        item.fixed ? .bold : .regular
+    func textColor() -> Color {
+        item.fixed ? .sFixed  : .sText
     }
     
     func borderColor() -> Color {
-        item.selected ? Color("selected_color") : Color("text_color")
+        item.selected ? .sSelected : .sText
     }
     
     func borderSize() -> CGFloat {
@@ -30,8 +32,8 @@ struct BoardCell: View {
         GeometryReader { geometry in
             Text(self.item.str)
                 .font(Font.system(size: 30))
-                .fontWeight(self.textWeight())
-                .foregroundColor(Color("text_color"))
+                .fontWeight(.semibold)
+                .foregroundColor(self.textColor())
                 .frame(width: geometry.size.width, height: geometry.size.height)
                 .border(self.borderColor(), width: self.borderSize())
                 .background(self.backgroundColor())

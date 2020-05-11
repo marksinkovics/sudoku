@@ -61,7 +61,3 @@ extension Item: CustomStringConvertible,  CustomDebugStringConvertible {
         return "\(number)"
     }
 }
-
-struct NumpadItem {
-    var number: Int = 0
-}

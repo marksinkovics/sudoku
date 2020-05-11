@@ -4,7 +4,7 @@ struct MenuView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color("background_color").edgesIgnoringSafeArea(.all)
+                Color.sBackground.edgesIgnoringSafeArea(.all)
                 VStack(alignment: .center, spacing: 60) {
                     NavigationLink(destination: LazyView { GameView(newGame: true)}) {
                         MenuItemView("New game")

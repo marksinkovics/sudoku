@@ -14,6 +14,7 @@ class GameController: ObservableObject {
     var selectedItem: Item?
     var selectedRow: Int?
     var selectedColumn: Int?
+    let numpadItems: [NumpadItem] = (1...9).map { NumpadItem(number: $0) }
         
     @Published var finished: Bool
     
@@ -30,10 +31,12 @@ class GameController: ObservableObject {
                 item.number = data.solution[index]
             }
         }
+        updateNumpad()
     }
     
     func clearAll() {
         data.grid.forEach { if !$0.fixed { $0.number = 0 } }
+        updateNumpad()
     }
     
     func clearSelected() {
@@ -85,6 +88,7 @@ class GameController: ObservableObject {
         
         selectedItem.number = number
         highlight(row: selectedRow, column: selectedColumn)
+        updateNumpad()
         
         save();
                 
@@ -103,14 +107,21 @@ class GameController: ObservableObject {
         
         let index = row * data.rows + column;
         return data.solution[index] == data[row, column].number
-     }
+    }
     
     func validateBoard() {
         self.finished = data.grid.count { $0.number == 0 } == 0
     }
     
+    func updateNumpad() {
+        numpadItems.forEach { item in
+            item.hidden = data.grid.count { $0.number == item.number } == 9
+        }
+    }
+    
     func generate() {
         generator.generate(countOfRemovable: 40)
+        updateNumpad()
         save()
     }
     
@@ -142,6 +153,8 @@ class GameController: ObservableObject {
             if selectedRow != nil && selectedColumn != nil {
                 highlight(row: selectedRow!, column: selectedColumn!)
             }
+            
+            updateNumpad()
             
         } catch {
             debugPrint("Decoding failed. Re-generate.")

@@ -47,11 +47,10 @@ struct GameView: View {
 //                        self.controller.generate()
 //                    }
             }
-//            .frame(height: 80)
             .padding(.top, 30)
             Spacer()
         }
-        .background(Color("background_color"))
+        .background(Color.sBackground)
         .edgesIgnoringSafeArea(.all)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: BackButton(label: "Home"){

@@ -10,10 +10,10 @@ struct BackButton: View {
             HStack(spacing: 5) {
                 Image(systemName: "chevron.left")
                     .font(Font.callout.weight(.semibold))
-                    .accentColor(Color("text_color"))
+                    .accentColor(Color.sText)
                 Text(label)
                     .fontWeight(.semibold)
-                    .foregroundColor(Color("text_color"))
+                    .foregroundColor(Color.sText)
             }
         }
     }

@@ -22,6 +22,10 @@
 		1190FA0A240C64A6001A940F /* BoardDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1190FA09240C64A6001A940F /* BoardDataTests.swift */; };
 		C30A7C2C2466DB6300423889 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C2B2466DB6300423889 /* BackButton.swift */; };
 		C30A7C2F2466E5BB00423889 /* GameToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C2E2466E5BB00423889 /* GameToolbarItem.swift */; };
+		C30A7C32246854F200423889 /* Color+Sudoku.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C31246854F200423889 /* Color+Sudoku.swift */; };
+		C30A7C342468673900423889 /* HiddenModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C332468673900423889 /* HiddenModifier.swift */; };
+		C30A7C362468A31500423889 /* NumpadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C352468A31500423889 /* NumpadCell.swift */; };
+		C30A7C382468A59100423889 /* NumpadItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C372468A59100423889 /* NumpadItem.swift */; };
 		C368AC6D243760690076BB88 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C368AC6C243760690076BB88 /* HomeView.swift */; };
 		C368AC6F243760780076BB88 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C368AC6E243760780076BB88 /* GameView.swift */; };
 		C386A5642464256900DEEDE3 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C386A5632464256900DEEDE3 /* MenuView.swift */; };
@@ -64,6 +68,10 @@
 		1190FA09240C64A6001A940F /* BoardDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardDataTests.swift; sourceTree = "<group>"; };
 		C30A7C2B2466DB6300423889 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		C30A7C2E2466E5BB00423889 /* GameToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameToolbarItem.swift; sourceTree = "<group>"; };
+		C30A7C31246854F200423889 /* Color+Sudoku.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Sudoku.swift"; sourceTree = "<group>"; };
+		C30A7C332468673900423889 /* HiddenModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenModifier.swift; sourceTree = "<group>"; };
+		C30A7C352468A31500423889 /* NumpadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadCell.swift; sourceTree = "<group>"; };
+		C30A7C372468A59100423889 /* NumpadItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadItem.swift; sourceTree = "<group>"; };
 		C368AC6C243760690076BB88 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		C368AC6E243760780076BB88 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		C386A5632464256900DEEDE3 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
@@ -115,6 +123,7 @@
 		1190F9CE2403445D001A940F /* Sudoku */ = {
 			isa = PBXGroup;
 			children = (
+				C30A7C30246854C400423889 /* Utils */,
 				1190F9EC24089672001A940F /* Model */,
 				1190F9F7240C5AD7001A940F /* Data */,
 				1190F9F2240AB388001A940F /* UI */,
@@ -141,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				1190F9ED2408967E001A940F /* Item.swift */,
+				C30A7C372468A59100423889 /* NumpadItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -195,6 +205,15 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		C30A7C30246854C400423889 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C30A7C31246854F200423889 /* Color+Sudoku.swift */,
+				C30A7C332468673900423889 /* HiddenModifier.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		C386A562246423A400DEEDE3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,8 +230,9 @@
 				C368AC6E243760780076BB88 /* GameView.swift */,
 				1190F9E62404A520001A940F /* Board.swift */,
 				1190F9EA2407E367001A940F /* BoardCell.swift */,
-				1190F9F5240B5930001A940F /* Numpad.swift */,
 				C30A7C2E2466E5BB00423889 /* GameToolbarItem.swift */,
+				1190F9F5240B5930001A940F /* Numpad.swift */,
+				C30A7C352468A31500423889 /* NumpadCell.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -322,14 +342,18 @@
 				C30A7C2C2466DB6300423889 /* BackButton.swift in Sources */,
 				C3C36A642437FAC000F96CBB /* SettingsView.swift in Sources */,
 				C3D0E5B9242041DC00DE7FFA /* Solver.swift in Sources */,
+				C30A7C362468A31500423889 /* NumpadCell.swift in Sources */,
 				1190F9D02403445D001A940F /* AppDelegate.swift in Sources */,
 				C368AC6D243760690076BB88 /* HomeView.swift in Sources */,
 				C3AE5FF4245C6F7400F2DAC0 /* LazyView.swift in Sources */,
 				C3D0E5BF24243B2F00DE7FFA /* GameController.swift in Sources */,
 				1190F9F6240B5930001A940F /* Numpad.swift in Sources */,
+				C30A7C32246854F200423889 /* Color+Sudoku.swift in Sources */,
+				C30A7C342468673900423889 /* HiddenModifier.swift in Sources */,
 				C386A5642464256900DEEDE3 /* MenuView.swift in Sources */,
 				1190F9D22403445D001A940F /* SceneDelegate.swift in Sources */,
 				C368AC6F243760780076BB88 /* GameView.swift in Sources */,
+				C30A7C382468A59100423889 /* NumpadItem.swift in Sources */,
 				1190F9E72404A520001A940F /* Board.swift in Sources */,
 				1190F9E524034560001A940F /* GridStack.swift in Sources */,
 				C3D0E5BD242042B000DE7FFA /* Generator.swift in Sources */,
