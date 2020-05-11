@@ -15,8 +15,10 @@ struct GameView: View {
     
     var body: some View {
         VStack {
-            Text(controller.finished ? "Congratulation" : "Sudoku")
             Spacer()
+            Text(controller.finished ? "Congratulation" : "Sudoku")
+                .foregroundColor(Color.sText)
+                .background(Color.sBackground)
             Board(controller: controller)
                 .aspectRatio(1.0, contentMode: .fit)
                 .padding()
@@ -27,7 +29,7 @@ struct GameView: View {
                 .padding(.top)
             HStack(alignment: .center, spacing: 30) {
                 GameToolbarItem(label: "Clear")
-                    .image(systemName: "arrow.counterclockwise")
+                    .image(systemName: "trash")
                     .onAction {
                         self.controller.clearSelected()
                     }
