@@ -26,29 +26,6 @@ struct GameView: View {
                 .aspectRatio(7/4, contentMode: .fit)
                 .padding(.horizontal)
                 .padding(.top)
-//            HStack(alignment: .center, spacing: 30) {
-//                GameToolbarItem(label: "Clear")
-//                    .image(systemName: "trash")
-//                    .onAction {
-//                        self.controller.clearSelected()
-//                    }
-//                GameToolbarItem(label: "Clear All")
-//                    .image(systemName: "gobackward")
-//                    .onAction {
-//                        self.controller.clearAll()
-//                    }
-//                GameToolbarItem(label: "Solve")
-//                    .image(systemName: "lightbulb")
-//                    .onAction {
-//                        self.controller.solve()
-//                    }
-////                GameToolbarItem(label: "Generate")
-////                    .image(systemName: "wand.and.stars")
-////                    .onAction {
-////                        self.controller.generate()
-////                    }
-//            }
-//            .padding(.top, 30)
             Spacer()
         }
         .background(Color.sBackground)
