@@ -5,12 +5,13 @@ struct GridStack<Content: View>: View {
     let rows: Int
     let columns: Int
     let content: (Int, Int) -> Content
+    let spacing: CGFloat?
             
     var body: some View {
         GeometryReader { geometry in
-            VStack(spacing: 0) {
+            VStack(spacing: self.spacing) {
                 ForEach(0 ..< self.rows, id: \.self) { row in
-                    HStack(spacing: 0) {
+                    HStack(spacing: self.spacing) {
                         ForEach(0 ..< self.columns, id: \.self) { column in
                             self.content(row, column)
                         }
@@ -20,10 +21,11 @@ struct GridStack<Content: View>: View {
         }
     }
     
-    init(rows: Int, columns: Int, @ViewBuilder content: @escaping (Int, Int) -> Content) {
+    init(rows: Int, columns: Int, spacing: CGFloat? = nil, @ViewBuilder content: @escaping (Int, Int) -> Content) {
         self.rows = rows
         self.columns = columns
         self.content = content
+        self.spacing = spacing ?? 0
     }
 }
 

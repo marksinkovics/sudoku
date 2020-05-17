@@ -12,7 +12,7 @@ struct Board: View {
 
     var body: some View {
         
-        GridStack(rows: 3, columns: 3) { outerRow, outerColumn in
+        GridStack(rows: 3, columns: 3, spacing: 4) { outerRow, outerColumn in
             GridStack(rows: 3, columns: 3) { row, column in
                 BoardCell(item: self.boardData[ (3 * outerRow) + row, (3 * outerColumn) + column])
                     .onTapGesture {
@@ -20,7 +20,7 @@ struct Board: View {
                         let selectedColumn = (3 * outerColumn) + column
                         self.controller.select(row: selecterRow, column: selectedColumn)
                 }
-            }.padding(2)
+            }
         }
     }
 }

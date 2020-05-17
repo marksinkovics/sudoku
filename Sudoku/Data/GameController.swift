@@ -14,8 +14,17 @@ class GameController: ObservableObject {
     var selectedItem: Item?
     var selectedRow: Int?
     var selectedColumn: Int?
-    let numpadItems: [NumpadItem] = (1...9).map { NumpadItem(number: $0) }
-        
+    let numpadItems: [NumpadItem] = (1...9).map { NumpadItem(value: .number($0)) }
+    let numpadItemNormal = NumpadItem(value: .normal, selected: true)
+    let numpadItemDraft = NumpadItem(value: .draft)
+    
+    @Published var draft: Bool {
+        didSet {
+            numpadItemDraft.selected = self.draft
+            numpadItemNormal.selected = !self.draft
+        }
+    }
+    
     @Published var finished: Bool
     
     init() {
@@ -23,6 +32,7 @@ class GameController: ObservableObject {
         solver = Solver(data: self.data)
         generator = Generator(data: data, solver: solver)
         finished = false
+        draft = false
     }
     
     func solve() {
@@ -114,8 +124,12 @@ class GameController: ObservableObject {
     }
     
     func updateNumpad() {
+        let error = data.grid.count { !$0.error } == 0
+        
+        guard !error else { return }
+        
         numpadItems.forEach { item in
-            item.hidden = data.grid.count { $0.number == item.number } == 9
+            item.hidden = data.grid.count { item.value == .number($0.number) } == 9
         }
     }
     
