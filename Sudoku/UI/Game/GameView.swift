@@ -1,15 +1,36 @@
 import SwiftUI
+    
+enum GameInitialState: Equatable {
+    case new(difficulty: GameDifficulty)
+    case `continue`
+    
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        switch (lhs, rhs) {
+        case (.new(let difficulty1), .new(let difficulty2)):
+            return difficulty1 == difficulty2
+        case (.`continue`, .`continue`):
+            return true
+        default:
+            return false
+        }
+    }
+
+}
 
 struct GameView: View {
+        
     @ObservedObject var controller: GameController
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Binding var shouldPopToRootView: Bool
     
-    public init(controller: GameController = GameController(), newGame: Bool = true) {
+    public init(controller: GameController = GameController(), state: GameInitialState, shouldPopToRootView: Binding<Bool>) {
         self.controller = controller
-        if newGame {
-            self.controller.generate()
-        } else {
+        self._shouldPopToRootView = shouldPopToRootView
+
+        if state == .continue {
             self.controller.load()
+        } else if case .new(let difficulty) = state {
+            self.controller.generate(difficulty: difficulty)
         }
     }
     
@@ -32,7 +53,7 @@ struct GameView: View {
         .edgesIgnoringSafeArea(.all)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: BackButton(label: "Home"){
-            self.presentationMode.wrappedValue.dismiss()
+            self.shouldPopToRootView = false
         })
     }
 }
@@ -41,7 +62,7 @@ struct GameView_Previews: PreviewProvider {
     private static var controller: GameController = GameController()
 
     static var previews: some View {
-        GameView()
+        GameView(state: .new(difficulty: .easy), shouldPopToRootView: .constant(true))
         .environment(\.colorScheme, .dark)
     }
 }

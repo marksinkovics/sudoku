@@ -3,16 +3,18 @@ import SwiftUI
 struct MenuItemView: View {
     
     let title: String
-    
-    init(_ title: String) {
+    let enabled: Bool
+
+    init(_ title: String, enabled: Bool = true) {
         self.title = title
+        self.enabled = enabled
     }
     
     var body: some View {
         Text(title)
-        .foregroundColor(Color.sText)
-        .font(Font.system(size: 30))
-        .fontWeight(.semibold)
+            .foregroundColor(self.enabled ? Color.sText : Color.sFixed)
+            .font(Font.system(size: 30))
+            .fontWeight(.semibold)
     }
 }
 

@@ -6,6 +6,34 @@ extension Collection {
     }
 }
 
+enum GameDifficulty: CustomStringConvertible, Equatable {
+    case easy
+    case hard
+    case expert
+    
+    var description: String {
+        switch self {
+        case .easy: return "Easy"
+        case .hard: return "Hard"
+        case .expert: return "Expert"
+        }
+    }
+        
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        switch (lhs, rhs) {
+        case (.easy, .easy):
+            return true
+        case (.hard, .hard):
+            return true
+        case (.expert, .expert):
+            return true
+        default:
+            return false
+        }
+    }
+}
+
+
 class GameController: ObservableObject {
     
     var data: BoardData
@@ -138,7 +166,7 @@ class GameController: ObservableObject {
         }
     }
     
-    func generate() {
+    func generate(difficulty: GameDifficulty) {
         generator.generate(countOfRemovable: 40)
         updateNumpad()
         save()
@@ -153,11 +181,12 @@ class GameController: ObservableObject {
             debugPrint(error)
         }
     }
-    
+        
     func load() {
         guard let encodedData = UserDefaults.standard.data(forKey: "saved") else {
             debugPrint("Missing data. Re-generate.")
-            generate()
+            // FIXME: handle error properly
+//            generate()
             return
         }
         
@@ -177,7 +206,8 @@ class GameController: ObservableObject {
             
         } catch {
             debugPrint("Decoding failed. Re-generate.")
-            generate()
+            // FIXME: handle error properly
+//            generate()
         }
     }
 }
