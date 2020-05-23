@@ -14,11 +14,7 @@ class DraftItem: ObservableObject, Codable {
     var text: String {
         "\(number)"
     }
-    
-    func hiddenToggle() {
-        hidden = !hidden
-    }
-    
+        
     enum CodingKeys: String, CodingKey {
         case number
         case hidden
@@ -43,9 +39,7 @@ class Item: ObservableObject, Codable {
     
     @Published var number: Int = 0 {
         didSet {
-            if number != 0 {
-                self.draftNumbers.forEach { $0.hidden = true }
-            }
+            self.draftNumbers.forEach { $0.hidden = true }
         }
     }
     @Published var selected: Bool = false

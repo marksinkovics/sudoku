@@ -124,11 +124,13 @@ class GameController: ObservableObject {
             return
         }
         
-        guard !draft else {
-            selectedItem.draftNumbers[number - 1].hiddenToggle()
+        if draft && number != 0 {
+            if selectedItem.number == 0 {
+                selectedItem.draftNumbers[number - 1].hidden.toggle()
+            }
             return
         }
-        
+                
         selectedItem.number = number
         highlight(row: selectedRow, column: selectedColumn)
         updateNumpad()
