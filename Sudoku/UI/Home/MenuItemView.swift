@@ -1,20 +1,34 @@
 import SwiftUI
 
+struct MenuItemViewButtonStyle: ButtonStyle {
+    
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
+    }
+}
+
 struct MenuItemView: View {
     
     let title: String
     let enabled: Bool
+    let action: () -> Void
 
-    init(_ title: String, enabled: Bool = true) {
+    init(_ title: String, enabled: Bool = true, action: (() -> Void)? = nil) {
         self.title = title
         self.enabled = enabled
+        self.action = action ?? {}
     }
     
     var body: some View {
-        Text(title)
-            .foregroundColor(self.enabled ? Color.sText : Color.sFixed)
-            .font(Font.system(size: 30))
-            .fontWeight(.semibold)
+        Button(action: action) {
+            Text(title)
+                .foregroundColor(self.enabled ? Color.sText : Color.sFixed)
+                .font(Font.system(size: 30))
+                .fontWeight(.semibold)
+        }
+        .disabled(!enabled)
+        .buttonStyle(MenuItemViewButtonStyle())
     }
 }
 

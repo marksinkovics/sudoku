@@ -21,11 +21,9 @@ struct GameView: View {
         
     @ObservedObject var controller: GameController
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @Binding var shouldPopToRootView: Bool
     
-    public init(controller: GameController = GameController(), state: GameInitialState, shouldPopToRootView: Binding<Bool>) {
+    public init(controller: GameController = GameController(), state: GameInitialState) {
         self.controller = controller
-        self._shouldPopToRootView = shouldPopToRootView
 
         if state == .continue {
             self.controller.load()
@@ -53,7 +51,7 @@ struct GameView: View {
         .edgesIgnoringSafeArea(.all)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: BackButton(label: "Home"){
-            self.shouldPopToRootView = false
+            self.presentationMode.wrappedValue.dismiss()
         })
     }
 }
@@ -62,7 +60,7 @@ struct GameView_Previews: PreviewProvider {
     private static var controller: GameController = GameController()
 
     static var previews: some View {
-        GameView(state: .new(difficulty: .easy), shouldPopToRootView: .constant(true))
+        GameView(state: .new(difficulty: .easy))
         .environment(\.colorScheme, .dark)
     }
 }
