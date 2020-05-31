@@ -1,11 +1,43 @@
 import SwiftUI
 
+
 class BoardData: ObservableObject, Codable  {
+    
+    enum Difficulty: Int, Codable, CustomStringConvertible, Equatable {
+        case undefined
+        case easy
+        case hard
+        case expert
         
+        var description: String {
+            switch self {
+                case .easy: return "Easy"
+                case .hard: return "Hard"
+                case .expert: return "Expert"
+                default: return ""
+            }
+        }
+        
+        static func == (lhs: Self, rhs: Self) -> Bool {
+            switch (lhs, rhs) {
+            case (.easy, .easy):
+                return true
+            case (.hard, .hard):
+                return true
+            case (.expert, .expert):
+                return true
+            default:
+                return false
+            }
+        }
+
+    }
+
     let rows: Int = 9
     let columns: Int = 9
     var grid: [Item] = (1...81).map { _ in Item() }
     var solution: [Int] =  Array(repeating: 81, count: 0)
+    var difficulty: Difficulty = .undefined
 
     convenience init(_ numbers: [Int]) {
         precondition(numbers.count == 81, "The count of the input numbers must be 81")
@@ -16,6 +48,7 @@ class BoardData: ObservableObject, Codable  {
     enum CodingKeys: String, CodingKey {
         case grid
         case solution
+        case difficulty
     }
     
     required convenience init(from decoder: Decoder) throws {
@@ -23,12 +56,14 @@ class BoardData: ObservableObject, Codable  {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.grid = try container.decode([Item].self, forKey: .grid)
         self.solution = try container.decode([Int].self, forKey: .solution)
+        self.difficulty  = try container.decode(Difficulty.self, forKey: .difficulty)
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(grid, forKey: .grid)
         try container.encode(solution, forKey: .solution)
+        try container.encode(difficulty, forKey: .difficulty)
     }
 
     func indexIsValid(row: Int, column: Int) -> Bool {

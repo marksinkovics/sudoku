@@ -6,34 +6,6 @@ extension Collection {
     }
 }
 
-enum GameDifficulty: CustomStringConvertible, Equatable {
-    case easy
-    case hard
-    case expert
-    
-    var description: String {
-        switch self {
-        case .easy: return "Easy"
-        case .hard: return "Hard"
-        case .expert: return "Expert"
-        }
-    }
-        
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        switch (lhs, rhs) {
-        case (.easy, .easy):
-            return true
-        case (.hard, .hard):
-            return true
-        case (.expert, .expert):
-            return true
-        default:
-            return false
-        }
-    }
-}
-
-
 class GameController: ObservableObject {
     
     var data: BoardData
@@ -168,8 +140,8 @@ class GameController: ObservableObject {
         }
     }
     
-    func generate(difficulty: GameDifficulty) {
-        generator.generate(countOfRemovable: 40)
+    func generate(difficulty: BoardData.Difficulty) {
+        generator.generate(difficulty: difficulty, countOfRemovable: 40)
         updateNumpad()
         save()
     }

@@ -10,8 +10,7 @@ struct Board: View {
         self.boardData = controller.data
     }
 
-    var body: some View {
-        
+    var body: some View {   
         GridStack(rows: 3, columns: 3, spacing: 4) { outerRow, outerColumn in
             GridStack(rows: 3, columns: 3) { row, column in
                 BoardCell(item: self.boardData[ (3 * outerRow) + row, (3 * outerColumn) + column])

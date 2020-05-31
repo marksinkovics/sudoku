@@ -1,7 +1,7 @@
 import SwiftUI
     
 enum GameInitialState: Equatable {
-    case new(difficulty: GameDifficulty)
+    case new(difficulty: BoardData.Difficulty)
     case `continue`
     
     static func == (lhs: Self, rhs: Self) -> Bool {
@@ -38,9 +38,15 @@ struct GameView: View {
             Text(controller.finished ? "Congratulation" : "Sudoku")
                 .foregroundColor(Color.sText)
                 .background(Color.sBackground)
+            HStack {
+                Text("\(controller.data.difficulty.description)")
+                Spacer()
+            }
+                .padding([.leading, .trailing, .top])
+                .frame(maxWidth: .infinity, maxHeight: 10, alignment: .center)
             Board(controller: controller)
                 .aspectRatio(1.0, contentMode: .fit)
-                .padding()
+                .padding([.leading, .trailing, .bottom])
             Numpad(controller: controller)
                 .aspectRatio(7/4, contentMode: .fit)
                 .padding(.horizontal)
