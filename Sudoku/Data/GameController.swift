@@ -18,6 +18,10 @@ class GameController: ObservableObject {
     let numpadItemNormal = NumpadItem(value: .normal, selected: true)
     let numpadItemDraft = NumpadItem(value: .draft)
     
+    var highlightRow: Bool = false
+    var highlightColumn: Bool = false
+    var highlightNeighborhood: Bool = false
+        
     @Published var draft: Bool {
         didSet {
             numpadItemDraft.selected = self.draft
@@ -71,15 +75,18 @@ class GameController: ObservableObject {
     func highlight(row: Int, column: Int) {
         self.data.unhighlightAll()
         
-        //row
-//        self.data.row(at: row).forEach { $0.highlighted = true }
+        if highlightRow {
+            self.data.row(at: row).forEach { $0.highlighted = true }
+        }
         
-        // column
-//        self.data.column(at: column).forEach { $0.highlighted = true }
+        if highlightColumn {
+            self.data.column(at: column).forEach { $0.highlighted = true }
+        }
         
-        // neighbourhood
-//        self.data.neigbourhood(at: row, column).forEach { $0.highlighted = true }
-        
+        if highlightNeighborhood {
+            self.data.neigbourhood(at: row, column).forEach { $0.highlighted = true }
+        }
+                
         // same numbers
         self.data.grid.filter { $0.number == selectedItem!.number }.forEach {
             if $0.number > 0 {

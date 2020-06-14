@@ -14,16 +14,19 @@ struct HomeView: View {
     @State var isContinueActive: Bool = false
     @State var navigationTagIndex: MenuItems? = nil
     @State var showingActionSheet: Bool = false
-
+    
     func hasSavedGame() -> Bool {
         return UserDefaults.standard.data(forKey: "saved") != nil
     }
     
+    init() {
+        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = UIColor.sText
+    }
+        
     var body: some View {
         ZStack {
             Color.sBackground.edgesIgnoringSafeArea(.all)
             VStack(alignment: .center, spacing: 0) {
-                
                 MenuItemView("New game") { self.showingActionSheet = true }
                     .padding(30)
                 MenuItemView("Continue", enabled: self.isContinueActive) { self.navigationTagIndex = .continue }
@@ -52,13 +55,13 @@ struct HomeView: View {
                     selection: $navigationTagIndex
                 ) { EmptyView() }
                 NavigationLink(
-                    destination: SettingsView(),
+                    destination: LazyView { SettingsView()},
                     tag: MenuItems.settings,
                     selection: $navigationTagIndex
                 ) { EmptyView() }
                 
             }.actionSheet(isPresented: $showingActionSheet) {
-                ActionSheet(title: Text("Start a new game"), message: Text("Select the dificulty level"), buttons: [
+                ActionSheet(title: Text("Select the dificulty level"), buttons: [
                     .default(Text("Easy")) { self.navigationTagIndex = .easy },
                     .default(Text("Hard")) { self.navigationTagIndex = .hard },
                     .default(Text("Expert")) { self.navigationTagIndex = .expert },
@@ -67,6 +70,7 @@ struct HomeView: View {
             }
         }
         .edgesIgnoringSafeArea(.all)
+        .navigationBarHidden(false)
         .onAppear {
             self.isContinueActive = self.hasSavedGame()
         }

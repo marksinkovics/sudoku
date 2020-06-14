@@ -20,7 +20,7 @@ enum GameInitialState: Equatable {
 struct GameView: View {
         
     @ObservedObject var controller: GameController
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var userSettings: UserSettings
     
     public init(controller: GameController = GameController(), state: GameInitialState) {
         self.controller = controller
@@ -42,9 +42,13 @@ struct GameView: View {
                 Text("\(controller.data.difficulty.description)")
                 Spacer()
             }
-                .padding([.leading, .trailing, .top])
-                .frame(maxWidth: .infinity, maxHeight: 10, alignment: .center)
+            .padding([.leading, .trailing, .top])
+            .padding([.bottom], 4)
+            .frame(maxWidth: .infinity, maxHeight: 10, alignment: .center)
             Board(controller: controller)
+                .hightlightRow(userSettings.higlightRow)
+                .hightlightColumn(userSettings.highlightColumn)
+                .hightlightNeighborhood(userSettings.highlightNeighborhood)
                 .aspectRatio(1.0, contentMode: .fit)
                 .padding([.leading, .trailing, .bottom])
             Numpad(controller: controller)
@@ -55,10 +59,11 @@ struct GameView: View {
         }
         .background(Color.sBackground)
         .edgesIgnoringSafeArea(.all)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton(label: "Home"){
-            self.presentationMode.wrappedValue.dismiss()
-        })
+        .navigationBarHidden(true)
+//        .navigationBarBackButtonHidden(true)
+//        .navigationBarItems(leading: BackButton(label: "Home"){
+//            self.presentationMode.wrappedValue.dismiss()
+//        })
     }
 }
 

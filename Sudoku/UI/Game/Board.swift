@@ -22,6 +22,21 @@ struct Board: View {
             }
         }
     }
+    
+    func hightlightRow(_ value: Bool) -> Self {
+        self.controller.highlightRow = value
+        return self
+    }
+    
+    func hightlightColumn(_ value: Bool) -> Self {
+        self.controller.highlightColumn = value
+        return self
+    }
+    
+    func hightlightNeighborhood(_ value: Bool) -> Self {
+        self.controller.highlightNeighborhood = value
+        return self
+    }
 }
 
 struct Board_Previews: PreviewProvider {
