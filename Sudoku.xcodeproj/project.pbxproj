@@ -21,7 +21,6 @@
 		1190F9F9240C5B1C001A940F /* BoardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1190F9F8240C5B1C001A940F /* BoardData.swift */; };
 		1190FA0A240C64A6001A940F /* BoardDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1190FA09240C64A6001A940F /* BoardDataTests.swift */; };
 		C30A7C2C2466DB6300423889 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C2B2466DB6300423889 /* BackButton.swift */; };
-		C30A7C2F2466E5BB00423889 /* GameToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C2E2466E5BB00423889 /* GameToolbarItem.swift */; };
 		C30A7C32246854F200423889 /* Color+Sudoku.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C31246854F200423889 /* Color+Sudoku.swift */; };
 		C30A7C342468673900423889 /* HiddenModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C332468673900423889 /* HiddenModifier.swift */; };
 		C30A7C362468A31500423889 /* NumpadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C352468A31500423889 /* NumpadCell.swift */; };
@@ -67,7 +66,6 @@
 		1190FA02240C6458001A940F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1190FA09240C64A6001A940F /* BoardDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardDataTests.swift; sourceTree = "<group>"; };
 		C30A7C2B2466DB6300423889 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
-		C30A7C2E2466E5BB00423889 /* GameToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameToolbarItem.swift; sourceTree = "<group>"; };
 		C30A7C31246854F200423889 /* Color+Sudoku.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Sudoku.swift"; sourceTree = "<group>"; };
 		C30A7C332468673900423889 /* HiddenModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenModifier.swift; sourceTree = "<group>"; };
 		C30A7C352468A31500423889 /* NumpadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadCell.swift; sourceTree = "<group>"; };
@@ -230,7 +228,6 @@
 				C368AC6E243760780076BB88 /* GameView.swift */,
 				1190F9E62404A520001A940F /* Board.swift */,
 				1190F9EA2407E367001A940F /* BoardCell.swift */,
-				C30A7C2E2466E5BB00423889 /* GameToolbarItem.swift */,
 				1190F9F5240B5930001A940F /* Numpad.swift */,
 				C30A7C352468A31500423889 /* NumpadCell.swift */,
 			);
@@ -338,7 +335,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C30A7C2F2466E5BB00423889 /* GameToolbarItem.swift in Sources */,
 				C30A7C2C2466DB6300423889 /* BackButton.swift in Sources */,
 				C3C36A642437FAC000F96CBB /* SettingsView.swift in Sources */,
 				C3D0E5B9242041DC00DE7FFA /* Solver.swift in Sources */,
@@ -528,7 +524,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -550,7 +546,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

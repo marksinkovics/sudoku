@@ -13,8 +13,8 @@ class NumpadItem: ObservableObject {
         var description: String {
             switch self {
                 case .number(let number): return "\(number)"
-                case .delete: return "Del"
-                case .reset: return "Reset"
+                case .delete: return "Delete"
+                case .reset: return "Reset board"
                 case .solve: return "Solve"
                 case .normal: return "Normal"
                 case .draft: return "Draft"

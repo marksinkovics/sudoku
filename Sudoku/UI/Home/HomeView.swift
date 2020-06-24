@@ -4,6 +4,7 @@ struct HomeView: View {
     
     enum MenuItems: Hashable {
         case easy
+        case medium
         case hard
         case expert
         case `continue`
@@ -40,6 +41,11 @@ struct HomeView: View {
                     selection: $navigationTagIndex
                 ) { EmptyView() }
                 NavigationLink(
+                    destination: LazyView { GameView(state: .new(difficulty: .medium))},
+                    tag: MenuItems.medium,
+                    selection: $navigationTagIndex
+                ) { EmptyView() }
+                NavigationLink(
                     destination: LazyView { GameView(state: .new(difficulty: .hard))},
                     tag: MenuItems.hard,
                     selection: $navigationTagIndex
@@ -61,8 +67,9 @@ struct HomeView: View {
                 ) { EmptyView() }
                 
             }.actionSheet(isPresented: $showingActionSheet) {
-                ActionSheet(title: Text("Select the dificulty level"), buttons: [
+                ActionSheet(title: Text("Select the difficulty level"), buttons: [
                     .default(Text("Easy")) { self.navigationTagIndex = .easy },
+                    .default(Text("Medium")) { self.navigationTagIndex = .medium },
                     .default(Text("Hard")) { self.navigationTagIndex = .hard },
                     .default(Text("Expert")) { self.navigationTagIndex = .expert },
                     .cancel()

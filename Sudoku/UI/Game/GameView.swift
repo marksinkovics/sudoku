@@ -21,6 +21,8 @@ struct GameView: View {
         
     @ObservedObject var controller: GameController
     @EnvironmentObject var userSettings: UserSettings
+    @State var boardWidth: CGFloat = 0
+    @State var showingContratsAlert: Bool = false
     
     public init(controller: GameController = GameController(), state: GameInitialState) {
         self.controller = controller
@@ -34,44 +36,46 @@ struct GameView: View {
     
     var body: some View {
         VStack {
-            Spacer()
-            Text(controller.finished ? "Congratulation" : "Sudoku")
-                .foregroundColor(Color.sText)
-                .background(Color.sBackground)
+            Spacer(minLength: 64)
             HStack {
                 Text("\(controller.data.difficulty.description)")
                 Spacer()
             }
-            .padding([.leading, .trailing, .top])
-            .padding([.bottom], 4)
-            .frame(maxWidth: .infinity, maxHeight: 10, alignment: .center)
-            Board(controller: controller)
+            .frame(width: boardWidth)
+            Board(controller: controller, boardWidth: self.$boardWidth)
                 .hightlightRow(userSettings.higlightRow)
                 .hightlightColumn(userSettings.highlightColumn)
                 .hightlightNeighborhood(userSettings.highlightNeighborhood)
                 .aspectRatio(1.0, contentMode: .fit)
-                .padding([.leading, .trailing, .bottom])
+                .padding([.bottom])
+                .frame(maxWidth: .infinity)
             Numpad(controller: controller)
                 .aspectRatio(7/4, contentMode: .fit)
-                .padding(.horizontal)
-                .padding(.top)
+                .frame(width: boardWidth)
             Spacer()
         }
+        .padding([.horizontal])
         .background(Color.sBackground)
         .edgesIgnoringSafeArea(.all)
         .navigationBarHidden(true)
-//        .navigationBarBackButtonHidden(true)
-//        .navigationBarItems(leading: BackButton(label: "Home"){
-//            self.presentationMode.wrappedValue.dismiss()
-//        })
+        .onReceive(controller.$finished) {
+            self.showingContratsAlert = $0
+        }
+        .alert(isPresented: $showingContratsAlert) {
+            Alert(
+                title: Text("Congratulations 🎉"),
+                message: Text("You succeeded this Sudoku on level  \(controller.data.difficulty.description) 👏"))
+        }
     }
 }
 
 struct GameView_Previews: PreviewProvider {
-    private static var controller: GameController = GameController()
+    private static var controller = GameController()
+    private static let userSettings = UserSettings()
 
     static var previews: some View {
-        GameView(state: .new(difficulty: .easy))
-        .environment(\.colorScheme, .dark)
+        GameView(controller: controller, state: .new(difficulty: .easy))
+        .environmentObject(userSettings)
+        .preferredColorScheme(.dark)
     }
 }

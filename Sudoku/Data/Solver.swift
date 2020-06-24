@@ -18,13 +18,12 @@ class Solver {
     @discardableResult
     func solve(atRow row: Int, column: Int) -> Bool {
         
-        if row == data.rows || column == data.columns {
+        guard row < data.rows, column < data.columns else {
             return true
         }
-        
+                
         let possibleNumbers = data.possibleNumbers(at: row, column: column)
         let originalItem = data[row, column]
-        
         
         if originalItem.fixed {
             let (nextRow, nextColumn) = next(row: row, column: column)

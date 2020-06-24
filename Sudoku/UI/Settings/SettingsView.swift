@@ -16,7 +16,7 @@ struct SettingsView: View {
             Section(header: Text("Highlights")) {
                 Toggle(isOn: $userSettings.higlightRow) { Text("Row") }
                 Toggle(isOn: $userSettings.highlightColumn) { Text("Column") }
-                Toggle(isOn: $userSettings.highlightNeighborhood) { Text("Neightborhood") }
+                Toggle(isOn: $userSettings.highlightNeighborhood) { Text("Neighborhood") }
             }
             Section(header: Text("Appearance")) {
                 Picker(selection: $userSettings.appereance, label: Text("Appearances")) {
@@ -40,14 +40,15 @@ struct SettingsView: View {
         }
         .background(Color.green)
         .listStyle(GroupedListStyle())
-        .foregroundColor(Color.sText)
-   }
-
+    }
 }
 
 struct SettingsView_Previews: PreviewProvider {
+    static let userSettings = UserSettings()
+    
     static var previews: some View {
         SettingsView()
-        .environment(\.colorScheme, .dark)
+        .environmentObject(userSettings)
+        .preferredColorScheme(.dark)
     }
 }

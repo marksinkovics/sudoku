@@ -48,12 +48,12 @@ class GameController: ObservableObject {
         updateNumpad()
     }
     
-    func clearAll() {
+    func reset() {
         data.grid.forEach { if !$0.fixed { $0.number = 0 } }
         updateNumpad()
     }
     
-    func clearSelected() {
+    func delete() {
         set(number: 0)
     }
     
@@ -148,7 +148,7 @@ class GameController: ObservableObject {
     }
     
     func generate(difficulty: BoardData.Difficulty) {
-        generator.generate(difficulty: difficulty, countOfRemovable: 40)
+        generator.generate(difficulty: difficulty)
         updateNumpad()
         save()
     }

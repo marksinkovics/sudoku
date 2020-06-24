@@ -6,12 +6,14 @@ class BoardData: ObservableObject, Codable  {
     enum Difficulty: Int, Codable, CustomStringConvertible, Equatable {
         case undefined
         case easy
+        case medium
         case hard
         case expert
         
         var description: String {
             switch self {
                 case .easy: return "Easy"
+                case .medium: return "Medium"
                 case .hard: return "Hard"
                 case .expert: return "Expert"
                 default: return ""
@@ -20,17 +22,28 @@ class BoardData: ObservableObject, Codable  {
         
         static func == (lhs: Self, rhs: Self) -> Bool {
             switch (lhs, rhs) {
-            case (.easy, .easy):
-                return true
-            case (.hard, .hard):
-                return true
-            case (.expert, .expert):
-                return true
-            default:
-                return false
+                case (.easy, .easy):
+                    return true
+                case (.medium, .medium):
+                    return true
+                case (.hard, .hard):
+                    return true
+                case (.expert, .expert):
+                    return true
+                default:
+                    return false
             }
         }
-
+        
+        var countOfRemovable: Int {
+            switch self {
+                case .undefined: return 0
+                case .easy: return 28
+                case .medium: return 37
+                case .hard: return 45
+                case .expert: return 65
+            }
+        }
     }
 
     let rows: Int = 9
