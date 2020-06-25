@@ -24,3 +24,19 @@ DerivedData/
 
 ## Gcc Patch
 /*.gcno
+
+## Fastlane
+
+# fastlane specific
+**/fastlane/report.xml
+# deliver temporary files
+**/fastlane/Preview.html
+# snapshot generated screenshots
+**/fastlane/screenshots
+# scan temporary files
+**/fastlane/test_output
+# Deliver temporary error output
+/fastlane/Error*.png
+
+# Dotenv
+.env.secret

@@ -1,0 +1,52 @@
+fastlane_require 'dotenv'
+
+before_all do
+  Dotenv.overload '.env.secret'
+end
+
+default_platform(:ios)
+skip_docs
+
+platform :ios do
+
+  desc "Run unit tests"
+  lane :test do
+
+    run_tests(scheme: "Sudoku")
+  end
+
+  desc "Push a new beta build to TestFlight"
+  lane :beta do
+    # ensure_git_status_clean
+    # increment_build_number(build_number: latest_testflight_build_number + 1)
+    # commit_version_bump(xcodeproj: "Sudoku.xcodeproj")
+    build_app(
+      scheme: "Sudoku",
+      export_xcargs: "-allowProvisioningUpdates",
+      output_directory: "build"
+    )
+    # add_git_tag
+    upload_to_testflight(
+      demo_account_required: false,
+      beta_app_review_info: {
+        contact_email: ENV['CONTACT_EMAIL'],
+        contact_first_name: ENV['CONTACT_FIRST_NAME'],
+        contact_last_name: ENV['CONTACT_LAST_NAME'],
+        contact_phone: ENV['CONTACT_PHONE'],
+        demo_account_name: "",
+        demo_account_password: "",
+        notes: "Thank you for reviewing!"
+      },
+      localized_app_info: {
+        "default": {
+          feedback_email: "sinkovics.mark@gmail.com",
+          marketing_url: "https://marksinkovics.com/projects/sudoku",
+          privacy_policy_url: "https://marksinkovics.com/projects/sudoku/privacy-policy",
+          description: "Sudoku - a puzzle game",
+        }
+      },
+      changelog: "First app test"
+    )
+    # push_to_git_remote
+  end
+end
