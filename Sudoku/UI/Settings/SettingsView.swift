@@ -5,6 +5,9 @@ struct SettingsView: View {
     
     @EnvironmentObject var userSettings: UserSettings
     
+    let projectPageURL = URL(string: "https://marksinkovics.com/projects/sudoku")!
+    let privacyPolicyURL = URL(string: "https://marksinkovics.com/projects/sudoku/privacy-policy")!
+    
     init() {
         UITableView.appearance().backgroundColor = UIColor.sBackground
         UITableViewCell.appearance().backgroundColor = UIColor.sCellBackground
@@ -25,7 +28,17 @@ struct SettingsView: View {
                     }
                 }
             }
+            Section(header: Text("Privacy")) {
+                HStack {
+                    Button("Privacy Policy") { UIApplication.shared.open(self.privacyPolicyURL) }
+                    Spacer()
+                }
+            }
             Section(header: Text("About")) {
+                HStack {
+                    Button("Visit the project page") { UIApplication.shared.open(self.projectPageURL) }
+                    Spacer()
+                }
                 HStack {
                     Text("Version")
                     Spacer()
