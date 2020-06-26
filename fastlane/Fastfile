@@ -18,7 +18,7 @@ platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
     # ensure_git_status_clean
-    # increment_build_number(build_number: latest_testflight_build_number + 1)
+    increment_build_number(build_number: latest_testflight_build_number + 1)
     # commit_version_bump(xcodeproj: "Sudoku.xcodeproj")
     build_app(
       scheme: "Sudoku",
@@ -39,7 +39,7 @@ platform :ios do
       },
       localized_app_info: {
         "default": {
-          feedback_email: "sinkovics.mark@gmail.com",
+          feedback_email: ENV['CONTACT_EMAIL'],
           marketing_url: "https://marksinkovics.com/projects/sudoku",
           privacy_policy_url: "https://marksinkovics.com/projects/sudoku/privacy-policy",
           description: "Sudoku - a puzzle game",
