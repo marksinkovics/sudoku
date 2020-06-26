@@ -21,8 +21,6 @@ struct NumpadCell: View {
     @ObservedObject var item: NumpadItem
     var controller: GameController
     
-    @State private var showingResetAlert = false
-    
     init(item: NumpadItem, controller: GameController) {
         self.controller = controller
         self.item = item
@@ -39,7 +37,7 @@ struct NumpadCell: View {
                 case .delete:
                     self.controller.delete()
                 case .reset:
-                    self.showingResetAlert = true
+                    self.controller.shouldResettingAlert = true
                 case .solve:
                     self.controller.solve()
                 case .normal:
@@ -73,14 +71,6 @@ struct NumpadCell: View {
             
         }
         .buttonStyle(NumpadCellButtonStyle(hidden: self.item.hidden, selected: self.item.selected))
-        .alert(isPresented: $showingResetAlert) {
-            Alert(
-                title: Text("Reset the game board"),
-                message: Text("Are you sure you want to reset the game board? It cannot be undone."),
-                primaryButton: .destructive(Text("Reset"), action: { self.controller.reset() }),
-                secondaryButton: .default(Text("Cancel")))
-        }
-
     }
 }
 

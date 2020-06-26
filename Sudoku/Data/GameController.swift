@@ -30,6 +30,7 @@ class GameController: ObservableObject {
     }
     
     @Published var finished: Bool
+    @Published var shouldResettingAlert: Bool = false
     
     init() {
         data = BoardData()
@@ -46,6 +47,10 @@ class GameController: ObservableObject {
             }
         }
         updateNumpad()
+    }
+    
+    func shouldReset() {
+        shouldResettingAlert = true
     }
     
     func reset() {

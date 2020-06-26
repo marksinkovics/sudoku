@@ -14,7 +14,6 @@ enum GameInitialState: Equatable {
             return false
         }
     }
-
 }
 
 struct GameView: View {
@@ -22,7 +21,9 @@ struct GameView: View {
     @ObservedObject var controller: GameController
     @EnvironmentObject var userSettings: UserSettings
     @State var boardWidth: CGFloat = 0
-    @State var showingContratsAlert: Bool = false
+    @State var showingAlert: Bool = false
+    @State var showingCongratsAlert: Bool = false
+    @State var showingResettingAlert: Bool = false
     
     public init(controller: GameController = GameController(), state: GameInitialState) {
         self.controller = controller
@@ -59,12 +60,24 @@ struct GameView: View {
         .edgesIgnoringSafeArea(.all)
         .navigationBarHidden(true)
         .onReceive(controller.$finished) {
-            self.showingContratsAlert = $0
+            self.showingCongratsAlert = $0
+            self.showingResettingAlert = false
+            self.showingAlert = $0
         }
-        .alert(isPresented: $showingContratsAlert) {
-            Alert(
-                title: Text("Congratulations 🎉"),
-                message: Text("You succeeded this Sudoku on level  \(controller.data.difficulty.description) 👏"))
+        .onReceive(controller.$shouldResettingAlert) {
+            self.showingResettingAlert = $0
+            self.showingCongratsAlert = false
+            self.showingAlert = $0
+        }
+        .alert(isPresented: $showingAlert) {
+            if self.showingResettingAlert {
+                return Alert(title: Text("Reset the game board"),
+                             message: Text("Are you sure you want to reset the game board? It cannot be undone."),
+                             primaryButton: .destructive(Text("Reset"), action: { self.controller.reset() }),
+                             secondaryButton: .default(Text("Cancel"), action: { self.controller.shouldResettingAlert = false }))
+            }
+            return Alert(title: Text("Congratulations 🎉"),
+                         message: Text("You succeeded this Sudoku on \(controller.data.difficulty.description.lowercased()) level 👏"))
         }
     }
 }
