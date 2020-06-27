@@ -16,15 +16,16 @@ platform :ios do
 
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    # ensure_git_status_clean
+    ensure_git_status_clean
     increment_build_number(build_number: latest_testflight_build_number + 1)
-    # commit_version_bump(xcodeproj: "Sudoku.xcodeproj")
     build_app(
       scheme: "Sudoku",
       export_xcargs: "-allowProvisioningUpdates",
       output_directory: "build"
     )
-    # add_git_tag
+    add_git_tag(
+      grouping: "beta",
+    )
     upload_to_testflight(
       demo_account_required: false,
       beta_app_review_info: {
@@ -46,6 +47,7 @@ platform :ios do
       },
       changelog: "First app test"
     )
-    # push_to_git_remote
+    reset_git_repo
+    # push_git_tags
   end
 end
