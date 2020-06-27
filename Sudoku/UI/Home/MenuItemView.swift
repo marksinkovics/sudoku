@@ -11,12 +11,12 @@ struct MenuItemViewButtonStyle: ButtonStyle {
 struct MenuItemView: View {
     
     let title: String
-    let enabled: Bool
+    @Binding var enabled: Bool
     let action: () -> Void
 
-    init(_ title: String, enabled: Bool = true, action: (() -> Void)? = nil) {
+    init(_ title: String, enabled: Binding<Bool> = .constant(true), action: (() -> Void)? = nil) {
         self.title = title
-        self.enabled = enabled
+        self._enabled = enabled
         self.action = action ?? {}
     }
     

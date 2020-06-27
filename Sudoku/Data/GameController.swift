@@ -49,12 +49,23 @@ class GameController: ObservableObject {
     @Published var finished: Bool
     @Published var shouldResettingAlert: Bool = false
     
-    init() {
-        data = BoardData()
-        solver = Solver(data: self.data)
-        generator = Generator(data: data, solver: solver)
+    init(boardData: BoardData = BoardData()) {
+        
         finished = false
         draft = false
+        data = boardData
+        solver = Solver(data: data)
+        generator = Generator(data: data, solver: solver)
+
+        selectedItem = data.selectedItem()
+        selectedRow = data.selectedRow()
+        selectedColumn = data.selectedColumn()
+
+        if let row = selectedRow, let column = selectedColumn {
+            highlight(row: row, column: column)
+        }
+
+        updateNumpad()
     }
     
     func solve() {
@@ -190,32 +201,17 @@ class GameController: ObservableObject {
         }
     }
         
-    func load() {
+    @discardableResult
+    static func load() -> BoardData? {
         guard let encodedData = UserDefaults.standard.data(forKey: "saved") else {
-            debugPrint("Missing data. Re-generate.")
-            // FIXME: handle error properly
-//            generate()
-            return
+            return nil
         }
-        
-        let decoder = JSONDecoder()
-        
+
         do {
-            data = try decoder.decode(BoardData.self, from: encodedData)
-            selectedItem = data.selectedItem()
-            selectedRow = data.selectedRow()
-            selectedColumn = data.selectedColumn()
-            
-            if let row = selectedRow, let column = selectedColumn {
-                highlight(row: row, column: column)
-            }
-            
-            updateNumpad()
-            
+            let decoder = JSONDecoder()
+            return try decoder.decode(BoardData.self, from: encodedData)
         } catch {
-            debugPrint("Decoding failed. Re-generate.")
-            // FIXME: handle error properly
-//            generate()
+            return nil
         }
     }
 }

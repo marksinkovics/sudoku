@@ -17,7 +17,7 @@ struct HomeView: View {
     @State var showingActionSheet: Bool = false
     
     func hasSavedGame() -> Bool {
-        return UserDefaults.standard.data(forKey: "saved") != nil
+        return GameController.load() != nil
     }
     
     init() {
@@ -30,7 +30,7 @@ struct HomeView: View {
             VStack(alignment: .center, spacing: 0) {
                 MenuItemView("New game") { self.showingActionSheet = true }
                     .padding(30)
-                MenuItemView("Continue", enabled: self.isContinueActive) { self.navigationTagIndex = .continue }
+                MenuItemView("Continue", enabled: self.$isContinueActive) { self.navigationTagIndex = .continue }
                     .padding(30)
                 MenuItemView("Settings") { self.navigationTagIndex = .settings }
                     .padding(30)

@@ -25,13 +25,15 @@ struct GameView: View {
     @State var showingCongratsAlert: Bool = false
     @State var showingResettingAlert: Bool = false
     
-    public init(controller: GameController = GameController(), state: GameInitialState) {
-        self.controller = controller
-
-        if state == .continue {
-            self.controller.load()
+    public init(state: GameInitialState) {
+        if state == .continue, let data = GameController.load() {
+            self.controller = GameController(boardData: data)
         } else if case .new(let difficulty) = state {
+            self.controller = GameController()
             self.controller.generate(difficulty: difficulty)
+        } else {
+            self.controller = GameController()
+            self.controller.generate(difficulty: .easy)
         }
     }
     
@@ -76,6 +78,7 @@ struct GameView: View {
                              primaryButton: .destructive(Text("Reset"), action: { self.controller.reset() }),
                              secondaryButton: .default(Text("Cancel"), action: { self.controller.shouldResettingAlert = false }))
             }
+                        
             return Alert(title: Text("Congratulations 🎉"),
                          message: Text("You succeeded this Sudoku on \(controller.data.difficulty.description.lowercased()) level 👏"))
         }
@@ -83,11 +86,10 @@ struct GameView: View {
 }
 
 struct GameView_Previews: PreviewProvider {
-    private static var controller = GameController()
     private static let userSettings = UserSettings()
 
     static var previews: some View {
-        GameView(controller: controller, state: .new(difficulty: .easy))
+        GameView(state: .new(difficulty: .easy))
         .environmentObject(userSettings)
         .preferredColorScheme(.dark)
     }
