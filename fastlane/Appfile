@@ -1,8 +1,4 @@
-fastlane_require 'dotenv'
-
-before_all do
-  Dotenv.overload '.env.secret'
-end
+Dotenv.overload '.env.secret'
 
 app_identifier("com.atakamastudio.Sudoku")
 apple_id(ENV['APPLE_ID'])
