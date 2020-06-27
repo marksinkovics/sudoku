@@ -16,7 +16,7 @@ struct SettingsView: View {
         
     var body: some View {
         Form {
-            Section(header: Text("Highlights")) {
+            Section(header: Text("Highlight")) {
                 Toggle(isOn: $userSettings.higlightRow) { Text("Row") }
                 Toggle(isOn: $userSettings.highlightColumn) { Text("Column") }
                 Toggle(isOn: $userSettings.highlightBlock) { Text("Block") }
