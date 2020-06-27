@@ -20,7 +20,7 @@ class GameController: ObservableObject {
     
     var highlightRow: Bool = false
     var highlightColumn: Bool = false
-    var highlightNeighborhood: Bool = false
+    var highlightBlock: Bool = false
         
     @Published var draft: Bool {
         didSet {
@@ -88,8 +88,8 @@ class GameController: ObservableObject {
             self.data.column(at: column).forEach { $0.highlighted = true }
         }
         
-        if highlightNeighborhood {
-            self.data.neigbourhood(at: row, column).forEach { $0.highlighted = true }
+        if highlightBlock {
+            self.data.block(at: row, column).forEach { $0.highlighted = true }
         }
                 
         // same numbers

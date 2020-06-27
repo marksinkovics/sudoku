@@ -76,9 +76,9 @@ class BoardDataTests: XCTestCase {
         XCTAssertEqual(column_1[1].number, 5)
     }
     
-    func testNeighbourhoodGetter() {
-        let neighourhood = solvedBoardData.neigbourhood(at: 7, 8).map { $0.number }
-        XCTAssertEqual(neighourhood, [6, 9, 8, 5, 7, 4, 2, 3, 1])
+    func testBlockGetter() {
+        let block = solvedBoardData.block(at: 7, 8).map { $0.number }
+        XCTAssertEqual(block, [6, 9, 8, 5, 7, 4, 2, 3, 1])
     }
     
     func testNumberValidation() {

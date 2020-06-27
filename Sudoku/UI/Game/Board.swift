@@ -52,8 +52,8 @@ struct Board: View {
         return self
     }
     
-    func hightlightNeighborhood(_ value: Bool) -> Self {
-        self.controller.highlightNeighborhood = value
+    func hightlightBlock(_ value: Bool) -> Self {
+        self.controller.highlightBlock = value
         return self
     }
 }

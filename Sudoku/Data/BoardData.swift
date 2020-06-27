@@ -161,7 +161,7 @@ class BoardData: ObservableObject, Codable  {
         grid.forEach { $0.number = 0; $0.fixed = false }
     }
     
-    func neigbourhood(at row: Int, _ column: Int) -> [Item] {
+    func block(at row: Int, _ column: Int) -> [Item] {
         precondition(indexIsValid(row: row, column: column), "Index out of range")
         let i = (row / 3) * 3
         let j = (column / 3) * 3
@@ -174,12 +174,12 @@ class BoardData: ObservableObject, Codable  {
     }
     
     func isValid(number: Int, at row: Int, column: Int) -> Bool {
-        let row_numbers = self.row(at: row).map { $0.number }
-        let column_numbers = self.column(at: column).map { $0.number }
-        let neighbours = self.neigbourhood(at: row, column).map { $0.number }
-        let isContained = row_numbers.contains(number)
-            || column_numbers.contains(number)
-            || neighbours.contains(number)
+        let rowNumbers = self.row(at: row).map { $0.number }
+        let columnNumbers = self.column(at: column).map { $0.number }
+        let blockNumber = self.block(at: row, column).map { $0.number }
+        let isContained = rowNumbers.contains(number)
+            || columnNumbers.contains(number)
+            || blockNumber.contains(number)
         
         return !isContained
     }

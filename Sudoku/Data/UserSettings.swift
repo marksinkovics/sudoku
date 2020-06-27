@@ -32,7 +32,7 @@ class UserSettings: ObservableObject {
     enum Keys: String {
         case highlightRow = "highlight.row"
         case highlightColumn = "highlight.column"
-        case highlightNeighborhood = "highlight.neighborhood"
+        case highlightBlock = "highlight.block"
         case appereance = "appereance"
     }
     
@@ -47,9 +47,9 @@ class UserSettings: ObservableObject {
        }
    }
     
-    @Published var highlightNeighborhood: Bool{
+    @Published var highlightBlock: Bool{
         didSet {
-            UserDefaults.standard.set(highlightNeighborhood, forKey: Keys.highlightNeighborhood.rawValue)
+            UserDefaults.standard.set(highlightBlock, forKey: Keys.highlightBlock.rawValue)
         }
     }
     
@@ -62,7 +62,7 @@ class UserSettings: ObservableObject {
     init() {
         self.higlightRow = UserDefaults.standard.bool(forKey: Keys.highlightRow.rawValue)
         self.highlightColumn = UserDefaults.standard.bool(forKey: Keys.highlightColumn.rawValue)
-        self.highlightNeighborhood = UserDefaults.standard.bool(forKey: Keys.highlightNeighborhood.rawValue)
+        self.highlightBlock = UserDefaults.standard.bool(forKey: Keys.highlightBlock.rawValue)
         self.appereance = Appereance(rawValue: UserDefaults.standard.integer(forKey: Keys.appereance.rawValue)) ?? .system
     }
     

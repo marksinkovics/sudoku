@@ -46,7 +46,7 @@ struct GameView: View {
             Board(controller: controller, boardWidth: self.$boardWidth)
                 .hightlightRow(userSettings.higlightRow)
                 .hightlightColumn(userSettings.highlightColumn)
-                .hightlightNeighborhood(userSettings.highlightNeighborhood)
+                .hightlightBlock(userSettings.highlightBlock)
                 .aspectRatio(1.0, contentMode: .fit)
                 .padding([.bottom])
                 .frame(maxWidth: .infinity)

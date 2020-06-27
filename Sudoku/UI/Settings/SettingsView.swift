@@ -19,7 +19,7 @@ struct SettingsView: View {
             Section(header: Text("Highlights")) {
                 Toggle(isOn: $userSettings.higlightRow) { Text("Row") }
                 Toggle(isOn: $userSettings.highlightColumn) { Text("Column") }
-                Toggle(isOn: $userSettings.highlightNeighborhood) { Text("Neighborhood") }
+                Toggle(isOn: $userSettings.highlightBlock) { Text("Block") }
             }
             Section(header: Text("Appearance")) {
                 Picker(selection: $userSettings.appereance, label: Text("Appearances")) {
