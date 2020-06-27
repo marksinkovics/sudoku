@@ -16,15 +16,19 @@ platform :ios do
 
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    ensure_git_status_clean
+    # ensure_git_status_clean
     increment_build_number(build_number: latest_testflight_build_number + 1)
+    get_version_number(
+      xcodeproj: "Sudoku.xcodeproj",
+      target: "Sudoku"
+    )
     build_app(
       scheme: "Sudoku",
       export_xcargs: "-allowProvisioningUpdates",
       output_directory: "build"
     )
     add_git_tag(
-      grouping: "beta",
+      tag: "beta/ios/#{lane_context[SharedValues::VERSION_NUMBER]}/#{lane_context[SharedValues::BUILD_NUMBER]}"
     )
     upload_to_testflight(
       demo_account_required: false,
@@ -46,8 +50,11 @@ platform :ios do
         }
       },
       changelog: "First app test"
+      distribute_external: true,
     )
-    reset_git_repo
-    # push_git_tags
+    reset_git_repo(
+      disregard_gitignore: false
+    )
+    push_git_tags
   end
 end
