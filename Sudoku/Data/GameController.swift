@@ -18,9 +18,26 @@ class GameController: ObservableObject {
     let numpadItemNormal = NumpadItem(value: .normal, selected: true)
     let numpadItemDraft = NumpadItem(value: .draft)
     
-    var highlightRow: Bool = false
+    var highlightRow: Bool = false {
+        didSet {
+            guard let row = selectedRow, let column = selectedColumn else { return }
+            highlight(row: row, column: column)
+        }
+    }
     var highlightColumn: Bool = false
+    {
+       didSet {
+           guard let row = selectedRow, let column = selectedColumn else { return }
+           highlight(row: row, column: column)
+       }
+   }
     var highlightBlock: Bool = false
+    {
+       didSet {
+           guard let row = selectedRow, let column = selectedColumn else { return }
+           highlight(row: row, column: column)
+       }
+   }
         
     @Published var draft: Bool {
         didSet {
@@ -154,6 +171,11 @@ class GameController: ObservableObject {
     
     func generate(difficulty: BoardData.Difficulty) {
         generator.generate(difficulty: difficulty)
+        if let indexOfFirstNonFixedItem = data.grid.firstIndex(where: { !$0.fixed }) {
+            let row = indexOfFirstNonFixedItem / data.columns
+            let column = indexOfFirstNonFixedItem % data.columns
+            select(row: row, column: column)
+        }
         updateNumpad()
         save()
     }
@@ -184,8 +206,8 @@ class GameController: ObservableObject {
             selectedRow = data.selectedRow()
             selectedColumn = data.selectedColumn()
             
-            if selectedRow != nil && selectedColumn != nil {
-                highlight(row: selectedRow!, column: selectedColumn!)
+            if let row = selectedRow, let column = selectedColumn {
+                highlight(row: row, column: column)
             }
             
             updateNumpad()
