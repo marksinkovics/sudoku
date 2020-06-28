@@ -67,7 +67,7 @@ struct HomeView: View {
                 ) { EmptyView() }
                 
             }.actionSheet(isPresented: $showingActionSheet) {
-                ActionSheet(title: Text("Select the difficulty level"), buttons: [
+                ActionSheet(title: Text("Select the difficulty"), buttons: [
                     .default(Text("Easy")) { self.navigationTagIndex = .easy },
                     .default(Text("Medium")) { self.navigationTagIndex = .medium },
                     .default(Text("Hard")) { self.navigationTagIndex = .hard },
