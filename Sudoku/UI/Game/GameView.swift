@@ -80,7 +80,7 @@ struct GameView: View {
             }
                         
             return Alert(title: Text("Congratulations 🎉"),
-                         message: Text("You solved this Sudoku on level \(controller.data.difficulty.description.lowercased()) 👏"))
+                         message: Text("You solved this Sudoku\non level \(controller.data.difficulty.description) 👏"))
         }
     }
 }

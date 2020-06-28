@@ -36,7 +36,7 @@ struct SettingsView: View {
             }
             Section(header: Text("About")) {
                 HStack {
-                    Button("Visit the project page") { UIApplication.shared.open(self.projectPageURL) }
+                    Button("Visit the project's website") { UIApplication.shared.open(self.projectPageURL) }
                     Spacer()
                 }
                 HStack {
