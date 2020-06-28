@@ -16,7 +16,13 @@ platform :ios do
 
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    # ensure_git_status_clean
+    ensure_git_status_clean
+    changelog = prompt(
+        text: "Changelog: ",
+        multi_line_end_keyword: "END"
+    )
+    puts("Changelog: #{changelog}")
+
     increment_build_number(build_number: latest_testflight_build_number + 1)
     get_version_number(
       xcodeproj: "Sudoku.xcodeproj",
@@ -49,8 +55,9 @@ platform :ios do
           description: "Sudoku - a puzzle game",
         }
       },
-      changelog: "First app test"
+      changelog: changelog,
       distribute_external: true,
+      groups: ["Private testers"],
     )
     reset_git_repo(
       disregard_gitignore: false
