@@ -2,19 +2,66 @@ import SwiftUI
 
 struct HomeView: View {
     
-    enum MenuItems: Hashable {
-        case easy
-        case medium
-        case hard
-        case expert
-        case `continue`
-        case settings
+    struct MenuOptions {
+        enum OptionType {
+            case easy
+            case medium
+            case hard
+            case expert
+            case `continue`
+            case settings
+        }
+        
+        typealias Option = (id: UUID, value: String, type: Self.OptionType)
+        static var options: [Option] = [
+            (UUID(), "Easy", .easy),            // 0
+            (UUID(), "Medium", .medium),        // 1
+            (UUID(), "Hard", .hard),            // 2
+            (UUID(), "Expert", .expert),        // 3
+            (UUID(), "Continue", .`continue`),  // 4
+            (UUID(), "Settings", .settings),    // 5
+        ]
+        
+        static func option(for optionType: OptionType) -> Option {
+            switch optionType {
+            case .easy:
+                return options[0]
+            case .medium:
+                return options[1]
+            case .hard:
+                return options[2]
+            case .expert:
+                return options[3]
+            case .`continue`:
+                return options[4]
+            case .settings:
+                return options[5]
+            }
+        }
+        
+        static func buildView(for option: Option) -> some View {
+            switch option.type {
+            case .easy:
+                return AnyView(GameView(state: .new(difficulty: .easy)))
+            case .medium:
+                return AnyView(GameView(state: .new(difficulty: .medium)))
+            case .hard:
+                return AnyView(GameView(state: .new(difficulty: .hard)))
+            case .expert:
+                return AnyView(GameView(state: .new(difficulty: .expert)))
+            case .`continue`:
+                return AnyView(GameView(state: .`continue`))
+            case .settings:
+                return AnyView(SettingsView())
+            }
+        }
     }
-    
-    @State var isActive: Bool = false
-    @State var isContinueActive: Bool = false
-    @State var navigationTagIndex: MenuItems? = nil
-    @State var showingActionSheet: Bool = false
+
+    @State private var isContinueActive: Bool = false
+    @State private var showingActionSheet: Bool = false
+    @State private var selectedOption: MenuOptions.Option = (id: UUID(), "", .easy)
+    @State private var showDetail: Bool = false
+
     
     func hasSavedGame() -> Bool {
         return GameController.load() != nil
@@ -23,63 +70,38 @@ struct HomeView: View {
     init() {
         UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = UIColor.sText
     }
-        
+    
+    func show(option: MenuOptions.OptionType) {
+        selectedOption = MenuOptions.option(for: option)
+        showDetail = true
+    }
+            
     var body: some View {
-        ZStack {
-            Color.sBackground.edgesIgnoringSafeArea(.all)
+        NavigationView {
             VStack(alignment: .center, spacing: 0) {
                 MenuItemView("New game") { self.showingActionSheet = true }
                     .padding(30)
-                MenuItemView("Continue", enabled: self.$isContinueActive) { self.navigationTagIndex = .continue }
+                MenuItemView("Continue", enabled: self.$isContinueActive) { show(option: .continue) }
                     .padding(30)
-                MenuItemView("Settings") { self.navigationTagIndex = .settings }
+                MenuItemView("Settings") { show(option: .settings) }
                     .padding(30)
-                
-                NavigationLink(
-                    destination: LazyView { GameView(state: .new(difficulty: .easy))},
-                    tag: MenuItems.easy,
-                    selection: $navigationTagIndex
-                ) { EmptyView() }
-                NavigationLink(
-                    destination: LazyView { GameView(state: .new(difficulty: .medium))},
-                    tag: MenuItems.medium,
-                    selection: $navigationTagIndex
-                ) { EmptyView() }
-                NavigationLink(
-                    destination: LazyView { GameView(state: .new(difficulty: .hard))},
-                    tag: MenuItems.hard,
-                    selection: $navigationTagIndex
-                ) { EmptyView() }
-                NavigationLink(
-                    destination: LazyView { GameView(state: .new(difficulty: .expert))},
-                    tag: MenuItems.expert,
-                    selection: $navigationTagIndex
-                ) { EmptyView() }
-                NavigationLink(
-                    destination: LazyView { GameView(state: .`continue`)},
-                    tag: MenuItems.continue,
-                    selection: $navigationTagIndex
-                ) { EmptyView() }
-                NavigationLink(
-                    destination: LazyView { SettingsView()},
-                    tag: MenuItems.settings,
-                    selection: $navigationTagIndex
-                ) { EmptyView() }
-                
-            }.actionSheet(isPresented: $showingActionSheet) {
+                NavigationLink("", destination: MenuOptions.buildView(for: selectedOption), isActive: $showDetail)
+                    .opacity(0)                
+            }
+            .actionSheet(isPresented: $showingActionSheet) {
                 ActionSheet(title: Text("Select the difficulty"), buttons: [
-                    .default(Text("Easy")) { self.navigationTagIndex = .easy },
-                    .default(Text("Medium")) { self.navigationTagIndex = .medium },
-                    .default(Text("Hard")) { self.navigationTagIndex = .hard },
-                    .default(Text("Expert")) { self.navigationTagIndex = .expert },
+                    .default(Text("Easy")) { show(option: .easy) },
+                    .default(Text("Medium")) { show(option: .medium) },
+                    .default(Text("Hard")) { show(option: .hard) },
+                    .default(Text("Expert")) { show(option: .expert) },
                     .cancel()
                 ])
             }
-        }
-        .edgesIgnoringSafeArea(.all)
-        .navigationBarHidden(false)
-        .onAppear {
-            self.isContinueActive = self.hasSavedGame()
+            .navigationBarHidden(true)
+            .onAppear {
+                self.isContinueActive = self.hasSavedGame()
+            }
+
         }
     }
 }

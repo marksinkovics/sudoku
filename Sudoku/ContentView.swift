@@ -24,11 +24,9 @@ struct ContentView: View {
     @EnvironmentObject var userSettings: UserSettings
 
     var body: some View {
-        NavigationView {
-            HomeView()
-        }
-        .accentColor(Color.sText)
-        .userInterfaceStyle(userSettings.suggestedUserInterfaceStyle)
+        HomeView()
+            .accentColor(Color.sText)
+            .userInterfaceStyle(userSettings.suggestedUserInterfaceStyle)
     }
 }
 

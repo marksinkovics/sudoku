@@ -1,5 +1,7 @@
 import SwiftUI
 
+//TODO: delete!!!
+
 struct LazyView<Content: View>: View {
     let builder: () -> Content
     init(@ViewBuilder builder: @escaping () -> Content) {
