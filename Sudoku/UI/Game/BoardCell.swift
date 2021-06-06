@@ -18,7 +18,8 @@ struct DraftCell: View {
 struct BoardCell: View {
     
     @ObservedObject var item: Item
-    
+    var longTapAction: (_ frame: CGRect) -> Void = { _ in }
+
     func backgroundColor() -> Color {
         if item.error {
             return .sError
@@ -46,7 +47,6 @@ struct BoardCell: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                
                 GridStack(rows: 3, columns: 3, spacing: 1) { row, column in
                     DraftCell(item: self.item.draftNumbers[3 * row + column])
                 }
@@ -56,9 +56,20 @@ struct BoardCell: View {
                     .foregroundColor(self.textColor())
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .border(self.borderColor(), width: self.borderSize())
-            }.background(self.backgroundColor())
+            }
+            .background(self.backgroundColor())
+            .onLongPressGesture {
+                self.longTapAction(geometry.frame(in: .global))
+            }
         }
     }
+    
+    func longTap(action: @escaping (_ frame: CGRect) -> Void) -> Self {
+        var copy = self
+        copy.longTapAction = action
+        return copy
+    }
+
 }
 
 struct BoardCell_Previews: PreviewProvider {

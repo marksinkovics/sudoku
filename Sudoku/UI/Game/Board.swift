@@ -9,29 +9,36 @@ struct BoardWidthPreferenceKey: PreferenceKey {
         value = nextValue()
     }
 }
-
 struct Board: View {
     
     let controller: GameController
     @ObservedObject var boardData: BoardData
     @Binding var boardWidth: CGFloat
+    var longTapAction: (_ frame: CGRect) -> Void = { _ in }
     
     init(controller: GameController, boardWidth: Binding<CGFloat>) {
         self.controller = controller
         self.boardData = controller.data
         self._boardWidth = boardWidth
     }
+    
 
     var body: some View {
         GeometryReader { geometry in
             GridStack(rows: 3, columns: 3, spacing: 4) { outerRow, outerColumn in
                 GridStack(rows: 3, columns: 3) { row, column in
                     BoardCell(item: self.boardData[ (3 * outerRow) + row, (3 * outerColumn) + column])
+                        .longTap { frame in
+                            let selecterRow = (3 * outerRow) + row
+                            let selectedColumn = (3 * outerColumn) + column
+                            self.controller.select(row: selecterRow, column: selectedColumn)
+                            self.longTapAction(frame)
+                        }
                         .onTapGesture {
                             let selecterRow = (3 * outerRow) + row
                             let selectedColumn = (3 * outerColumn) + column
                             self.controller.select(row: selecterRow, column: selectedColumn)
-                    }
+                        }
                 }
             }
             .preference(key: BoardWidthPreferenceKey.self, value: geometry.size.width)
@@ -55,6 +62,13 @@ struct Board: View {
     func hightlightBlock(_ value: Bool) -> Self {
         self.controller.highlightBlock = value
         return self
+    }
+
+    
+    func longTap(action: @escaping (_ frame: CGRect) -> Void) -> Self {
+        var copy = self
+        copy.longTapAction = action
+        return copy
     }
 }
 

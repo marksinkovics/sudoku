@@ -25,6 +25,11 @@
 		C30A7C342468673900423889 /* HiddenModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C332468673900423889 /* HiddenModifier.swift */; };
 		C30A7C362468A31500423889 /* NumpadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C352468A31500423889 /* NumpadCell.swift */; };
 		C30A7C382468A59100423889 /* NumpadItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C372468A59100423889 /* NumpadItem.swift */; };
+		C32D6E21266B36B800E7DC82 /* FloatingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D6E20266B36B800E7DC82 /* FloatingMenu.swift */; };
+		C32D6E23266B374D00E7DC82 /* NumpadRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D6E22266B374D00E7DC82 /* NumpadRingView.swift */; };
+		C32D6E25266BE69800E7DC82 /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D6E24266BE69800E7DC82 /* Debug.swift */; };
+		C34F79A6266EFE8F009F4C41 /* Shape+Fill.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34F79A5266EFE8F009F4C41 /* Shape+Fill.swift */; };
+		C34F79AA26703E73009F4C41 /* Arc.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34F79A926703E73009F4C41 /* Arc.swift */; };
 		C368AC6D243760690076BB88 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C368AC6C243760690076BB88 /* HomeView.swift */; };
 		C368AC6F243760780076BB88 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C368AC6E243760780076BB88 /* GameView.swift */; };
 		C36956A7248BEFB500FBDFCE /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36956A6248BEFB500FBDFCE /* UserSettings.swift */; };
@@ -70,6 +75,11 @@
 		C30A7C332468673900423889 /* HiddenModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenModifier.swift; sourceTree = "<group>"; };
 		C30A7C352468A31500423889 /* NumpadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadCell.swift; sourceTree = "<group>"; };
 		C30A7C372468A59100423889 /* NumpadItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadItem.swift; sourceTree = "<group>"; };
+		C32D6E20266B36B800E7DC82 /* FloatingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingMenu.swift; sourceTree = "<group>"; };
+		C32D6E22266B374D00E7DC82 /* NumpadRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadRingView.swift; sourceTree = "<group>"; };
+		C32D6E24266BE69800E7DC82 /* Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
+		C34F79A5266EFE8F009F4C41 /* Shape+Fill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shape+Fill.swift"; sourceTree = "<group>"; };
+		C34F79A926703E73009F4C41 /* Arc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arc.swift; sourceTree = "<group>"; };
 		C368AC6C243760690076BB88 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		C368AC6E243760780076BB88 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		C36956A6248BEFB500FBDFCE /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
@@ -159,6 +169,8 @@
 				1190F9E424034560001A940F /* GridStack.swift */,
 				C3AE5FF3245C6F7400F2DAC0 /* LazyView.swift */,
 				C30A7C2B2466DB6300423889 /* BackButton.swift */,
+				C32D6E20266B36B800E7DC82 /* FloatingMenu.swift */,
+				C34F79A926703E73009F4C41 /* Arc.swift */,
 				C386A562246423A400DEEDE3 /* Home */,
 				C386A5672464ECF400DEEDE3 /* Game */,
 				C30A7C2D2466E06900423889 /* Settings */,
@@ -207,8 +219,10 @@
 		C30A7C30246854C400423889 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				C32D6E24266BE69800E7DC82 /* Debug.swift */,
 				C30A7C31246854F200423889 /* Color+Sudoku.swift */,
 				C30A7C332468673900423889 /* HiddenModifier.swift */,
+				C34F79A5266EFE8F009F4C41 /* Shape+Fill.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -230,6 +244,7 @@
 				1190F9EA2407E367001A940F /* BoardCell.swift */,
 				1190F9F5240B5930001A940F /* Numpad.swift */,
 				C30A7C352468A31500423889 /* NumpadCell.swift */,
+				C32D6E22266B374D00E7DC82 /* NumpadRingView.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -343,6 +358,7 @@
 				C368AC6D243760690076BB88 /* HomeView.swift in Sources */,
 				C3AE5FF4245C6F7400F2DAC0 /* LazyView.swift in Sources */,
 				C3D0E5BF24243B2F00DE7FFA /* GameController.swift in Sources */,
+				C32D6E23266B374D00E7DC82 /* NumpadRingView.swift in Sources */,
 				1190F9F6240B5930001A940F /* Numpad.swift in Sources */,
 				C30A7C32246854F200423889 /* Color+Sudoku.swift in Sources */,
 				C30A7C342468673900423889 /* HiddenModifier.swift in Sources */,
@@ -353,11 +369,15 @@
 				1190F9E72404A520001A940F /* Board.swift in Sources */,
 				1190F9E524034560001A940F /* GridStack.swift in Sources */,
 				C3D0E5BD242042B000DE7FFA /* Generator.swift in Sources */,
+				C34F79AA26703E73009F4C41 /* Arc.swift in Sources */,
+				C32D6E25266BE69800E7DC82 /* Debug.swift in Sources */,
 				1190F9F9240C5B1C001A940F /* BoardData.swift in Sources */,
 				1190F9EE2408967E001A940F /* Item.swift in Sources */,
 				1190F9EB2407E367001A940F /* BoardCell.swift in Sources */,
 				C386A5662464258600DEEDE3 /* MenuItemView.swift in Sources */,
+				C32D6E21266B36B800E7DC82 /* FloatingMenu.swift in Sources */,
 				1190F9D42403445D001A940F /* ContentView.swift in Sources */,
+				C34F79A6266EFE8F009F4C41 /* Shape+Fill.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

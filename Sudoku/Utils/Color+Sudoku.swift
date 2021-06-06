@@ -21,3 +21,14 @@ extension UIColor {
     static let sError = UIColor(named: "error_color") ?? .white
     static let sSwitchColor = UIColor(named: "switch_color") ?? .white
 }
+
+extension Color {
+    static var random: Color {
+        return Color(
+            red: .random(in: 0...1),
+            green: .random(in: 0...1),
+            blue: .random(in: 0...1)
+        )
+    }
+}
+

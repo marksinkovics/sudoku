@@ -1,5 +1,5 @@
 import SwiftUI
-    
+
 enum GameInitialState: Equatable {
     case new(difficulty: BoardData.Difficulty)
     case `continue`
@@ -24,6 +24,8 @@ struct GameView: View {
     @State var showingAlert: Bool = false
     @State var showingCongratsAlert: Bool = false
     @State var showingResettingAlert: Bool = false
+    @State var showFloatingMenu: Bool = false
+    @State var showFloatingMenuFrame: CGRect = .zero
     
     public init(state: GameInitialState) {
         if state == .continue, let data = GameController.load() {
@@ -37,72 +39,72 @@ struct GameView: View {
         }
     }
     
-    var body2: some View {
-        NavigationView {
-            Text("SwiftUI tutorials")
-        }
-        .navigationBarTitle("Master view")
-        .navigationBarItems(leading:
-                Button(action: {
-                    print("SF Symbol button pressed...")
-                }) {
-                    Image(systemName: "calendar.circle").imageScale(.large)
-                },
-            trailing:
-                Button(action: {
-                    print("Edit button pressed...")
-                }) {
-                    Text("Edit")
-                }
-        )
-    }
-    
     var body: some View {
-        NavigationView {
-            VStack {
-                Spacer(minLength: 64)
-                HStack {
-                    Text("\(controller.data.difficulty.description)")
+        ZStack {
+            NavigationView {
+                VStack {
+                    Spacer(minLength: 64)
+                    HStack {
+                        Text("\(controller.data.difficulty.description)")
+                        Spacer()
+                    }
+                    .frame(width: boardWidth)
+                    Board(controller: controller, boardWidth: self.$boardWidth)
+                        .hightlightRow(userSettings.higlightRow)
+                        .hightlightColumn(userSettings.highlightColumn)
+                        .hightlightBlock(userSettings.highlightBlock)
+                        .longTap { frame in
+                            self.showFloatingMenuFrame = frame
+                            self.showFloatingMenu.toggle()
+                        }
+                        .aspectRatio(1.0, contentMode: .fit)
+                        .padding([.bottom])
+                        .frame(maxWidth: .infinity)
+                    Numpad(controller: controller)
+                        .aspectRatio(7/4, contentMode: .fit)
+                        .frame(width: boardWidth)
                     Spacer()
                 }
-                .frame(width: boardWidth)
-                Board(controller: controller, boardWidth: self.$boardWidth)
-                    .hightlightRow(userSettings.higlightRow)
-                    .hightlightColumn(userSettings.highlightColumn)
-                    .hightlightBlock(userSettings.highlightBlock)
-                    .aspectRatio(1.0, contentMode: .fit)
-                    .padding([.bottom])
-                    .frame(maxWidth: .infinity)
-                Numpad(controller: controller)
-                    .aspectRatio(7/4, contentMode: .fit)
-                    .frame(width: boardWidth)
-                Spacer()
-            }
-            .padding([.horizontal])
-            .background(Color.sBackground)
-            .edgesIgnoringSafeArea(.all)
-            .navigationBarHidden(true)
-            .onReceive(controller.$finished) {
-                self.showingCongratsAlert = $0
-                self.showingResettingAlert = false
-                self.showingAlert = $0
-            }
-            .onReceive(controller.$shouldResettingAlert) {
-                self.showingResettingAlert = $0
-                self.showingCongratsAlert = false
-                self.showingAlert = $0
-            }
-            .alert(isPresented: $showingAlert) {
-                if self.showingResettingAlert {
-                    return Alert(title: Text("Reset the game board"),
-                                 message: Text("Are you sure you want to reset the game board? It cannot be undone."),
-                                 primaryButton: .destructive(Text("Reset"), action: { self.controller.reset() }),
-                                 secondaryButton: .default(Text("Cancel"), action: { self.controller.shouldResettingAlert = false }))
+                .padding([.horizontal])
+                .background(Color.sBackground)
+                .edgesIgnoringSafeArea(.all)
+                .navigationBarHidden(true)
+                .onReceive(controller.$finished) {
+                    self.showingCongratsAlert = $0
+                    self.showingResettingAlert = false
+                    self.showingAlert = $0
                 }
-                            
-                return Alert(title: Text("Congratulations 🎉"),
-                             message: Text("You solved this Sudoku\non level \(controller.data.difficulty.description) 👏"))
+                .onReceive(controller.$shouldResettingAlert) {
+                    self.showingResettingAlert = $0
+                    self.showingCongratsAlert = false
+                    self.showingAlert = $0
+                }
+                .alert(isPresented: $showingAlert) {
+                    if self.showingResettingAlert {
+                        return Alert(title: Text("Reset the game board"),
+                                     message: Text("Are you sure you want to reset the game board? It cannot be undone."),
+                                     primaryButton: .destructive(Text("Reset"), action: { self.controller.reset() }),
+                                     secondaryButton: .default(Text("Cancel"), action: { self.controller.shouldResettingAlert = false }))
+                    }
+                                
+                    return Alert(title: Text("Congratulations 🎉"),
+                                 message: Text("You solved this Sudoku\non level \(controller.data.difficulty.description) 👏"))
+                }
             }
+            if showFloatingMenu {
+                FloatingMenu(frame: self.showFloatingMenuFrame)
+                    .dismiss {
+                        self.showFloatingMenu.toggle()
+                    }
+                    .selected { key in
+                        if case .numpad(let value) = key {
+                            self.controller.set(number: value)
+                        } else {
+                            self.controller.delete()
+                        }
+                    }
+            }
+
         }
     }
 }
