@@ -20,13 +20,12 @@ struct GameView: View {
         
     @ObservedObject var controller: GameController
     @EnvironmentObject var userSettings: UserSettings
-    @State var boardWidth: CGFloat = 0
     @State var showingAlert: Bool = false
     @State var showingCongratsAlert: Bool = false
     @State var showingResettingAlert: Bool = false
     @State var showFloatingMenu: Bool = false
     @State var showFloatingMenuFrame: CGRect = .zero
-    
+        
     public init(state: GameInitialState) {
         if state == .continue, let data = GameController.load() {
             self.controller = GameController(boardData: data)
@@ -41,57 +40,50 @@ struct GameView: View {
     
     var body: some View {
         ZStack {
-            NavigationView {
-                VStack {
-                    Spacer(minLength: 64)
-                    HStack {
-                        Text("\(controller.data.difficulty.description)")
-                        Spacer()
+            VStack {
+                Board(controller: controller)
+                    .hightlightRow(userSettings.higlightRow)
+                    .hightlightColumn(userSettings.highlightColumn)
+                    .hightlightBlock(userSettings.highlightBlock)
+                    .longTap { frame in
+                        self.showFloatingMenuFrame = frame
+                        self.showFloatingMenu.toggle()
                     }
-                    .frame(width: boardWidth)
-                    Board(controller: controller, boardWidth: self.$boardWidth)
-                        .hightlightRow(userSettings.higlightRow)
-                        .hightlightColumn(userSettings.highlightColumn)
-                        .hightlightBlock(userSettings.highlightBlock)
-                        .longTap { frame in
-                            self.showFloatingMenuFrame = frame
-                            self.showFloatingMenu.toggle()
-                        }
-                        .aspectRatio(1.0, contentMode: .fit)
-                        .padding([.bottom])
-                        .frame(maxWidth: .infinity)
+                    .aspectRatio(1.0, contentMode: .fit)
+                    .padding()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                
+                if self.userSettings.numpadType == .full {
                     Numpad(controller: controller)
                         .aspectRatio(7/4, contentMode: .fit)
-                        .frame(width: boardWidth)
-                    Spacer()
+                        .frame(maxWidth: .infinity, maxHeight: 200)
                 }
-                .padding([.horizontal])
-                .background(Color.sBackground)
-                .edgesIgnoringSafeArea(.all)
-                .navigationBarHidden(true)
-                .onReceive(controller.$finished) {
-                    self.showingCongratsAlert = $0
-                    self.showingResettingAlert = false
-                    self.showingAlert = $0
-                }
-                .onReceive(controller.$shouldResettingAlert) {
-                    self.showingResettingAlert = $0
-                    self.showingCongratsAlert = false
-                    self.showingAlert = $0
-                }
-                .alert(isPresented: $showingAlert) {
-                    if self.showingResettingAlert {
-                        return Alert(title: Text("Reset the game board"),
-                                     message: Text("Are you sure you want to reset the game board? It cannot be undone."),
-                                     primaryButton: .destructive(Text("Reset"), action: { self.controller.reset() }),
-                                     secondaryButton: .default(Text("Cancel"), action: { self.controller.shouldResettingAlert = false }))
-                    }
-                                
-                    return Alert(title: Text("Congratulations 🎉"),
-                                 message: Text("You solved this Sudoku\non level \(controller.data.difficulty.description) 👏"))
-                }
+                Spacer()
             }
-            if showFloatingMenu {
+            .padding([.horizontal])
+            .onReceive(controller.$finished) {
+                self.showingCongratsAlert = $0
+                self.showingResettingAlert = false
+                self.showingAlert = $0
+            }
+            .onReceive(controller.$shouldResettingAlert) {
+                self.showingResettingAlert = $0
+                self.showingCongratsAlert = false
+                self.showingAlert = $0
+            }
+            .alert(isPresented: $showingAlert) {
+                if self.showingResettingAlert {
+                    return Alert(title: Text("Reset the game board"),
+                                 message: Text("Are you sure you want to reset the game board? It cannot be undone."),
+                                 primaryButton: .destructive(Text("Reset"), action: { self.controller.reset() }),
+                                 secondaryButton: .default(Text("Cancel"), action: { self.controller.shouldResettingAlert = false }))
+                }
+                            
+                return Alert(title: Text("Congratulations 🎉"),
+                             message: Text("You solved this Sudoku\non level \(controller.data.difficulty.description) 👏"))
+            }
+            
+            if showFloatingMenu && userSettings.numpadType == .floating {
                 FloatingMenu(frame: self.showFloatingMenuFrame)
                     .dismiss {
                         self.showFloatingMenu.toggle()
@@ -105,6 +97,41 @@ struct GameView: View {
                     }
             }
 
+        }
+        .navigationBarTitle(controller.data.difficulty.description, displayMode: .inline)
+        .navigationViewStyle(StackNavigationViewStyle())
+        .toolbar {
+            ToolbarItem() {
+                Button(action: {
+                    self.controller.solve()
+                }, label: {
+                    Image(systemName: "wand.and.stars")
+                })
+            }
+            ToolbarItemGroup(placement: .bottomBar) {
+                Button(action: {
+                    self.controller.shouldResettingAlert = true
+                }, label: {
+                    Image(systemName: "arrow.counterclockwise")
+                })
+                                
+                Spacer()
+
+                Button(action: {
+                    self.controller.delete()
+                }, label: {
+                    Image(systemName: "arrow.uturn.left")
+                })
+
+                
+                Spacer()
+
+                Button(action: {
+                    self.controller.draft.toggle()
+                }, label: {
+                    Image(systemName: self.controller.draft ? "pencil.circle.fill" : "pencil.circle")
+                })
+            }
         }
     }
 }

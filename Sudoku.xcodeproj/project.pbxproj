@@ -26,16 +26,16 @@
 		C30A7C362468A31500423889 /* NumpadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C352468A31500423889 /* NumpadCell.swift */; };
 		C30A7C382468A59100423889 /* NumpadItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C372468A59100423889 /* NumpadItem.swift */; };
 		C32D6E21266B36B800E7DC82 /* FloatingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D6E20266B36B800E7DC82 /* FloatingMenu.swift */; };
-		C32D6E23266B374D00E7DC82 /* NumpadRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D6E22266B374D00E7DC82 /* NumpadRingView.swift */; };
 		C32D6E25266BE69800E7DC82 /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D6E24266BE69800E7DC82 /* Debug.swift */; };
 		C34F79A6266EFE8F009F4C41 /* Shape+Fill.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34F79A5266EFE8F009F4C41 /* Shape+Fill.swift */; };
-		C34F79AA26703E73009F4C41 /* Arc.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34F79A926703E73009F4C41 /* Arc.swift */; };
 		C368AC6D243760690076BB88 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C368AC6C243760690076BB88 /* HomeView.swift */; };
 		C368AC6F243760780076BB88 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C368AC6E243760780076BB88 /* GameView.swift */; };
 		C36956A7248BEFB500FBDFCE /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36956A6248BEFB500FBDFCE /* UserSettings.swift */; };
 		C386A5662464258600DEEDE3 /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C386A5652464258600DEEDE3 /* MenuItemView.swift */; };
 		C3AE5FF4245C6F7400F2DAC0 /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE5FF3245C6F7400F2DAC0 /* LazyView.swift */; };
 		C3C36A642437FAC000F96CBB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C36A632437FAC000F96CBB /* SettingsView.swift */; };
+		C3C37869267F85A600F65AB4 /* ArcNumpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C37868267F85A600F65AB4 /* ArcNumpadView.swift */; };
+		C3C3786B267F863200F65AB4 /* ArcNumpadUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C3786A267F863200F65AB4 /* ArcNumpadUIView.swift */; };
 		C3D0E5B9242041DC00DE7FFA /* Solver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D0E5B8242041DC00DE7FFA /* Solver.swift */; };
 		C3D0E5BB2420428600DE7FFA /* SolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D0E5BA2420428600DE7FFA /* SolverTests.swift */; };
 		C3D0E5BD242042B000DE7FFA /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D0E5BC242042B000DE7FFA /* Generator.swift */; };
@@ -76,16 +76,16 @@
 		C30A7C352468A31500423889 /* NumpadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadCell.swift; sourceTree = "<group>"; };
 		C30A7C372468A59100423889 /* NumpadItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadItem.swift; sourceTree = "<group>"; };
 		C32D6E20266B36B800E7DC82 /* FloatingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingMenu.swift; sourceTree = "<group>"; };
-		C32D6E22266B374D00E7DC82 /* NumpadRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadRingView.swift; sourceTree = "<group>"; };
 		C32D6E24266BE69800E7DC82 /* Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		C34F79A5266EFE8F009F4C41 /* Shape+Fill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shape+Fill.swift"; sourceTree = "<group>"; };
-		C34F79A926703E73009F4C41 /* Arc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arc.swift; sourceTree = "<group>"; };
 		C368AC6C243760690076BB88 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		C368AC6E243760780076BB88 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		C36956A6248BEFB500FBDFCE /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		C386A5652464258600DEEDE3 /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 		C3AE5FF3245C6F7400F2DAC0 /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
 		C3C36A632437FAC000F96CBB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C3C37868267F85A600F65AB4 /* ArcNumpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcNumpadView.swift; sourceTree = "<group>"; };
+		C3C3786A267F863200F65AB4 /* ArcNumpadUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcNumpadUIView.swift; sourceTree = "<group>"; };
 		C3D0E5B8242041DC00DE7FFA /* Solver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solver.swift; sourceTree = "<group>"; };
 		C3D0E5BA2420428600DE7FFA /* SolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolverTests.swift; sourceTree = "<group>"; };
 		C3D0E5BC242042B000DE7FFA /* Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
@@ -169,8 +169,6 @@
 				1190F9E424034560001A940F /* GridStack.swift */,
 				C3AE5FF3245C6F7400F2DAC0 /* LazyView.swift */,
 				C30A7C2B2466DB6300423889 /* BackButton.swift */,
-				C32D6E20266B36B800E7DC82 /* FloatingMenu.swift */,
-				C34F79A926703E73009F4C41 /* Arc.swift */,
 				C386A562246423A400DEEDE3 /* Home */,
 				C386A5672464ECF400DEEDE3 /* Game */,
 				C30A7C2D2466E06900423889 /* Settings */,
@@ -227,6 +225,18 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		C3218BAF26CCB5CE004E4CF4 /* Numpad */ = {
+			isa = PBXGroup;
+			children = (
+				1190F9F5240B5930001A940F /* Numpad.swift */,
+				C30A7C352468A31500423889 /* NumpadCell.swift */,
+				C32D6E20266B36B800E7DC82 /* FloatingMenu.swift */,
+				C3C37868267F85A600F65AB4 /* ArcNumpadView.swift */,
+				C3C3786A267F863200F65AB4 /* ArcNumpadUIView.swift */,
+			);
+			path = Numpad;
+			sourceTree = "<group>";
+		};
 		C386A562246423A400DEEDE3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,12 +249,10 @@
 		C386A5672464ECF400DEEDE3 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				C3218BAF26CCB5CE004E4CF4 /* Numpad */,
 				C368AC6E243760780076BB88 /* GameView.swift */,
 				1190F9E62404A520001A940F /* Board.swift */,
 				1190F9EA2407E367001A940F /* BoardCell.swift */,
-				1190F9F5240B5930001A940F /* Numpad.swift */,
-				C30A7C352468A31500423889 /* NumpadCell.swift */,
-				C32D6E22266B374D00E7DC82 /* NumpadRingView.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -351,6 +359,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C30A7C2C2466DB6300423889 /* BackButton.swift in Sources */,
+				C3C3786B267F863200F65AB4 /* ArcNumpadUIView.swift in Sources */,
 				C3C36A642437FAC000F96CBB /* SettingsView.swift in Sources */,
 				C3D0E5B9242041DC00DE7FFA /* Solver.swift in Sources */,
 				C30A7C362468A31500423889 /* NumpadCell.swift in Sources */,
@@ -358,7 +367,6 @@
 				C368AC6D243760690076BB88 /* HomeView.swift in Sources */,
 				C3AE5FF4245C6F7400F2DAC0 /* LazyView.swift in Sources */,
 				C3D0E5BF24243B2F00DE7FFA /* GameController.swift in Sources */,
-				C32D6E23266B374D00E7DC82 /* NumpadRingView.swift in Sources */,
 				1190F9F6240B5930001A940F /* Numpad.swift in Sources */,
 				C30A7C32246854F200423889 /* Color+Sudoku.swift in Sources */,
 				C30A7C342468673900423889 /* HiddenModifier.swift in Sources */,
@@ -369,7 +377,6 @@
 				1190F9E72404A520001A940F /* Board.swift in Sources */,
 				1190F9E524034560001A940F /* GridStack.swift in Sources */,
 				C3D0E5BD242042B000DE7FFA /* Generator.swift in Sources */,
-				C34F79AA26703E73009F4C41 /* Arc.swift in Sources */,
 				C32D6E25266BE69800E7DC82 /* Debug.swift in Sources */,
 				1190F9F9240C5B1C001A940F /* BoardData.swift in Sources */,
 				1190F9EE2408967E001A940F /* Item.swift in Sources */,
@@ -378,6 +385,7 @@
 				C32D6E21266B36B800E7DC82 /* FloatingMenu.swift in Sources */,
 				1190F9D42403445D001A940F /* ContentView.swift in Sources */,
 				C34F79A6266EFE8F009F4C41 /* Shape+Fill.swift in Sources */,
+				C3C37869267F85A600F65AB4 /* ArcNumpadView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,7 +555,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -570,7 +578,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

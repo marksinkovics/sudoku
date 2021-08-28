@@ -29,11 +29,29 @@ class UserSettings: ObservableObject {
         }
     }
     
+    enum NumpadType: Int, Codable, CaseIterable, Identifiable, CustomStringConvertible {
+        var id: Int { rawValue }
+        
+        case full
+        case floating
+        case pencil
+        
+        var description: String {
+            switch self {
+            case .full: return "Full"
+            case .floating: return "Floating"
+            case .pencil: return "Pencil"
+            }
+        }
+    }
+
+    
     enum Keys: String {
         case highlightRow = "highlight.row"
         case highlightColumn = "highlight.column"
         case highlightBlock = "highlight.block"
         case appereance = "appereance"
+        case numpadType = "numpad.type"
     }
     
     @Published var higlightRow: Bool {
@@ -58,12 +76,19 @@ class UserSettings: ObservableObject {
             UserDefaults.standard.set(appereance.rawValue, forKey: Keys.appereance.rawValue)
         }
     }
-        
+
+    @Published var numpadType: NumpadType {
+        didSet {
+            UserDefaults.standard.set(numpadType.rawValue, forKey: Keys.numpadType.rawValue)
+        }
+    }
+    
     init() {
         self.higlightRow = UserDefaults.standard.bool(forKey: Keys.highlightRow.rawValue)
         self.highlightColumn = UserDefaults.standard.bool(forKey: Keys.highlightColumn.rawValue)
         self.highlightBlock = UserDefaults.standard.bool(forKey: Keys.highlightBlock.rawValue)
         self.appereance = Appereance(rawValue: UserDefaults.standard.integer(forKey: Keys.appereance.rawValue)) ?? .system
+        self.numpadType = NumpadType(rawValue: UserDefaults.standard.integer(forKey: Keys.numpadType.rawValue)) ?? .full
     }
     
     //

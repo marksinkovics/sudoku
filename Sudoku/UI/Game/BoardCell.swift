@@ -17,8 +17,14 @@ struct DraftCell: View {
 
 struct BoardCell: View {
     
+    public enum ActionType {
+        case single
+        case double
+        case long
+    }
+    
     @ObservedObject var item: Item
-    var longTapAction: (_ frame: CGRect) -> Void = { _ in }
+    var action: (ActionType, CGRect) -> Void = { _,_  in }
 
     func backgroundColor() -> Color {
         if item.error {
@@ -58,15 +64,25 @@ struct BoardCell: View {
                     .border(self.borderColor(), width: self.borderSize())
             }
             .background(self.backgroundColor())
-            .onLongPressGesture {
-                self.longTapAction(geometry.frame(in: .global))
-            }
+            .simultaneousGesture(LongPressGesture().onEnded { event in
+                debugPrint("Long tap")
+                self.action(.long, geometry.frame(in: .global))
+            })
+            .simultaneousGesture(SimultaneousGesture(TapGesture(count: 1), TapGesture(count: 2)).onEnded { gestures in
+                if gestures.second != nil {
+                    debugPrint("Double tap")
+                    self.action(.double, geometry.frame(in: .global))
+                } else if gestures.first != nil {
+                    debugPrint("Single tap")
+                    self.action(.single, geometry.frame(in: .global))
+                }
+            })
         }
     }
     
-    func longTap(action: @escaping (_ frame: CGRect) -> Void) -> Self {
+    func action(action: @escaping (ActionType, CGRect) -> Void) -> Self {
         var copy = self
-        copy.longTapAction = action
+        copy.action = action
         return copy
     }
 

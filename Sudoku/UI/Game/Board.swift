@@ -13,13 +13,11 @@ struct Board: View {
     
     let controller: GameController
     @ObservedObject var boardData: BoardData
-    @Binding var boardWidth: CGFloat
     var longTapAction: (_ frame: CGRect) -> Void = { _ in }
     
-    init(controller: GameController, boardWidth: Binding<CGFloat>) {
+    init(controller: GameController) {
         self.controller = controller
         self.boardData = controller.data
-        self._boardWidth = boardWidth
     }
     
 
@@ -28,25 +26,18 @@ struct Board: View {
             GridStack(rows: 3, columns: 3, spacing: 4) { outerRow, outerColumn in
                 GridStack(rows: 3, columns: 3) { row, column in
                     BoardCell(item: self.boardData[ (3 * outerRow) + row, (3 * outerColumn) + column])
-                        .longTap { frame in
+                        .action() { type, frame in
                             let selecterRow = (3 * outerRow) + row
                             let selectedColumn = (3 * outerColumn) + column
                             self.controller.select(row: selecterRow, column: selectedColumn)
-                            self.longTapAction(frame)
-                        }
-                        .onTapGesture {
-                            let selecterRow = (3 * outerRow) + row
-                            let selectedColumn = (3 * outerColumn) + column
-                            self.controller.select(row: selecterRow, column: selectedColumn)
+                            if type == .long || type == .double {
+                                self.longTapAction(frame)
+                            }
                         }
                 }
             }
-            .preference(key: BoardWidthPreferenceKey.self, value: geometry.size.width)
         }
         .scaledToFill()
-        .onPreferenceChange(BoardWidthPreferenceKey.self) {
-            self.boardWidth = $0
-        }
     }
     
     func hightlightRow(_ value: Bool) -> Self {
@@ -77,6 +68,6 @@ struct Board_Previews: PreviewProvider {
     private static var controller: GameController = GameController()
 
     static var previews: some View {
-        Board(controller: controller, boardWidth: .constant(0))
+        Board(controller: controller)
     }
 }
