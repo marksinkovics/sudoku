@@ -16,6 +16,30 @@ enum GameInitialState: Equatable {
     }
 }
 
+struct SizePreferenceKey: PreferenceKey {
+    typealias Value = CGFloat
+
+    static var defaultValue: Value = 0
+
+    static func reduce(value: inout Value, nextValue: () -> Value) {
+        value = nextValue()
+    }
+}
+
+struct SizeModifier: ViewModifier {
+    private var sizeView: some View {
+        GeometryReader { geometry in
+            Color.clear
+                .anchorPreference(key: SizePreferenceKey.self, value: .bounds) { anchor in geometry[anchor].size.width }
+        }
+    }
+
+    func body(content: Content) -> some View {
+        content.overlay(sizeView)
+    }
+}
+
+
 struct GameView: View {
         
     @ObservedObject var controller: GameController
@@ -25,6 +49,8 @@ struct GameView: View {
     @State var showingResettingAlert: Bool = false
     @State var showFloatingMenu: Bool = false
     @State var showFloatingMenuFrame: CGRect = .zero
+    
+    @State private var boardMaxWidth: CGFloat?
         
     public init(state: GameInitialState) {
         if state == .continue, let data = GameController.load() {
@@ -41,6 +67,7 @@ struct GameView: View {
     var body: some View {
         ZStack {
             VStack {
+                Spacer()
                 Board(controller: controller)
                     .hightlightRow(userSettings.higlightRow)
                     .hightlightColumn(userSettings.highlightColumn)
@@ -50,15 +77,18 @@ struct GameView: View {
                         self.showFloatingMenu.toggle()
                     }
                     .aspectRatio(1.0, contentMode: .fit)
-                    .padding()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                
-                if self.userSettings.numpadType == .full {
-                    Numpad(controller: controller)
-                        .aspectRatio(7/4, contentMode: .fit)
-                        .frame(maxWidth: .infinity, maxHeight: 200)
-                }
+                    .modifier(SizeModifier())
+                    .onPreferenceChange(SizePreferenceKey.self) {
+                        boardMaxWidth = $0
+                    }
                 Spacer()
+                if self.userSettings.numpadType == .row {
+                    Numpad(controller: controller)
+                        .frame(maxWidth: .infinity, maxHeight: 100)
+                        .padding([.top], 20)
+                        .padding([.bottom], 40)
+                        .frame(maxWidth: boardMaxWidth)
+                }
             }
             .padding([.horizontal])
             .onReceive(controller.$finished) {
@@ -83,7 +113,7 @@ struct GameView: View {
                              message: Text("You solved this Sudoku\non level \(controller.data.difficulty.description) 👏"))
             }
             
-            if showFloatingMenu && userSettings.numpadType == .floating {
+            if showFloatingMenu && userSettings.numpadType == .arc {
                 FloatingMenu(frame: self.showFloatingMenuFrame)
                     .dismiss {
                         self.showFloatingMenu.toggle()
@@ -120,7 +150,8 @@ struct GameView: View {
                 Button(action: {
                     self.controller.delete()
                 }, label: {
-                    Image(systemName: "arrow.uturn.left")
+//                    Image(systemName: "arrow.uturn.left")
+                    Image(systemName: "trash")
                 })
 
                 

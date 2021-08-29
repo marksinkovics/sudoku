@@ -32,14 +32,14 @@ class UserSettings: ObservableObject {
     enum NumpadType: Int, Codable, CaseIterable, Identifiable, CustomStringConvertible {
         var id: Int { rawValue }
         
-        case full
-        case floating
+        case row
+        case arc
         case pencil
         
         var description: String {
             switch self {
-            case .full: return "Full"
-            case .floating: return "Floating"
+            case .row: return "Row"
+            case .arc: return "Arc"
             case .pencil: return "Pencil"
             }
         }
@@ -88,7 +88,7 @@ class UserSettings: ObservableObject {
         self.highlightColumn = UserDefaults.standard.bool(forKey: Keys.highlightColumn.rawValue)
         self.highlightBlock = UserDefaults.standard.bool(forKey: Keys.highlightBlock.rawValue)
         self.appereance = Appereance(rawValue: UserDefaults.standard.integer(forKey: Keys.appereance.rawValue)) ?? .system
-        self.numpadType = NumpadType(rawValue: UserDefaults.standard.integer(forKey: Keys.numpadType.rawValue)) ?? .full
+        self.numpadType = NumpadType(rawValue: UserDefaults.standard.integer(forKey: Keys.numpadType.rawValue)) ?? .row
     }
     
     //

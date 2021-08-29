@@ -15,8 +15,6 @@ class GameController: ObservableObject {
     var selectedRow: Int?
     var selectedColumn: Int?
     let numpadItems: [NumpadItem] = (1...9).map { NumpadItem(value: .number($0)) }
-    let numpadItemNormal = NumpadItem(value: .normal, selected: true)
-    let numpadItemDraft = NumpadItem(value: .draft)
     
     var highlightRow: Bool = false {
         didSet {
@@ -39,13 +37,7 @@ class GameController: ObservableObject {
        }
    }
         
-    @Published var draft: Bool {
-        didSet {
-            numpadItemDraft.selected = self.draft
-            numpadItemNormal.selected = !self.draft
-        }
-    }
-    
+    @Published var draft: Bool
     @Published var finished: Bool
     @Published var shouldResettingAlert: Bool = false
     

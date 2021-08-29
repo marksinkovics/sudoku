@@ -34,41 +34,15 @@ struct NumpadCell: View {
             switch self.item.value {
                 case .number(let number):
                     self.controller.set(number: number)
-                case .delete:
-                    self.controller.delete()
-                case .reset:
-                    self.controller.shouldResettingAlert = true
-                case .solve:
-                    self.controller.solve()
-                case .normal:
-                    self.controller.draft = false
-                case .draft:
-                    self.controller.draft = true
             }
         }
     }
-    
-    var font: Font {
-        if case .number(_) = item.value {
-            return Font.largeTitle
-        }
-        return Font.title
-    }
-        
+            
     var body: some View {
         Button(action: self.action) {
-            if item.value == .delete {
-                Image(systemName: item.value.systemImage!)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .foregroundColor(.sText)
-                    .padding(10)
-            } else {
-                Text(self.item.text)
-                    .font(self.font)
-                    .foregroundColor(self.item.hidden ? Color.sFixed : Color.sText)
-            }
-            
+            Text(self.item.text)
+                .font(Font.title)
+                .foregroundColor(self.item.hidden ? Color.sFixed : Color.sText)
         }
         .buttonStyle(NumpadCellButtonStyle(hidden: self.item.hidden, selected: self.item.selected))
     }
@@ -80,17 +54,8 @@ struct NumpadCell_Previews: PreviewProvider {
 
     static var previews: some View {
         Group {
-            NumpadCell(item: NumpadItem(value: .delete), controller: controller)
-                .frame(width: 80, height: 80)
-                .previewLayout(.sizeThatFits)
             NumpadCell(item: NumpadItem(value: .number(1)), controller: controller)
                 .frame(width: 80, height: 80)
-                .previewLayout(.sizeThatFits)
-            NumpadCell(item: NumpadItem(value: .normal), controller: controller)
-                .frame(width: 120, height: 80)
-                .previewLayout(.sizeThatFits)
-            NumpadCell(item: NumpadItem(value: .normal), controller: controller)
-                .frame(width: 120, height: 80)
                 .previewLayout(.sizeThatFits)
         }
     }
