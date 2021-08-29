@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct NumpadCellButtonStyle: ButtonStyle {
+struct RowNumpadCellButtonStyle: ButtonStyle {
     let hidden: Bool
     let selected: Bool
     
@@ -13,10 +13,7 @@ struct NumpadCellButtonStyle: ButtonStyle {
     }
 }
 
-
-typealias NumpadCellAction = (NumpadItem) -> Void
-
-struct NumpadCell: View {
+struct RowNumpadCell: View {
     
     @ObservedObject var item: NumpadItem
     var controller: GameController
@@ -44,7 +41,7 @@ struct NumpadCell: View {
                 .font(Font.title)
                 .foregroundColor(self.item.hidden ? Color.sFixed : Color.sText)
         }
-        .buttonStyle(NumpadCellButtonStyle(hidden: self.item.hidden, selected: self.item.selected))
+        .buttonStyle(RowNumpadCellButtonStyle(hidden: self.item.hidden, selected: self.item.selected))
     }
 }
 
@@ -54,7 +51,7 @@ struct NumpadCell_Previews: PreviewProvider {
 
     static var previews: some View {
         Group {
-            NumpadCell(item: NumpadItem(value: .number(1)), controller: controller)
+            RowNumpadCell(item: NumpadItem(value: .number(1)), controller: controller)
                 .frame(width: 80, height: 80)
                 .previewLayout(.sizeThatFits)
         }

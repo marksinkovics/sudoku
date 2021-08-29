@@ -65,15 +65,12 @@ struct BoardCell: View {
             }
             .background(self.backgroundColor())
             .simultaneousGesture(LongPressGesture().onEnded { event in
-                debugPrint("Long tap")
                 self.action(.long, geometry.frame(in: .global))
             })
             .simultaneousGesture(SimultaneousGesture(TapGesture(count: 1), TapGesture(count: 2)).onEnded { gestures in
                 if gestures.second != nil {
-                    debugPrint("Double tap")
                     self.action(.double, geometry.frame(in: .global))
                 } else if gestures.first != nil {
-                    debugPrint("Single tap")
                     self.action(.single, geometry.frame(in: .global))
                 }
             })

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct Numpad: View {
+struct RowNumpad: View {
     
     let controller: GameController
     let spacing: CGFloat = 4
@@ -12,7 +12,7 @@ struct Numpad: View {
     var body: some View {
         HStack {
             ForEach(0..<9, id: \.self) { index in
-                NumpadCell(item: self.controller.numpadItems[index], controller: self.controller)
+                RowNumpadCell(item: self.controller.numpadItems[index], controller: self.controller)
                     .aspectRatio(1, contentMode: .fit)
             }
         }
@@ -24,7 +24,7 @@ struct Numpad_Previews: PreviewProvider {
     private static var controller: GameController = GameController()
 
     static var previews: some View {
-        Numpad(controller: controller)
+        RowNumpad(controller: controller)
             .aspectRatio(7/4, contentMode: .fit)
     }
 }

@@ -17,15 +17,15 @@
 		1190F9E72404A520001A940F /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1190F9E62404A520001A940F /* Board.swift */; };
 		1190F9EB2407E367001A940F /* BoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1190F9EA2407E367001A940F /* BoardCell.swift */; };
 		1190F9EE2408967E001A940F /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1190F9ED2408967E001A940F /* Item.swift */; };
-		1190F9F6240B5930001A940F /* Numpad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1190F9F5240B5930001A940F /* Numpad.swift */; };
+		1190F9F6240B5930001A940F /* RowNumpad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1190F9F5240B5930001A940F /* RowNumpad.swift */; };
 		1190F9F9240C5B1C001A940F /* BoardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1190F9F8240C5B1C001A940F /* BoardData.swift */; };
 		1190FA0A240C64A6001A940F /* BoardDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1190FA09240C64A6001A940F /* BoardDataTests.swift */; };
 		C30A7C2C2466DB6300423889 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C2B2466DB6300423889 /* BackButton.swift */; };
 		C30A7C32246854F200423889 /* Color+Sudoku.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C31246854F200423889 /* Color+Sudoku.swift */; };
 		C30A7C342468673900423889 /* HiddenModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C332468673900423889 /* HiddenModifier.swift */; };
-		C30A7C362468A31500423889 /* NumpadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C352468A31500423889 /* NumpadCell.swift */; };
+		C30A7C362468A31500423889 /* RowNumpadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C352468A31500423889 /* RowNumpadCell.swift */; };
 		C30A7C382468A59100423889 /* NumpadItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7C372468A59100423889 /* NumpadItem.swift */; };
-		C32D6E21266B36B800E7DC82 /* FloatingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D6E20266B36B800E7DC82 /* FloatingMenu.swift */; };
+		C32D6E21266B36B800E7DC82 /* ArcNumpad.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D6E20266B36B800E7DC82 /* ArcNumpad.swift */; };
 		C32D6E25266BE69800E7DC82 /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D6E24266BE69800E7DC82 /* Debug.swift */; };
 		C34F79A6266EFE8F009F4C41 /* Shape+Fill.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34F79A5266EFE8F009F4C41 /* Shape+Fill.swift */; };
 		C368AC6D243760690076BB88 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C368AC6C243760690076BB88 /* HomeView.swift */; };
@@ -65,7 +65,7 @@
 		1190F9E62404A520001A940F /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		1190F9EA2407E367001A940F /* BoardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardCell.swift; sourceTree = "<group>"; };
 		1190F9ED2408967E001A940F /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		1190F9F5240B5930001A940F /* Numpad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Numpad.swift; sourceTree = "<group>"; };
+		1190F9F5240B5930001A940F /* RowNumpad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowNumpad.swift; sourceTree = "<group>"; };
 		1190F9F8240C5B1C001A940F /* BoardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardData.swift; sourceTree = "<group>"; };
 		1190F9FE240C6458001A940F /* SudokuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudokuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1190FA02240C6458001A940F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -73,9 +73,9 @@
 		C30A7C2B2466DB6300423889 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		C30A7C31246854F200423889 /* Color+Sudoku.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Sudoku.swift"; sourceTree = "<group>"; };
 		C30A7C332468673900423889 /* HiddenModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenModifier.swift; sourceTree = "<group>"; };
-		C30A7C352468A31500423889 /* NumpadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadCell.swift; sourceTree = "<group>"; };
+		C30A7C352468A31500423889 /* RowNumpadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowNumpadCell.swift; sourceTree = "<group>"; };
 		C30A7C372468A59100423889 /* NumpadItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadItem.swift; sourceTree = "<group>"; };
-		C32D6E20266B36B800E7DC82 /* FloatingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingMenu.swift; sourceTree = "<group>"; };
+		C32D6E20266B36B800E7DC82 /* ArcNumpad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcNumpad.swift; sourceTree = "<group>"; };
 		C32D6E24266BE69800E7DC82 /* Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		C34F79A5266EFE8F009F4C41 /* Shape+Fill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shape+Fill.swift"; sourceTree = "<group>"; };
 		C368AC6C243760690076BB88 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -228,9 +228,9 @@
 		C3218BAF26CCB5CE004E4CF4 /* Numpad */ = {
 			isa = PBXGroup;
 			children = (
-				1190F9F5240B5930001A940F /* Numpad.swift */,
-				C30A7C352468A31500423889 /* NumpadCell.swift */,
-				C32D6E20266B36B800E7DC82 /* FloatingMenu.swift */,
+				1190F9F5240B5930001A940F /* RowNumpad.swift */,
+				C30A7C352468A31500423889 /* RowNumpadCell.swift */,
+				C32D6E20266B36B800E7DC82 /* ArcNumpad.swift */,
 				C3C37868267F85A600F65AB4 /* ArcNumpadView.swift */,
 				C3C3786A267F863200F65AB4 /* ArcNumpadUIView.swift */,
 			);
@@ -362,12 +362,12 @@
 				C3C3786B267F863200F65AB4 /* ArcNumpadUIView.swift in Sources */,
 				C3C36A642437FAC000F96CBB /* SettingsView.swift in Sources */,
 				C3D0E5B9242041DC00DE7FFA /* Solver.swift in Sources */,
-				C30A7C362468A31500423889 /* NumpadCell.swift in Sources */,
+				C30A7C362468A31500423889 /* RowNumpadCell.swift in Sources */,
 				1190F9D02403445D001A940F /* AppDelegate.swift in Sources */,
 				C368AC6D243760690076BB88 /* HomeView.swift in Sources */,
 				C3AE5FF4245C6F7400F2DAC0 /* LazyView.swift in Sources */,
 				C3D0E5BF24243B2F00DE7FFA /* GameController.swift in Sources */,
-				1190F9F6240B5930001A940F /* Numpad.swift in Sources */,
+				1190F9F6240B5930001A940F /* RowNumpad.swift in Sources */,
 				C30A7C32246854F200423889 /* Color+Sudoku.swift in Sources */,
 				C30A7C342468673900423889 /* HiddenModifier.swift in Sources */,
 				1190F9D22403445D001A940F /* SceneDelegate.swift in Sources */,
@@ -382,7 +382,7 @@
 				1190F9EE2408967E001A940F /* Item.swift in Sources */,
 				1190F9EB2407E367001A940F /* BoardCell.swift in Sources */,
 				C386A5662464258600DEEDE3 /* MenuItemView.swift in Sources */,
-				C32D6E21266B36B800E7DC82 /* FloatingMenu.swift in Sources */,
+				C32D6E21266B36B800E7DC82 /* ArcNumpad.swift in Sources */,
 				1190F9D42403445D001A940F /* ContentView.swift in Sources */,
 				C34F79A6266EFE8F009F4C41 /* Shape+Fill.swift in Sources */,
 				C3C37869267F85A600F65AB4 /* ArcNumpadView.swift in Sources */,

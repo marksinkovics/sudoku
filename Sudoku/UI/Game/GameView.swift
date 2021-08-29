@@ -83,7 +83,7 @@ struct GameView: View {
                     }
                 Spacer()
                 if self.userSettings.numpadType == .row {
-                    Numpad(controller: controller)
+                    RowNumpad(controller: controller)
                         .frame(maxWidth: .infinity, maxHeight: 100)
                         .padding([.top], 20)
                         .padding([.bottom], 40)
@@ -114,7 +114,7 @@ struct GameView: View {
             }
             
             if showFloatingMenu && userSettings.numpadType == .arc {
-                FloatingMenu(frame: self.showFloatingMenuFrame)
+                ArcNumpad(frame: self.showFloatingMenuFrame)
                     .dismiss {
                         self.showFloatingMenu.toggle()
                     }

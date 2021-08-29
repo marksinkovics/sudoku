@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct FloatingMenu: View {
+struct ArcNumpad: View {
     
     let frame: CGRect
     
@@ -47,6 +47,6 @@ struct FloatingMenu: View {
 
 struct FloatingMenu_Previews: PreviewProvider {
     static var previews: some View {
-        FloatingMenu(frame: .zero)
+        ArcNumpad(frame: .zero)
     }
 }
