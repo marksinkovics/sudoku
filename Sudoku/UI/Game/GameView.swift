@@ -47,8 +47,8 @@ struct GameView: View {
     @State var showingAlert: Bool = false
     @State var showingCongratsAlert: Bool = false
     @State var showingResettingAlert: Bool = false
-    @State var showFloatingMenu: Bool = false
-    @State var showFloatingMenuFrame: CGRect = .zero
+//    @State var showArcNumpad: Bool = false
+//    @State var showArcNumpadFrame: CGRect = .zero
     
     @State private var boardMaxWidth: CGFloat?
         
@@ -72,10 +72,10 @@ struct GameView: View {
                     .hightlightRow(userSettings.higlightRow)
                     .hightlightColumn(userSettings.highlightColumn)
                     .hightlightBlock(userSettings.highlightBlock)
-                    .longTap { frame in
-                        self.showFloatingMenuFrame = frame
-                        self.showFloatingMenu.toggle()
-                    }
+//                    .longTap { frame in
+//                        self.showArcNumpadFrame = frame
+//                        self.showArcNumpad.toggle()
+//                    }
                     .aspectRatio(1.0, contentMode: .fit)
                     .modifier(SizeModifier())
                     .onPreferenceChange(SizePreferenceKey.self) {
@@ -113,19 +113,19 @@ struct GameView: View {
                              message: Text("You solved this Sudoku\non level \(controller.data.difficulty.description) 👏"))
             }
             
-            if showFloatingMenu && userSettings.numpadType == .arc {
-                ArcNumpad(frame: self.showFloatingMenuFrame)
-                    .dismiss {
-                        self.showFloatingMenu.toggle()
-                    }
-                    .selected { key in
-                        if case .numpad(let value) = key {
-                            self.controller.set(number: value)
-                        } else {
-                            self.controller.delete()
-                        }
-                    }
-            }
+//            if showFloatingMenu && userSettings.numpadType == .arc {
+//                ArcNumpad(frame: self.showFloatingMenuFrame)
+//                    .dismiss {
+//                        self.showFloatingMenu.toggle()
+//                    }
+//                    .selected { key in
+//                        if case .numpad(let value) = key {
+//                            self.controller.set(number: value)
+//                        } else {
+//                            self.controller.delete()
+//                        }
+//                    }
+//            }
 
         }
         .navigationBarTitle(controller.data.difficulty.description, displayMode: .inline)

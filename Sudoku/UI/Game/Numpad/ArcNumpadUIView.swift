@@ -1,16 +1,20 @@
 import UIKit
-import SwiftUI
 
 enum ArcNumpadDirection {
-    case left, right
+    case left, right, top, bottom, topLeft, topRight, bottomLeft, bottomRight
         
     var text: String {
         switch self {
             case .right: return "RIGHT"
             case .left: return "LEFT"
+            case .top: return "TOP"
+            case .bottom: return "BOTTOM"
+            case .topLeft: return "TOP LEFT"
+            case .topRight: return "TOP RIGHT"
+            case .bottomLeft: return "BOTTOM LEFT"
+            case .bottomRight: return "BOTTOM RIGHT"
         }
     }
-
 }
 
 enum ArcNumpadKey {
@@ -30,7 +34,7 @@ protocol ArcNumpadUIViewDelegate: AnyObject {
 }
 
 class ArcNumpadUIView: UIView {
-    
+        
     private struct Constants {
         static let numberOfTiles = 5
         static let lineWidth: CGFloat = 2.0
@@ -46,9 +50,22 @@ class ArcNumpadUIView: UIView {
         static var outlineColor: UIColor = .black
         static var counterColor: UIColor = .white
         static var selectedColor: UIColor = .yellow
-        static let startAngle: CGFloat = 3 * .pi / 4 //135
-        static let endAngle: CGFloat = -(.pi / 2) //-45
-        static let angleDifference: CGFloat = 2 * .pi - startAngle + endAngle
+        static let angleDifference: Angle = Angle(degrees: 120)
+        static let startAngle: Angle = Angle(degrees: 180)
+        static let endAngle: Angle = startAngle + angleDifference
+        
+        static func directionOffsetAngle(direction: ArcNumpadDirection) -> Angle {
+            switch direction {
+                case .right: return Angle(radians: 0)
+                case .left: return -Constants.angleDifference - Angle.pi / 2
+                case .top: return -Constants.angleDifference - Angle.pi / 2
+                case .bottom: return -Constants.angleDifference - Angle.pi / 2
+                case .topLeft: return -Constants.angleDifference - Angle.pi / 2
+                case .topRight: return -Constants.angleDifference - Angle.pi / 2
+                case .bottomLeft: return -Constants.angleDifference - Angle.pi / 2
+                case .bottomRight: return -Constants.angleDifference - Angle.pi / 2
+            }
+        }
 
     }
     
@@ -70,7 +87,6 @@ class ArcNumpadUIView: UIView {
             self.textPosition = textPosition
             self.selectedTextPosition = selectedTextPosition
         }
-
     }
     
     var touchLocation: CGPoint = .zero
@@ -100,15 +116,6 @@ class ArcNumpadUIView: UIView {
             self.tiles = generateTiles()
         }
     }
-    
-    func rad2deg(_ number: CGFloat) -> CGFloat {
-        return number * 180.0 / .pi
-    }
-
-    func deg2rad(_ number: CGFloat) -> CGFloat {
-        return number * .pi / 180.0
-    }
-
         
     //
     // Touches
@@ -175,6 +182,19 @@ class ArcNumpadUIView: UIView {
         let y: CGFloat = center.y + radius * sin(angle)
         return CGPoint(x: x, y: y)
     }
+    
+    var directionOffsetAngle: Angle {
+        switch direction {
+            case .right: return Angle(radians: 0)
+            case .left: return -Constants.angleDifference - Angle.pi / 2
+            case .top: return -Constants.angleDifference - Angle.pi / 2
+            case .bottom: return -Constants.angleDifference - Angle.pi / 2
+            case .topLeft: return -Constants.angleDifference - Angle.pi / 2
+            case .topRight: return -Constants.angleDifference - Angle.pi / 2
+            case .bottomLeft: return -Constants.angleDifference - Angle.pi / 2
+            case .bottomRight: return -Constants.angleDifference - Angle.pi / 2
+        }
+    }
 
     
     func textPositionAngle(forRow row: Int, column: Int, selected: Bool) -> (position: CGPoint, angle: CGFloat, radius: CGFloat) {
@@ -182,14 +202,13 @@ class ArcNumpadUIView: UIView {
         let radius = max(bounds.midX, bounds.midY) - Constants.selectedArcWidthOffset
 
         let offsetRadius = CGFloat(row) * Constants.arcWidth
-        let arcLengthPerTile = Constants.angleDifference / CGFloat(Constants.numberOfTiles)
-        let directionOffsetAngle: CGFloat = direction == .left ? -Constants.angleDifference - (.pi / 2)  : 0
-        let textAngle = Constants.startAngle + directionOffsetAngle + (CGFloat(column) * arcLengthPerTile) + (arcLengthPerTile / 2)
+        let anglePerTile = Constants.angleDifference / Constants.numberOfTiles
+        let textAngle = Constants.startAngle + directionOffsetAngle + (anglePerTile * column) + (anglePerTile / 2)
 
         let textRadius  = radius - Constants.arcWidth / 3 - offsetRadius + (selected ? Constants.selectedArcWidthOffset / 2 : 0)
         
-        let position = point(angle: textAngle, radius: textRadius, center: center)
-        return (position, textAngle, textRadius)
+        let position = point(angle: textAngle.radians, radius: textRadius, center: center)
+        return (position, textAngle.radians, textRadius)
     }
     
     func tilePath(forRow row: Int, column: Int, selected: Bool) -> UIBezierPath {
@@ -198,15 +217,14 @@ class ArcNumpadUIView: UIView {
         
         let arcWidth = Constants.arcWidth
         let offsetRadius = CGFloat(row) * arcWidth
-        let arcLengthPerTile = Constants.angleDifference / CGFloat(Constants.numberOfTiles)
+        let anglePerTile = Constants.angleDifference / Constants.numberOfTiles
         let tileRadius  = radius - arcWidth / 2 - offsetRadius + (selected ? Constants.selectedArcWidthOffset / 2 : 0)
         
-        let selectedAngleOffset = selected ? deg2rad(4) : 0
-        let directionOffsetAngle: CGFloat = direction == .left ? -Constants.angleDifference - (.pi / 2)  : 0
-        let tileStartAngle = Constants.startAngle + directionOffsetAngle + (CGFloat(column) * arcLengthPerTile) - selectedAngleOffset
-        let tileEndAngle = Constants.startAngle + directionOffsetAngle + (CGFloat((column + 1)) * arcLengthPerTile) + selectedAngleOffset
+        let selectedAngleOffset = selected ? Angle(degrees: 4) : Angle(radians: 0)
+        let tileStartAngle = Constants.startAngle + directionOffsetAngle + (anglePerTile * column ) - selectedAngleOffset
+        let tileEndAngle = Constants.startAngle + directionOffsetAngle + (anglePerTile * (column + 1) ) + selectedAngleOffset
         
-        let path = UIBezierPath(arcCenter: center, radius: tileRadius, startAngle: tileStartAngle, endAngle: tileEndAngle, clockwise: true)
+        let path = UIBezierPath(arcCenter: center, radius: tileRadius, startAngle: tileStartAngle.radians, endAngle: tileEndAngle.radians, clockwise: true)
         path.lineWidth = arcWidth + (selected ? Constants.selectedArcWidthOffset : 0)
         return path
     }
@@ -217,17 +235,16 @@ class ArcNumpadUIView: UIView {
         let arcWidth = Constants.arcWidth
         
         let offsetRadius = CGFloat(row) * arcWidth
-        let angleParTile = Constants.angleDifference / CGFloat(Constants.numberOfTiles)
+        let anglePerTile = Constants.angleDifference / Constants.numberOfTiles
         
-        let selectedAngleOffset = selected ? deg2rad(4) : 0
-        let directionOffsetAngle: CGFloat = direction == .left ? -Constants.angleDifference - (.pi / 2)  : 0
-        let outlineStartAngle = Constants.startAngle + directionOffsetAngle + (CGFloat(column) * angleParTile) - selectedAngleOffset
-        let outlineEndAngle = Constants.startAngle + directionOffsetAngle + (CGFloat((column + 1)) * angleParTile) + selectedAngleOffset
+        let selectedAngleOffset = selected ? Angle(degrees: 4) : Angle(radians: 0)
+        let outlineStartAngle = Constants.startAngle + directionOffsetAngle + (anglePerTile * column) - selectedAngleOffset
+        let outlineEndAngle = Constants.startAngle + directionOffsetAngle + (anglePerTile * (column + 1)) + selectedAngleOffset
         
         let outerArcRadius = radius - Constants.halfOfLineWidth - offsetRadius + (selected ? Constants.selectedArcWidthOffset : 0)
-        let outlinePath = UIBezierPath(arcCenter: center, radius: outerArcRadius, startAngle: outlineStartAngle, endAngle: outlineEndAngle, clockwise: true)
+        let outlinePath = UIBezierPath(arcCenter: center, radius: outerArcRadius, startAngle: outlineStartAngle.radians, endAngle: outlineEndAngle.radians, clockwise: true)
         let innerArcRadius = radius - arcWidth + Constants.halfOfLineWidth - offsetRadius
-        outlinePath.addArc(withCenter: center, radius: innerArcRadius, startAngle: outlineEndAngle, endAngle: outlineStartAngle, clockwise: false)
+        outlinePath.addArc(withCenter: center, radius: innerArcRadius, startAngle: outlineEndAngle.radians, endAngle: outlineStartAngle.radians, clockwise: false)
         outlinePath.close()
         outlinePath.lineWidth = Constants.lineWidth
         return outlinePath

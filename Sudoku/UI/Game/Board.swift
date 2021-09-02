@@ -1,14 +1,11 @@
 import SwiftUI
 
-struct BoardWidthPreferenceKey: PreferenceKey {
-    typealias Value = CGFloat
-
-    static var defaultValue: CGFloat = 0
-
-    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
-        value = nextValue()
+extension CGRect {
+    var mid: CGPoint {
+        CGPoint(x: self.midX, y: self.midY)
     }
 }
+
 struct Board: View {
     
     let controller: GameController
@@ -19,23 +16,24 @@ struct Board: View {
         self.controller = controller
         self.boardData = controller.data
     }
-    
 
     var body: some View {
         GeometryReader { geometry in
-            GridStack(rows: 3, columns: 3, spacing: 4) { outerRow, outerColumn in
+            GridStack(rows: 3, columns: 3, spacing: 4, content: { outerRow, outerColumn in
                 GridStack(rows: 3, columns: 3) { row, column in
-                    BoardCell(item: self.boardData[ (3 * outerRow) + row, (3 * outerColumn) + column])
-                        .action() { type, frame in
-                            let selecterRow = (3 * outerRow) + row
-                            let selectedColumn = (3 * outerColumn) + column
-                            self.controller.select(row: selecterRow, column: selectedColumn)
-                            if type == .long || type == .double {
-                                self.longTapAction(frame)
+                    GeometryReader { cellGeometry in
+                        let selecterRow = (3 * outerRow) + row
+                        let selectedColumn = (3 * outerColumn) + column
+                        BoardCell(item: self.boardData[selecterRow, selectedColumn])
+                            .action() { type, frame in
+                                self.controller.select(row: selecterRow, column: selectedColumn)
+//                                if type == .long || type == .double {
+//                                    self.longTapAction(frame)
+//                                }
                             }
                         }
                 }
-            }
+            })
         }
         .scaledToFill()
     }

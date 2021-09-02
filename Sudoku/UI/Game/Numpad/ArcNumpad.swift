@@ -8,26 +8,22 @@ struct ArcNumpad: View {
     var selected: (_ key: ArcNumpadKey) -> Void = { _ in }
     
     var body: some View {
-        
-        let size = frame.height * 4
+        let size: CGFloat = max(250, frame.height * 5)
         let direction: ArcNumpadDirection = frame.minX - (size / 2) < 0 ? .left : .right
-        let offsetX: CGFloat = 0
-        // numpad size - cell size / 2 + cell border * 2
-        let offsetY: CGFloat = -(size / 2 - (frame.height / 2))
-        
 
-        GeometryReader { geometry in
-            ZStack {
-                Rectangle()
-                    .edgesIgnoringSafeArea(.all)
-                    .foregroundColor(Color.black.opacity(0.01))
-                    .onTapGesture(perform: self.dismiss)
-                ArcNumpadView(direction: direction)
-                    .action(selected)
-                    .frame(width: frame.height * 4, height: frame.height * 4)
-                    .position(x: frame.midX + offsetX, y: frame.midY + offsetY)
-            }
+        ZStack {
+            Rectangle()
+                .foregroundColor(Color.black.opacity(0.01))
+                .edgesIgnoringSafeArea(.all)
+                .onTapGesture(perform: self.dismiss)
+            ArcNumpadView(direction: direction)
+                .action(selected)
+                .background(Color.red.opacity(0.5))
+                .frame(width: size, height: size)
+                .position(x: frame.midX , y: frame.midY + 4)
         }
+        .edgesIgnoringSafeArea(.all)
+
     }
 
     func dismiss(action: @escaping () -> Void) -> Self {
@@ -47,6 +43,16 @@ struct ArcNumpad: View {
 
 struct FloatingMenu_Previews: PreviewProvider {
     static var previews: some View {
-        ArcNumpad(frame: .zero)
+        ArcNumpad(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+            .dismiss {
+                debugPrint("dismiss")
+            }
+            .selected { key in
+                if case .numpad(let value) = key {
+                    debugPrint("value: \(value) is pressed")
+                } else {
+                    debugPrint("delete is pressed")
+                }
+            }
     }
 }

@@ -32,6 +32,8 @@
 		C368AC6F243760780076BB88 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C368AC6E243760780076BB88 /* GameView.swift */; };
 		C36956A7248BEFB500FBDFCE /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36956A6248BEFB500FBDFCE /* UserSettings.swift */; };
 		C386A5662464258600DEEDE3 /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C386A5652464258600DEEDE3 /* MenuItemView.swift */; };
+		C3A152B026DC2A7B00BDA451 /* Angle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A152AF26DC2A7B00BDA451 /* Angle.swift */; };
+		C3A152B226E0478D00BDA451 /* Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A152B126E0478D00BDA451 /* Features.swift */; };
 		C3AE5FF4245C6F7400F2DAC0 /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE5FF3245C6F7400F2DAC0 /* LazyView.swift */; };
 		C3C36A642437FAC000F96CBB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C36A632437FAC000F96CBB /* SettingsView.swift */; };
 		C3C37869267F85A600F65AB4 /* ArcNumpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C37868267F85A600F65AB4 /* ArcNumpadView.swift */; };
@@ -82,6 +84,8 @@
 		C368AC6E243760780076BB88 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		C36956A6248BEFB500FBDFCE /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		C386A5652464258600DEEDE3 /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
+		C3A152AF26DC2A7B00BDA451 /* Angle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Angle.swift; sourceTree = "<group>"; };
+		C3A152B126E0478D00BDA451 /* Features.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features.swift; sourceTree = "<group>"; };
 		C3AE5FF3245C6F7400F2DAC0 /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
 		C3C36A632437FAC000F96CBB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C3C37868267F85A600F65AB4 /* ArcNumpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcNumpadView.swift; sourceTree = "<group>"; };
@@ -142,6 +146,7 @@
 				1190F9D524034461001A940F /* Assets.xcassets */,
 				1190F9DA24034461001A940F /* LaunchScreen.storyboard */,
 				1190F9DD24034461001A940F /* Info.plist */,
+				C3A152B126E0478D00BDA451 /* Features.swift */,
 			);
 			path = Sudoku;
 			sourceTree = "<group>";
@@ -221,6 +226,7 @@
 				C30A7C31246854F200423889 /* Color+Sudoku.swift */,
 				C30A7C332468673900423889 /* HiddenModifier.swift */,
 				C34F79A5266EFE8F009F4C41 /* Shape+Fill.swift */,
+				C3A152AF26DC2A7B00BDA451 /* Angle.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -380,7 +386,9 @@
 				C32D6E25266BE69800E7DC82 /* Debug.swift in Sources */,
 				1190F9F9240C5B1C001A940F /* BoardData.swift in Sources */,
 				1190F9EE2408967E001A940F /* Item.swift in Sources */,
+				C3A152B026DC2A7B00BDA451 /* Angle.swift in Sources */,
 				1190F9EB2407E367001A940F /* BoardCell.swift in Sources */,
+				C3A152B226E0478D00BDA451 /* Features.swift in Sources */,
 				C386A5662464258600DEEDE3 /* MenuItemView.swift in Sources */,
 				C32D6E21266B36B800E7DC82 /* ArcNumpad.swift in Sources */,
 				1190F9D42403445D001A940F /* ContentView.swift in Sources */,

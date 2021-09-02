@@ -28,14 +28,14 @@ struct SettingsView: View {
                     }
                 }
             }
-
-            Section(header: Text("Numpad type")) {
-                Picker(selection: $userSettings.numpadType, label: Text("Numpad type")) {
-                    ForEach(UserSettings.NumpadType.allCases, id: \.self) {
-                        Text($0.description).foregroundColor(Color.sText)
-                    }
-                }
-            }
+            
+//            Section(header: Text("Numpad type")) {
+//                Picker(selection: $userSettings.numpadType, label: Text("Numpad type")) {
+//                    ForEach(UserSettings.NumpadType.allCases, id: \.self) {
+//                        Text($0.description).foregroundColor(Color.sText)
+//                    }
+//                }
+//            }
 
             Section(header: Text("Privacy")) {
                 HStack {
