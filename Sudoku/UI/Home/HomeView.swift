@@ -126,16 +126,28 @@ struct HomeView: View {
         NavigationView {
             VStack(alignment: .center, spacing: 0) {
                 Spacer()
+                Text("SUDOKU")
+                    .font(.system(size: 48, weight: .black, design: .rounded))
+                    .foregroundColor(Color.App.Home.title)
+                Text("a puzzle game")
+                    .font(.system(size: 24, weight: .black, design: .rounded))
+                    .foregroundColor(Color.App.Home.title)
+                Spacer()
                 MenuItemView("New game") { self.showingActionSheet = true }
                     .padding(30)
                 MenuItemView("Continue", enabled: self.$isContinueActive) { show(option: .continue) }
                     .padding(30)
-                MenuItemView("Settings") { show(option: .settings) }
+                MenuItemView("Settings", style: .secondary) { show(option: .settings) }
+                    .padding(.top, 130)
                     .padding(30)
                 NavigationLink("", destination: MenuOptions.buildView(for: selectedOption), isActive: $showDetail)
                     .opacity(0)
                 Spacer()
             }
+            .navigationBarHidden(true)
+            
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.App.background)
             .edgesIgnoringSafeArea(.all)
             .actionSheet(isPresented: $showingActionSheet) {
                 ActionSheet(title: Text("Select the difficulty"), buttons: [
@@ -152,6 +164,7 @@ struct HomeView: View {
                 self.isContinueActive = self.hasSavedGame()
             }
         }
+        .background(Color.App.background)
         .navigationViewStyle(StackNavigationViewStyle())
     }
 }
