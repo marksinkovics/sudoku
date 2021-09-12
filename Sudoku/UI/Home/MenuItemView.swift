@@ -16,6 +16,7 @@ struct MenuItemViewButtonStyle: ButtonStyle {
                     style.button_shadow.frame(height: 10)
                 }
                 .frame(width: style.width, height: style.height)
+                .cornerRadius(5)
             )
             .scaleEffect(configuration.isPressed && enabled ? 0.9 : 1.0)
     }

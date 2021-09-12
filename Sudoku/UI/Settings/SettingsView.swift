@@ -9,26 +9,28 @@ struct SettingsView: View {
     let privacyPolicyURL = URL(string: "https://marksinkovics.com/projects/sudoku/privacy-policy")!
     
     init() {
-        UITableView.appearance().backgroundColor = UIColor.sBackground
-        UITableViewCell.appearance().backgroundColor = UIColor.sCellBackground
-        UISwitch.appearance().onTintColor = UIColor.sSwitchColor
+        UITableView.appearance().backgroundColor = UIColor.App.List.background
     }
         
     var body: some View {
         Form {
             Section(header: Text("Highlight")) {
                 Toggle(isOn: $userSettings.higlightRow) { Text("Row") }
+                    .toggleStyle(SwitchToggleStyle(tint: Color.App.Home.secondary_button_background))
                 Toggle(isOn: $userSettings.highlightColumn) { Text("Column") }
+                    .toggleStyle(SwitchToggleStyle(tint: Color.App.Home.secondary_button_background))
                 Toggle(isOn: $userSettings.highlightBlock) { Text("Block") }
+                    .toggleStyle(SwitchToggleStyle(tint: Color.App.Home.secondary_button_background))
             }
+            .listRowBackground(Color.App.List.cellBackground)
+            
             Section(header: Text("Appearance")) {
-                Picker(selection: $userSettings.appereance, label: Text("Appearances")) {
-                    ForEach(UserSettings.Appereance.allCases, id: \.self) {
-                        Text($0.description).foregroundColor(Color.sText)
-                    }
+                SPicker(selection: $userSettings.appereance, label: "Appearances", items: UserSettings.Appereance.allCases) {
+                    Text($0.description).foregroundColor(Color.sText)
                 }
             }
-            
+            .listRowBackground(Color.App.List.cellBackground)
+
 //            Section(header: Text("Numpad type")) {
 //                Picker(selection: $userSettings.numpadType, label: Text("Numpad type")) {
 //                    ForEach(UserSettings.NumpadType.allCases, id: \.self) {
@@ -36,6 +38,7 @@ struct SettingsView: View {
 //                    }
 //                }
 //            }
+//            .listRowBackground(Color.App.background)
 
             Section(header: Text("Privacy")) {
                 HStack {
@@ -43,6 +46,8 @@ struct SettingsView: View {
                     Spacer()
                 }
             }
+            .listRowBackground(Color.App.List.cellBackground)
+            
             Section(header: Text("About")) {
                 HStack {
                     Button("Visit the project's website") { UIApplication.shared.open(self.projectPageURL) }
@@ -59,9 +64,11 @@ struct SettingsView: View {
                     Text(Bundle.main.buildVersionNumber)
                 }
             }
+            .listRowBackground(Color.App.List.cellBackground)
         }
-        .background(Color.green)
         .listStyle(GroupedListStyle())
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitle("Settings")
     }
 }
 

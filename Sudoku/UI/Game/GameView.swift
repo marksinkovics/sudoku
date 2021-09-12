@@ -39,7 +39,6 @@ struct SizeModifier: ViewModifier {
     }
 }
 
-
 struct GameView: View {
         
     @ObservedObject var controller: GameController
@@ -66,6 +65,9 @@ struct GameView: View {
     
     var body: some View {
         ZStack {
+            Rectangle()
+                .fill(Color.App.background)
+                .ignoresSafeArea()
             VStack {
                 Spacer()
                 Board(controller: controller)
@@ -144,19 +146,13 @@ struct GameView: View {
                 }, label: {
                     Image(systemName: "arrow.counterclockwise")
                 })
-                                
                 Spacer()
-
                 Button(action: {
                     self.controller.delete()
                 }, label: {
-//                    Image(systemName: "arrow.uturn.left")
                     Image(systemName: "trash")
                 })
-
-                
                 Spacer()
-
                 Button(action: {
                     self.controller.draft.toggle()
                 }, label: {
@@ -172,7 +168,7 @@ struct GameView_Previews: PreviewProvider {
 
     static var previews: some View {
         GameView(state: .new(difficulty: .easy))
-        .environmentObject(userSettings)
-        .preferredColorScheme(.dark)
+            .environmentObject(userSettings)
+            .preferredColorScheme(.dark)
     }
 }

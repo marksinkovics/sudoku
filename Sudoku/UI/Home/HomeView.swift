@@ -145,7 +145,6 @@ struct HomeView: View {
                 Spacer()
             }
             .navigationBarHidden(true)
-            
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.App.background)
             .edgesIgnoringSafeArea(.all)

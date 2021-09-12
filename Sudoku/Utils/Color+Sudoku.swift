@@ -23,6 +23,12 @@ extension Color {
             static let secondary_button_shadow = Color("secondary_button_shadow")
             static let secondary_button_text = Color("secondary_button_text")
         }
+        
+        struct List {
+            static let background = Color("list_background")
+            static let cellBackground = Color("list_cell_background")
+            static let cellText = Color("list_cell_text")
+        }
     }
 }
 
@@ -37,7 +43,11 @@ extension UIColor {
     static let sSwitchColor = UIColor(named: "switch_color")!
     
     struct App {
+        
+        static let background = UIColor(named: "background")!
+
         struct Home {
+            static let title = UIColor(named: "title")!
             static let button_background = UIColor(named: "button_background")!
             static let button_shadow = UIColor(named: "button_shadow")!
             static let button_text = UIColor(named: "button_text")!
@@ -45,6 +55,13 @@ extension UIColor {
             static let secondary_button_shadow = UIColor(named: "secondary_button_shadow")!
             static let secondary_button_text = UIColor(named: "secondary_button_text")!
         }
+        
+        struct List {
+            static let background = UIColor(named: "list_background")
+            static let cellBackground = UIColor(named: "list_cell_background")
+            static let cellText = UIColor(named: "list_cell_text")
+        }
+
     }
 }
 
