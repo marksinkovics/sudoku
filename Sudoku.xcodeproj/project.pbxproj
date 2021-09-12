@@ -173,10 +173,10 @@
 				1190F9E424034560001A940F /* GridStack.swift */,
 				C3AE5FF3245C6F7400F2DAC0 /* LazyView.swift */,
 				C30A7C2B2466DB6300423889 /* BackButton.swift */,
+				C37F8ACA26E9B1F700C90E73 /* SPicker.swift */,
 				C386A562246423A400DEEDE3 /* Home */,
 				C386A5672464ECF400DEEDE3 /* Game */,
 				C30A7C2D2466E06900423889 /* Settings */,
-				C37F8ACA26E9B1F700C90E73 /* SPicker.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
