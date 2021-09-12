@@ -9,7 +9,7 @@ struct MenuItemViewButtonStyle: ButtonStyle {
         configuration
             .label
             .foregroundColor(enabled ? style.button_text : Color.sFixed)
-            .font(.system(size: 30, weight: .semibold, design: .rounded))
+            .font(style.font)
             .background(
                 VStack(spacing: 0) {
                     style.button_background
@@ -62,6 +62,13 @@ struct MenuItemView: View {
             case .secondary: return 250
             }
         }
+        
+        var font: Font {
+            switch self {
+            case .primary: return .system(size: 30, weight: .semibold, design: .rounded)
+            case .secondary: return .system(size: 25, weight: .semibold, design: .rounded)
+            }
+        }
     }
     
     let title: String
@@ -79,6 +86,7 @@ struct MenuItemView: View {
     var body: some View {
         Button(action: action) {
             Text(title)
+                .offset(CGSize(width: 0, height: -5))
         }
         .disabled(!enabled)
         .buttonStyle(MenuItemViewButtonStyle(style: style, enabled: enabled))
