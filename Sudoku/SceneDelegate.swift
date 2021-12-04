@@ -13,12 +13,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let userSettings = UserSettings()
         
-        // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView().environmentObject(userSettings)
-
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
+            let contentView = ContentView()
+                                    .environmentObject(userSettings)
+                                    .environmentObject(AppData(window: window))
             window.rootViewController = UIHostingController(rootView: contentView)
             window.overrideUserInterfaceStyle = userSettings.suggestedUserInterfaceStyle
             self.window = window

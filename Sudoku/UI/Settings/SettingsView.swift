@@ -8,6 +8,8 @@ struct SettingsView: View {
     let projectPageURL = URL(string: "https://marksinkovics.com/projects/sudoku")!
     let privacyPolicyURL = URL(string: "https://marksinkovics.com/projects/sudoku/privacy-policy")!
     
+    @State private var showDeleteSuccessToast = false
+    
     init() {
         UITableView.appearance().backgroundColor = UIColor.App.List.background
     }
@@ -48,6 +50,18 @@ struct SettingsView: View {
             }
             .listRowBackground(Color.App.List.cellBackground)
             
+            Section(header: Text("Game")) {
+                HStack {
+                    Button("Erase saved game") {
+                        GameController.cleanSaved()
+                        showDeleteSuccessToast = true
+                    }
+                    Spacer()
+                }
+            }
+            .listRowBackground(Color.App.List.cellBackground)
+
+                
             Section(header: Text("About")) {
                 HStack {
                     Button("Visit the project's website") { UIApplication.shared.open(self.projectPageURL) }
@@ -69,7 +83,9 @@ struct SettingsView: View {
         .listStyle(GroupedListStyle())
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle("Settings")
+        .toast(isPresenting: $showDeleteSuccessToast, duration: 1, toast: { CheckmarkToast() })
     }
+    
 }
 
 struct SettingsView_Previews: PreviewProvider {

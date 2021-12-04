@@ -13,7 +13,7 @@ struct RowNumpad: View {
         HStack {
             ForEach(0..<9, id: \.self) { index in
                 RowNumpadCell(item: self.controller.numpadItems[index], controller: self.controller)
-                    .aspectRatio(1, contentMode: .fit)
+                        .aspectRatio(1, contentMode: .fit)
             }
         }
     }

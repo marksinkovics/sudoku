@@ -18,7 +18,6 @@ extension View {
     }
 }
 
-
 struct ContentView: View {
     
     @EnvironmentObject var userSettings: UserSettings

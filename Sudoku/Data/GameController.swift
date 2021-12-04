@@ -206,4 +206,8 @@ class GameController: ObservableObject {
             return nil
         }
     }
+    
+    static func cleanSaved() {
+        UserDefaults.standard.removeObject(forKey: "saved")
+    }
 }
