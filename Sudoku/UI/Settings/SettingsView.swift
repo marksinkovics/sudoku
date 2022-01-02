@@ -10,6 +10,10 @@ struct SettingsView: View {
     
     @State private var showDeleteSuccessToast = false
     
+    #if DEBUG
+    @State var showingConfettiToast: Bool = false
+    #endif
+    
     init() {
         UITableView.appearance().backgroundColor = UIColor.App.List.background
     }
@@ -32,15 +36,6 @@ struct SettingsView: View {
                 }
             }
             .listRowBackground(Color.App.List.cellBackground)
-
-//            Section(header: Text("Numpad type")) {
-//                Picker(selection: $userSettings.numpadType, label: Text("Numpad type")) {
-//                    ForEach(UserSettings.NumpadType.allCases, id: \.self) {
-//                        Text($0.description).foregroundColor(Color.sText)
-//                    }
-//                }
-//            }
-//            .listRowBackground(Color.App.background)
 
             Section(header: Text("Privacy")) {
                 HStack {
@@ -79,6 +74,20 @@ struct SettingsView: View {
                 }
             }
             .listRowBackground(Color.App.List.cellBackground)
+            
+            #if DEBUG
+            Section(header: Text("Debug")) {
+                HStack {
+                    Button("Confetti") {
+                        self.showingConfettiToast = true
+                    }
+                    Spacer()
+                }
+                .toast(isPresenting: $showingConfettiToast, toast: { ConfettiToast(title: "Congrats!!!") })
+            }
+            .listRowBackground(Color.App.List.cellBackground)
+            #endif
+            
         }
         .listStyle(GroupedListStyle())
         .navigationBarTitleDisplayMode(.inline)

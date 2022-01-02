@@ -107,7 +107,7 @@ struct HomeView: View {
     @State private var showingActionSheet: Bool = false
     @State private var selectedOption: MenuOptions.Option = (id: UUID(), "", .easy)
     @State private var showDetail: Bool = false
-    
+
     func hasSavedGame() -> Bool {
         return GameController.load() != nil
     }

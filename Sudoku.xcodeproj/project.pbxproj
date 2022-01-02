@@ -46,6 +46,7 @@
 		C3EB804D275AD7410081A6C4 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB804C275AD7410081A6C4 /* VisualEffectView.swift */; };
 		C3EB804F275AD8F50081A6C4 /* CheckmarkToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB804E275AD8F50081A6C4 /* CheckmarkToast.swift */; };
 		C3EB8051275BEF800081A6C4 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB8050275BEF800081A6C4 /* AppData.swift */; };
+		C3EB8053275BF4390081A6C4 /* ConfettiToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB8052275BF4390081A6C4 /* ConfettiToast.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +103,7 @@
 		C3EB804C275AD7410081A6C4 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		C3EB804E275AD8F50081A6C4 /* CheckmarkToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckmarkToast.swift; sourceTree = "<group>"; };
 		C3EB8050275BEF800081A6C4 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
+		C3EB8052275BF4390081A6C4 /* ConfettiToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiToast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,6 +281,7 @@
 				C3EB804C275AD7410081A6C4 /* VisualEffectView.swift */,
 				C3EB804E275AD8F50081A6C4 /* CheckmarkToast.swift */,
 				C3A9BFED2759936600CB3B3B /* Toast.swift */,
+				C3EB8052275BF4390081A6C4 /* ConfettiToast.swift */,
 			);
 			path = Toast;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 				1190F9EB2407E367001A940F /* BoardCell.swift in Sources */,
 				C386A5662464258600DEEDE3 /* MenuItemView.swift in Sources */,
 				C37F8ACB26E9B1F700C90E73 /* SPicker.swift in Sources */,
+				C3EB8053275BF4390081A6C4 /* ConfettiToast.swift in Sources */,
 				C32D6E21266B36B800E7DC82 /* ArcNumpad.swift in Sources */,
 				1190F9D42403445D001A940F /* ContentView.swift in Sources */,
 				C34F79A6266EFE8F009F4C41 /* Shape+Fill.swift in Sources */,

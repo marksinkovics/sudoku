@@ -43,11 +43,9 @@ struct GameView: View {
         
     @ObservedObject var controller: GameController
     @EnvironmentObject var userSettings: UserSettings
-    @State var showingAlert: Bool = false
-    @State var showingCongratsAlert: Bool = false
+    @State var showingCongratsToast: Bool = false
     @State var showingResettingAlert: Bool = false
-//    @State var showArcNumpad: Bool = false
-//    @State var showArcNumpadFrame: CGRect = .zero
+    @State var showingSolveAllAlert: Bool = false
     
     @State private var boardMaxWidth: CGFloat?
         
@@ -74,10 +72,6 @@ struct GameView: View {
                     .hightlightRow(userSettings.higlightRow)
                     .hightlightColumn(userSettings.highlightColumn)
                     .hightlightBlock(userSettings.highlightBlock)
-//                    .longTap { frame in
-//                        self.showArcNumpadFrame = frame
-//                        self.showArcNumpad.toggle()
-//                    }
                     .aspectRatio(1.0, contentMode: .fit)
                     .modifier(SizeModifier())
                     .onPreferenceChange(SizePreferenceKey.self) {
@@ -94,51 +88,32 @@ struct GameView: View {
             }
             .padding([.horizontal])
             .onReceive(controller.$finished) {
-                self.showingCongratsAlert = $0
+                self.showingCongratsToast = $0
                 self.showingResettingAlert = false
-                self.showingAlert = $0
+        
             }
             .onReceive(controller.$shouldResettingAlert) {
                 self.showingResettingAlert = $0
-                self.showingCongratsAlert = false
-                self.showingAlert = $0
+                self.showingCongratsToast = false
             }
-            .alert(isPresented: $showingAlert) {
-                if self.showingResettingAlert {
-                    return Alert(title: Text("Reset the game board"),
-                                 message: Text("Are you sure you want to reset the game board? It cannot be undone."),
-                                 primaryButton: .destructive(Text("Reset"), action: { self.controller.reset() }),
-                                 secondaryButton: .default(Text("Cancel"), action: { self.controller.shouldResettingAlert = false }))
-                }
-                            
-                return Alert(title: Text("Congratulations 🎉"),
-                             message: Text("You solved this Sudoku\non level \(controller.data.difficulty.description) 👏"))
-            }
-            
-//            if showFloatingMenu && userSettings.numpadType == .arc {
-//                ArcNumpad(frame: self.showFloatingMenuFrame)
-//                    .dismiss {
-//                        self.showFloatingMenu.toggle()
-//                    }
-//                    .selected { key in
-//                        if case .numpad(let value) = key {
-//                            self.controller.set(number: value)
-//                        } else {
-//                            self.controller.delete()
-//                        }
-//                    }
-//            }
-
+            .toast(isPresenting: $showingCongratsToast, toast: { ConfettiToast(title: "Congrats!!!") })
         }
         .navigationBarTitle(controller.data.difficulty.description, displayMode: .inline)
         .navigationViewStyle(StackNavigationViewStyle())
         .toolbar {
             ToolbarItem() {
                 Button(action: {
-                    self.controller.solve()
+                    self.showingSolveAllAlert = true
                 }, label: {
                     Image(systemName: "wand.and.stars")
                 })
+                .alert(isPresented: $showingSolveAllAlert) {
+                    return Alert(title: Text("Solve"),
+                                 message: Text("Are you sure you want to auto-solve it all? It cannot be undone."),
+                                 primaryButton: .default(Text("Solve"), action: { self.controller.solve() }),
+                                 secondaryButton: .cancel { self.showingSolveAllAlert = false } )
+                }
+
             }
             ToolbarItemGroup(placement: .bottomBar) {
                 Button(action: {
@@ -146,6 +121,12 @@ struct GameView: View {
                 }, label: {
                     Image(systemName: "arrow.counterclockwise")
                 })
+                .alert(isPresented: $showingResettingAlert) {
+                    return Alert(title: Text("Reset the game board"),
+                                 message: Text("Are you sure you want to reset the game board? It cannot be undone."),
+                                 primaryButton:  .destructive(Text("Reset"), action: { self.controller.reset() }),
+                                 secondaryButton: .cancel { self.controller.shouldResettingAlert = false } )
+                }
                 Spacer()
                 Button(action: {
                     self.controller.delete()
