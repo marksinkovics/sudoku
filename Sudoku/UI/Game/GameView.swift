@@ -50,7 +50,7 @@ struct GameView: View {
     @State private var boardMaxWidth: CGFloat?
         
     public init(state: GameInitialState) {
-        if state == .continue, let data = GameController.load() {
+        if state == .continue, let data = GameController.lastSavedGame {
             self.controller = GameController(boardData: data)
         } else if case .new(let difficulty) = state {
             self.controller = GameController()

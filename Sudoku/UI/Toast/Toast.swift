@@ -46,10 +46,6 @@ public struct ToastContainer<ToastView: View>: View {
     }
 }
 
-extension UIApplication {
-    
-}
-
 public struct ToastModifier<ToastView: View>: ViewModifier {
 
     @EnvironmentObject private var appData: AppData

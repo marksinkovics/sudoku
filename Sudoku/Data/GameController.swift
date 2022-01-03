@@ -183,9 +183,12 @@ class GameController: ObservableObject {
         save()
     }
     
+    static var lastSavedGame: BoardData? = nil
+
     func save() {
         let encoder = JSONEncoder()
         do {
+            GameController.lastSavedGame = data
             let encodedData = try encoder.encode(data)
             UserDefaults.standard.set(encodedData, forKey: "saved")
         } catch {
@@ -193,21 +196,26 @@ class GameController: ObservableObject {
         }
     }
         
-    @discardableResult
-    static func load() -> BoardData? {
+    static func loadSavedGame(completion: @escaping (BoardData?) -> Void) {
         guard let encodedData = UserDefaults.standard.data(forKey: "saved") else {
-            return nil
+            completion(nil)
+            return
         }
 
-        do {
-            let decoder = JSONDecoder()
-            return try decoder.decode(BoardData.self, from: encodedData)
-        } catch {
-            return nil
+        DispatchQueue.global(qos: .background).async {
+            do {
+                let decoder = JSONDecoder()
+                let result = try decoder.decode(BoardData.self, from: encodedData)
+                GameController.lastSavedGame = result
+                completion(result)
+            } catch {
+                completion(nil)
+            }
         }
     }
     
     static func cleanSaved() {
+        GameController.lastSavedGame = nil
         UserDefaults.standard.removeObject(forKey: "saved")
     }
 }

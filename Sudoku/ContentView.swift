@@ -18,14 +18,20 @@ extension View {
     }
 }
 
+
+
 struct ContentView: View {
     
     @EnvironmentObject var userSettings: UserSettings
 
     var body: some View {
-        HomeView()
-            .accentColor(Color.sText)
-            .userInterfaceStyle(userSettings.suggestedUserInterfaceStyle)
+        NavigationView {
+            HomeView()
+                .accentColor(Color.sText)
+                .userInterfaceStyle(userSettings.suggestedUserInterfaceStyle)
+        }
+        .background(Color.App.background)
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
