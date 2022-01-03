@@ -2,11 +2,26 @@ import SwiftUI
 import UIKit
 
 struct SettingsView: View {
+        
+    enum NavigationOption {
+        case debug
+        
+        @ViewBuilder
+        static func view(for option: Self) -> some View {
+            switch option {
+            case .debug:
+                DebugView()
+            }
+        }
+    }
+
     
     @EnvironmentObject var userSettings: UserSettings
     
     let projectPageURL = URL(string: "https://marksinkovics.com/projects/sudoku")!
     let privacyPolicyURL = URL(string: "https://marksinkovics.com/projects/sudoku/privacy-policy")!
+    
+    @State private var navigationOption: NavigationOption? = nil
     
     @State private var showDeleteSuccessToast = false
     
@@ -17,7 +32,7 @@ struct SettingsView: View {
     init() {
         UITableView.appearance().backgroundColor = UIColor.App.List.background
     }
-        
+    
     var body: some View {
         Form {
             Section(header: Text("Highlight")) {
@@ -31,7 +46,7 @@ struct SettingsView: View {
             .listRowBackground(Color.App.List.cellBackground)
             
             Section(header: Text("Appearance")) {
-                SPicker(selection: $userSettings.appereance, label: "Appearances", items: UserSettings.Appereance.allCases) {
+                SPicker(selection: $userSettings.appereance, label: "Appearance", items: UserSettings.Appereance.allCases) {
                     Text($0.description).foregroundColor(Color.App.List.cellText)
                 }
             }
@@ -81,12 +96,10 @@ struct SettingsView: View {
             #if DEBUG
             Section(header: Text("Debug")) {
                 HStack {
-                    Button("Confetti") {
-                        self.showingConfettiToast = true
-                    }
+                    Button("Debug") { self.navigationOption = .debug }
+                        .foregroundColor(Color.App.List.cellText)
                     Spacer()
                 }
-                .toast(isPresenting: $showingConfettiToast, toast: { ConfettiToast(title: "Congrats!!!") })
             }
             .listRowBackground(Color.App.List.cellBackground)
             #endif
@@ -96,6 +109,7 @@ struct SettingsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle("Settings")
         .toast(isPresenting: $showDeleteSuccessToast, duration: 1, toast: { CheckmarkToast() })
+        .navigate(using: $navigationOption, destination: NavigationOption.view(for:))
     }
     
 }
