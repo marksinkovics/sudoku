@@ -29,6 +29,10 @@ extension Color {
             static let cellBackground = Color("list_cell_background")
             static let cellText = Color("list_cell_text")
         }
+        
+        struct Game {
+            static let toolbarIcon = Color("game_toolbar_icon")
+        }
     }
 }
 

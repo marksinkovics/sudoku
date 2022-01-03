@@ -106,6 +106,7 @@ struct GameView: View {
                     self.showingSolveAllAlert = true
                 }, label: {
                     Image(systemName: "wand.and.stars")
+                        .foregroundColor(Color.App.Game.toolbarIcon)
                 })
                 .alert(isPresented: $showingSolveAllAlert) {
                     return Alert(title: Text("Solve"),
@@ -120,6 +121,7 @@ struct GameView: View {
                     self.controller.shouldResettingAlert = true
                 }, label: {
                     Image(systemName: "arrow.counterclockwise")
+                        .foregroundColor(Color.App.Game.toolbarIcon)
                 })
                 .alert(isPresented: $showingResettingAlert) {
                     return Alert(title: Text("Reset the game board"),
@@ -132,12 +134,14 @@ struct GameView: View {
                     self.controller.delete()
                 }, label: {
                     Image(systemName: "trash")
+                        .foregroundColor(Color.App.Game.toolbarIcon)
                 })
                 Spacer()
                 Button(action: {
                     self.controller.draft.toggle()
                 }, label: {
                     Image(systemName: self.controller.draft ? "pencil.circle.fill" : "pencil.circle")
+                        .foregroundColor(Color.App.Game.toolbarIcon)
                 })
             }
         }

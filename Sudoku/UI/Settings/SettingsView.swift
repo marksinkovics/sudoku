@@ -32,7 +32,7 @@ struct SettingsView: View {
             
             Section(header: Text("Appearance")) {
                 SPicker(selection: $userSettings.appereance, label: "Appearances", items: UserSettings.Appereance.allCases) {
-                    Text($0.description).foregroundColor(Color.sText)
+                    Text($0.description).foregroundColor(Color.App.List.cellText)
                 }
             }
             .listRowBackground(Color.App.List.cellBackground)
@@ -40,6 +40,7 @@ struct SettingsView: View {
             Section(header: Text("Privacy")) {
                 HStack {
                     Button("Privacy Policy") { UIApplication.shared.open(self.privacyPolicyURL) }
+                        .foregroundColor(Color.App.List.cellText)
                     Spacer()
                 }
             }
@@ -51,6 +52,7 @@ struct SettingsView: View {
                         GameController.cleanSaved()
                         showDeleteSuccessToast = true
                     }
+                    .foregroundColor(Color.App.List.cellText)
                     Spacer()
                 }
             }
@@ -60,6 +62,7 @@ struct SettingsView: View {
             Section(header: Text("About")) {
                 HStack {
                     Button("Visit the project's website") { UIApplication.shared.open(self.projectPageURL) }
+                        .foregroundColor(Color.App.List.cellText)
                     Spacer()
                 }
                 HStack {
