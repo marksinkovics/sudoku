@@ -85,6 +85,46 @@ struct GameView: View {
                         .padding([.bottom], 40)
                         .frame(maxWidth: boardMaxWidth)
                 }
+                HStack {
+                    Button(action: {
+                        self.controller.shouldResettingAlert = true
+                    }, label: {
+                        Image(systemName: "arrow.counterclockwise")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 20)
+                            .foregroundColor(Color.App.Game.toolbarIcon)
+                    })
+                    .alert(isPresented: $showingResettingAlert) {
+                        return Alert(title: Text("Reset the game board"),
+                                     message: Text("Are you sure you want to reset the game board? It cannot be undone."),
+                                     primaryButton: .destructive(Text("Reset"), action: { self.controller.reset() }),
+                                     secondaryButton: .cancel { self.controller.shouldResettingAlert = false } )
+                    }
+                    Spacer()
+                    Button(action: {
+                        self.controller.delete()
+                    }, label: {
+                        Image(systemName: "trash")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 20)
+                            .foregroundColor(Color.App.Game.toolbarIcon)
+                    })
+                    Spacer()
+                    Button(action: {
+                        self.controller.draft.toggle()
+                    }, label: {
+                        Image(systemName: self.controller.draft ? "pencil.circle.fill" : "pencil.circle")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 20)
+                            .foregroundColor(Color.App.Game.toolbarIcon)
+                    })
+                }
+                .padding([.leading, .trailing], 15)
+                .frame(height: 55)
+                .background(Color.clear)
             }
             .padding([.horizontal])
             .onReceive(controller.$finished) {
@@ -100,7 +140,7 @@ struct GameView: View {
         }
         .navigationBarTitle(controller.data.difficulty.description, displayMode: .inline)
         .toolbar {
-            ToolbarItem() {
+            ToolbarItem {
                 Button(action: {
                     self.showingSolveAllAlert = true
                 }, label: {
@@ -113,35 +153,6 @@ struct GameView: View {
                                  primaryButton: .default(Text("Solve"), action: { self.controller.solve() }),
                                  secondaryButton: .cancel { self.showingSolveAllAlert = false } )
                 }
-
-            }
-            ToolbarItemGroup(placement: .bottomBar) {
-                Button(action: {
-                    self.controller.shouldResettingAlert = true
-                }, label: {
-                    Image(systemName: "arrow.counterclockwise")
-                        .foregroundColor(Color.App.Game.toolbarIcon)
-                })
-                .alert(isPresented: $showingResettingAlert) {
-                    return Alert(title: Text("Reset the game board"),
-                                 message: Text("Are you sure you want to reset the game board? It cannot be undone."),
-                                 primaryButton:  .destructive(Text("Reset"), action: { self.controller.reset() }),
-                                 secondaryButton: .cancel { self.controller.shouldResettingAlert = false } )
-                }
-                Spacer()
-                Button(action: {
-                    self.controller.delete()
-                }, label: {
-                    Image(systemName: "trash")
-                        .foregroundColor(Color.App.Game.toolbarIcon)
-                })
-                Spacer()
-                Button(action: {
-                    self.controller.draft.toggle()
-                }, label: {
-                    Image(systemName: self.controller.draft ? "pencil.circle.fill" : "pencil.circle")
-                        .foregroundColor(Color.App.Game.toolbarIcon)
-                })
             }
         }
     }
