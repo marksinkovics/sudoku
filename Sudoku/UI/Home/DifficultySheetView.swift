@@ -22,6 +22,9 @@ struct DifficultySheetView: View {
             }
             Spacer()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.App.background)
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
