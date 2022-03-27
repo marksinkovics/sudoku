@@ -27,11 +27,13 @@ struct MenuItemView: View {
     enum Style {
         case primary
         case secondary
+        case cancel
         
         var button_background: Color {
             switch self {
             case .primary: return Color.App.Home.button_background
             case .secondary: return Color.App.Home.secondary_button_background
+            case .cancel: return Color.App.Home.cancel_button_background
             }
         }
         
@@ -39,6 +41,7 @@ struct MenuItemView: View {
             switch self {
             case .primary: return Color.App.Home.button_shadow
             case .secondary: return Color.App.Home.secondary_button_shadow
+            case .cancel: return Color.App.Home.cancel_button_shadow
             }
         }
 
@@ -46,6 +49,7 @@ struct MenuItemView: View {
             switch self {
             case .primary: return Color.App.Home.button_text
             case .secondary: return Color.App.Home.secondary_button_text
+            case .cancel: return Color.App.Home.cancel_button_text
             }
         }
 
@@ -53,6 +57,7 @@ struct MenuItemView: View {
             switch self {
             case .primary: return 70
             case .secondary: return 60
+            case .cancel: return 50
             }
         }
         
@@ -60,6 +65,7 @@ struct MenuItemView: View {
             switch self {
             case .primary: return 300
             case .secondary: return 250
+            case .cancel: return 220
             }
         }
         
@@ -67,10 +73,12 @@ struct MenuItemView: View {
             switch self {
             case .primary: return .system(size: 30, weight: .semibold, design: .rounded)
             case .secondary: return .system(size: 25, weight: .semibold, design: .rounded)
+            case .cancel: return .system(size: 25, weight: .semibold, design: .rounded)
             }
         }
     }
     
+    let id: UUID = UUID()
     let title: String
     @Binding var enabled: Bool
     let action: () -> Void

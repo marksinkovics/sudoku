@@ -1,5 +1,4 @@
 import SwiftUI
-
 import UIKit
 
 struct HomeView: View {
@@ -31,7 +30,7 @@ struct HomeView: View {
             }
         }
     }
-
+    
     @State private var isContinueActive: Bool = false
     @State private var showingActionSheet: Bool = false
     @State private var showDetail: Bool = false
@@ -68,13 +67,24 @@ struct HomeView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.App.background)
         .edgesIgnoringSafeArea(.all)
-        .actionSheet(isPresented: $showingActionSheet) {
-            ActionSheet(title: Text("Select the difficulty"), buttons: [
-                .default(Text("Easy")) { selectedOption = .easy },
-                .default(Text("Medium")) { selectedOption = .medium },
-                .default(Text("Hard")) { selectedOption = .hard },
-                .default(Text("Expert")) { selectedOption = .expert },
-                .cancel()
+        .sheet(isPresented: $showingActionSheet) {
+            DifficultySheetView(items: [
+                MenuItemView("Easy") {
+                    showingActionSheet = false
+                    selectedOption = .easy
+                },
+                MenuItemView("Medium") {
+                    showingActionSheet = false
+                    selectedOption = .medium
+                },
+                MenuItemView("Hard") {
+                    showingActionSheet = false
+                    selectedOption = .hard
+                },
+                MenuItemView("Expert") {
+                    showingActionSheet = false
+                    selectedOption = .expert
+                },
             ])
         }
         .onAppear {

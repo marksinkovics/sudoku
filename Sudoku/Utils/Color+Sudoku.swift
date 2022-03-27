@@ -22,6 +22,9 @@ extension Color {
             static let secondary_button_background = Color("secondary_button_background")
             static let secondary_button_shadow = Color("secondary_button_shadow")
             static let secondary_button_text = Color("secondary_button_text")
+            static let cancel_button_background = Color("cancel_button_background")
+            static let cancel_button_shadow = Color("cancel_button_shadow")
+            static let cancel_button_text = Color("cancel_button_text")
         }
         
         struct List {
