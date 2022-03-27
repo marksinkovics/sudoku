@@ -18,11 +18,57 @@ extension View {
     }
 }
 
+struct NavigationBarColor: ViewModifier {
 
+  init(backgroundColor: UIColor, tintColor: UIColor) {
+    let coloredAppearance = UINavigationBarAppearance()
+    coloredAppearance.configureWithOpaqueBackground()
+    coloredAppearance.backgroundColor = backgroundColor
+    coloredAppearance.titleTextAttributes = [.foregroundColor: tintColor]
+    coloredAppearance.largeTitleTextAttributes = [.foregroundColor: tintColor]
+    coloredAppearance.shadowColor = .clear
+    coloredAppearance.shadowImage = UIImage()
+
+    UINavigationBar.appearance().standardAppearance = coloredAppearance
+    UINavigationBar.appearance().scrollEdgeAppearance = coloredAppearance
+    UINavigationBar.appearance().compactAppearance = coloredAppearance
+    UINavigationBar.appearance().tintColor = tintColor
+  }
+
+  func body(content: Content) -> some View {
+    content
+  }
+}
+
+struct ToolBarColor: ViewModifier {
+    init(backgroundColor: UIColor, tintColor: UIColor) {
+        UIToolbar.appearance().barTintColor = backgroundColor
+        UIToolbar.appearance().backgroundColor = backgroundColor
+        UIToolbar.appearance().setShadowImage(nil, forToolbarPosition: .any)
+    }
+    
+    func body(content: Content) -> some View {
+      content
+    }
+}
+
+extension View {
+    func navigationBarColor(backgroundColor: UIColor, tintColor: UIColor) -> some View {
+        self.modifier(NavigationBarColor(backgroundColor: backgroundColor, tintColor: tintColor))
+    }
+    
+    func toolBarColor(backgroundColor: UIColor, tintColor: UIColor) -> some View {
+        self.modifier(ToolBarColor(backgroundColor: backgroundColor, tintColor: tintColor))
+    }
+}
 
 struct ContentView: View {
     
     @EnvironmentObject var userSettings: UserSettings
+    
+    init() {
+        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = UIColor.sText
+    }
 
     var body: some View {
         NavigationView {
@@ -32,6 +78,9 @@ struct ContentView: View {
         }
         .background(Color.App.background)
         .navigationViewStyle(StackNavigationViewStyle())
+        .navigationBarColor(backgroundColor: .sBackground, tintColor: .sText)
+        .toolBarColor(backgroundColor: .sBackground, tintColor: .sText)
+
     }
 }
 

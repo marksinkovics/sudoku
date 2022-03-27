@@ -99,7 +99,6 @@ struct GameView: View {
             .toast(isPresenting: $showingCongratsToast, toast: { ConfettiToast(title: "Congrats!!!") })
         }
         .navigationBarTitle(controller.data.difficulty.description, displayMode: .inline)
-        .navigationViewStyle(StackNavigationViewStyle())
         .toolbar {
             ToolbarItem() {
                 Button(action: {
