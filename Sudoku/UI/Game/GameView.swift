@@ -40,12 +40,20 @@ struct SizeModifier: ViewModifier {
 }
 
 struct GameView: View {
+    
+    struct AlertInfo: Identifiable {
+        enum AlertType {
+            case none
+            case solveAll
+            case reset
+        }
+        let id: AlertType
+    }
         
     @ObservedObject var controller: GameController
     @EnvironmentObject var userSettings: UserSettings
     @State var showingCongratsToast: Bool = false
-    @State var showingResettingAlert: Bool = false
-    @State var showingSolveAllAlert: Bool = false
+    @State var alertInfo: AlertInfo? = nil
     
     @State private var boardMaxWidth: CGFloat?
         
@@ -95,12 +103,6 @@ struct GameView: View {
                             .frame(width: 20)
                             .foregroundColor(Color.App.Game.toolbarIcon)
                     })
-                    .alert(isPresented: $showingResettingAlert) {
-                        return Alert(title: Text("Reset the game board"),
-                                     message: Text("Are you sure you want to reset the game board? It cannot be undone."),
-                                     primaryButton: .destructive(Text("Reset"), action: { self.controller.reset() }),
-                                     secondaryButton: .cancel { self.controller.shouldResettingAlert = false } )
-                    }
                     Spacer()
                     Button(action: {
                         self.controller.delete()
@@ -129,11 +131,12 @@ struct GameView: View {
             .padding([.horizontal])
             .onReceive(controller.$finished) {
                 self.showingCongratsToast = $0
-                self.showingResettingAlert = false
-        
+                self.alertInfo = nil
             }
             .onReceive(controller.$shouldResettingAlert) {
-                self.showingResettingAlert = $0
+                if $0 {
+                    self.alertInfo = AlertInfo(id: .reset)
+                }
                 self.showingCongratsToast = false
             }
             .toast(isPresenting: $showingCongratsToast, toast: { ConfettiToast(title: "Congrats!!!") })
@@ -142,20 +145,26 @@ struct GameView: View {
         .toolbar {
             ToolbarItem {
                 Button(action: {
-                    self.showingSolveAllAlert = true
+                    self.alertInfo = AlertInfo(id: .solveAll)
                 }, label: {
                     Image(systemName: "wand.and.stars")
                         .foregroundColor(Color.App.Game.toolbarIcon)
                 })
             }
         }
-        .alert(isPresented: $showingSolveAllAlert) {
-            return Alert(title: Text("Solve"),
-                         message: Text("Are you sure you want to auto-solve it all? It cannot be undone."),
-                         primaryButton: .default(Text("Solve"), action: { self.controller.solve() }),
-                         secondaryButton: .cancel { self.showingSolveAllAlert = false } )
+        .alert(item: $alertInfo) { info in
+            if info.id == .solveAll {
+                return Alert(title: Text("Solve"),
+                             message: Text("Are you sure you want to auto-solve it all? It cannot be undone."),
+                             primaryButton: .default(Text("Solve"), action: { self.controller.solve() }),
+                             secondaryButton: .cancel { self.alertInfo = nil } )
+            }
+            
+            return Alert(title: Text("Reset the game board"),
+                         message: Text("Are you sure you want to reset the game board? It cannot be undone."),
+                         primaryButton: .destructive(Text("Reset"), action: { self.controller.reset() }),
+                         secondaryButton: .cancel { self.controller.shouldResettingAlert = false } )
         }
-
     }
 }
 
