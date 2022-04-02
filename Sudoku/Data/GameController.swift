@@ -138,15 +138,15 @@ class GameController: ObservableObject {
         selectedItem.number = number
         highlight(row: selectedRow, column: selectedColumn)
         updateNumpad()
-        
-        save();
-                
+                        
         if validate(number: selectedItem.number, atRow: selectedRow, column: selectedColumn) {
             selectedItem.error = false
             validateBoard();
         } else {
             selectedItem.error = true
         }
+        
+        save();
     }
     
     func validate(number: Int, atRow row: Int, column: Int) -> Bool {

@@ -27,9 +27,6 @@ struct Board: View {
                         BoardCell(item: self.boardData[selecterRow, selectedColumn])
                             .action() { type, frame in
                                 self.controller.select(row: selecterRow, column: selectedColumn)
-//                                if type == .long || type == .double {
-//                                    self.longTapAction(frame)
-//                                }
                             }
                         }
                 }
