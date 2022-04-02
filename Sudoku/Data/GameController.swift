@@ -64,6 +64,7 @@ class GameController: ObservableObject {
         data.grid.enumerated().forEach { index, item in
             if !item.fixed {
                 item.number = data.solution[index]
+                item.error = false
             }
         }
         updateNumpad()
