@@ -75,7 +75,7 @@ class GameController: ObservableObject {
     }
     
     func reset() {
-        data.grid.forEach { if !$0.fixed { $0.number = 0 } }
+        data.grid.forEach { if !$0.fixed { $0.number = 0; $0.error = false } }
         updateNumpad()
     }
     
