@@ -147,14 +147,15 @@ struct GameView: View {
                     Image(systemName: "wand.and.stars")
                         .foregroundColor(Color.App.Game.toolbarIcon)
                 })
-                .alert(isPresented: $showingSolveAllAlert) {
-                    return Alert(title: Text("Solve"),
-                                 message: Text("Are you sure you want to auto-solve it all? It cannot be undone."),
-                                 primaryButton: .default(Text("Solve"), action: { self.controller.solve() }),
-                                 secondaryButton: .cancel { self.showingSolveAllAlert = false } )
-                }
             }
         }
+        .alert(isPresented: $showingSolveAllAlert) {
+            return Alert(title: Text("Solve"),
+                         message: Text("Are you sure you want to auto-solve it all? It cannot be undone."),
+                         primaryButton: .default(Text("Solve"), action: { self.controller.solve() }),
+                         secondaryButton: .cancel { self.showingSolveAllAlert = false } )
+        }
+
     }
 }
 
