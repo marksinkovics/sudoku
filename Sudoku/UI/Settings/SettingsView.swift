@@ -35,6 +35,9 @@ struct SettingsView: View {
         }
     }
 
+    @AppStorage(UserSettings.Keys.highlightRow.rawValue) var highlightRow: Bool = false
+    @AppStorage(UserSettings.Keys.highlightColumn.rawValue) var highlightColumn: Bool = false
+    @AppStorage(UserSettings.Keys.highlightBlock.rawValue) var highlightBlock: Bool = false
     
     @EnvironmentObject var userSettings: UserSettings
     
@@ -52,11 +55,11 @@ struct SettingsView: View {
     var body: some View {
         Form {
             Section(header: Text("Highlight")) {
-                Toggle(isOn: $userSettings.higlightRow) { Text("Row") }
+                Toggle(isOn: $highlightRow) { Text("Row") }
                     .toggleStyle(SwitchToggleStyle(tint: Color.App.Home.secondary_button_background))
-                Toggle(isOn: $userSettings.highlightColumn) { Text("Column") }
+                Toggle(isOn: $highlightColumn) { Text("Column") }
                     .toggleStyle(SwitchToggleStyle(tint: Color.App.Home.secondary_button_background))
-                Toggle(isOn: $userSettings.highlightBlock) { Text("Block") }
+                Toggle(isOn: $highlightBlock) { Text("Block") }
                     .toggleStyle(SwitchToggleStyle(tint: Color.App.Home.secondary_button_background))
             }
             .listRowBackground(Color.App.List.cellBackground)

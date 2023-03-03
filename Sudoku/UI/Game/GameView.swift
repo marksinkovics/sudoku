@@ -51,21 +51,16 @@ struct GameView: View {
     }
         
     @ObservedObject var controller: GameController
-    @EnvironmentObject var userSettings: UserSettings
+    @AppStorage(UserSettings.Keys.numpadType.rawValue) var numpadType: UserSettings.NumpadType = .row
     @State var showingCongratsToast: Bool = false
     @State var alertInfo: AlertInfo? = nil
     
     @State private var boardMaxWidth: CGFloat?
         
     public init(state: GameInitialState) {
-        if state == .continue, let data = GameController.lastSavedGame {
-            self.controller = GameController(boardData: data)
-        } else if case .new(let difficulty) = state {
-            self.controller = GameController()
+        self.controller = GameController()
+        if case .new(let difficulty) = state {
             self.controller.generate(difficulty: difficulty)
-        } else {
-            self.controller = GameController()
-            self.controller.generate(difficulty: .easy)
         }
     }
     
@@ -77,16 +72,13 @@ struct GameView: View {
             VStack {
                 Spacer()
                 Board(controller: controller)
-                    .hightlightRow(userSettings.higlightRow)
-                    .hightlightColumn(userSettings.highlightColumn)
-                    .hightlightBlock(userSettings.highlightBlock)
                     .aspectRatio(1.0, contentMode: .fit)
                     .modifier(SizeModifier())
                     .onPreferenceChange(SizePreferenceKey.self) {
                         boardMaxWidth = $0
                     }
                 Spacer()
-                if self.userSettings.numpadType == .row {
+                if numpadType == .row {
                     RowNumpad(controller: controller)
                         .frame(maxWidth: .infinity, maxHeight: 100)
                         .padding([.top], 20)

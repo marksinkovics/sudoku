@@ -1,14 +1,8 @@
 import Foundation
 
 class Solver {
-     
-    var data: BoardData
-    
-    init(data: BoardData) {
-        self.data = data
-    }
-    
-    func next(row: Int, column: Int) -> (row: Int, column: Int) {
+
+    func next(data: BoardData, row: Int, column: Int) -> (row: Int, column: Int) {
         let nextIndex = (row * data.columns) + column + 1
         let nextRow = nextIndex / data.columns
         let nextColumn = nextIndex % data.columns
@@ -16,7 +10,7 @@ class Solver {
     }
     
     @discardableResult
-    func solve(atRow row: Int, column: Int) -> Bool {
+    func solve(data: BoardData, row: Int, column: Int) -> Bool {
         
         guard row < data.rows, column < data.columns else {
             return true
@@ -26,8 +20,8 @@ class Solver {
         let originalItem = data[row, column]
         
         if originalItem.fixed {
-            let (nextRow, nextColumn) = next(row: row, column: column)
-            if solve(atRow: nextRow, column: nextColumn) {
+            let (nextRow, nextColumn) = next(data: data, row: row, column: column)
+            if solve(data: data, row: nextRow, column: nextColumn) {
                 return true
             }
             return false
@@ -37,8 +31,8 @@ class Solver {
         
         for possibleValue in possibleNumbers {
             data[row, column].number = possibleValue
-            let (nextRow, nextColumn) = next(row: row, column: column)
-            if solve(atRow: nextRow, column: nextColumn) {
+            let (nextRow, nextColumn) = next(data: data, row: row, column: column)
+            if solve(data: data, row: nextRow, column: nextColumn) {
                 return true
             }
         }
