@@ -16,9 +16,9 @@ class SolverTests: XCTestCase {
     }
     
     func testEmptyBoard() {
-        let solver = Solver(data: data)
+        let solver = Solver()
         measure {
-            solver.solve(atRow: 0, column: 0)
+            solver.solve(data: data, row: 0, column: 0)
         }
         let expected: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         let result = data.row(at: 0).map { $0.number }
@@ -29,9 +29,9 @@ class SolverTests: XCTestCase {
     func testPrefilledBoard() {
         let row = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         data.row(at: 0).enumerated().forEach { $1.number = row[$0]; $1.fixed = true }
-        let solver = Solver(data: data)
+        let solver = Solver()
         measure {
-            solver.solve(atRow: 0, column: 0)
+            solver.solve(data: data, row: 0, column: 0)
         }
         debugPrint(data!)
 //        let expected: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9]

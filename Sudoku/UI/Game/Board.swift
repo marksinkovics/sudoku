@@ -9,12 +9,10 @@ extension CGRect {
 struct Board: View {
     
     let controller: GameController
-    @ObservedObject var boardData: BoardData
     var longTapAction: (_ frame: CGRect) -> Void = { _ in }
     
     init(controller: GameController) {
         self.controller = controller
-        self.boardData = controller.data
     }
 
     var body: some View {
@@ -24,7 +22,7 @@ struct Board: View {
                     GeometryReader { cellGeometry in
                         let selecterRow = (3 * outerRow) + row
                         let selectedColumn = (3 * outerColumn) + column
-                        BoardCell(item: self.boardData[selecterRow, selectedColumn])
+                        BoardCell(item: self.controller.data[selecterRow, selectedColumn])
                             .action() { type, frame in
                                 self.controller.select(row: selecterRow, column: selectedColumn)
                             }
@@ -34,7 +32,7 @@ struct Board: View {
         }
         .scaledToFill()
     }
-    
+     
     func hightlightRow(_ value: Bool) -> Self {
         self.controller.highlightRow = value
         return self

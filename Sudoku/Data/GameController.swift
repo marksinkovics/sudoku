@@ -3,31 +3,24 @@ import SwiftUI
 class GameController: ObservableObject {
     
     var data: BoardData
-    let solver: Solver
-    let generator: Generator
     var selectedItem: Item?
     var selectedRow: Int?
     var selectedColumn: Int?
     let numpadItems: [NumpadItem] = (1...9).map { NumpadItem(value: .number($0)) }
     
-    var highlightRow: Bool = false {
+    @AppStorage(UserSettings.Keys.highlightRow.rawValue) var highlightRow: Bool = false {
         didSet {
-            guard let row = selectedRow, let column = selectedColumn else { return }
-            highlight(row: row, column: column)
+            highlight()
         }
     }
-    var highlightColumn: Bool = false
-    {
+    @AppStorage(UserSettings.Keys.highlightColumn.rawValue) var highlightColumn: Bool = false {
        didSet {
-           guard let row = selectedRow, let column = selectedColumn else { return }
-           highlight(row: row, column: column)
+           highlight()
        }
-   }
-    var highlightBlock: Bool = false
-    {
+    }
+    @AppStorage(UserSettings.Keys.highlightBlock.rawValue) var highlightBlock: Bool = false {
        didSet {
-           guard let row = selectedRow, let column = selectedColumn else { return }
-           highlight(row: row, column: column)
+           highlight()
        }
    }
         
@@ -35,22 +28,21 @@ class GameController: ObservableObject {
     @Published var finished: Bool
     @Published var shouldResettingAlert: Bool = false
     
-    init(boardData: BoardData = BoardData()) {
+    init() {
         
         finished = false
         draft = false
-        data = boardData
-        solver = Solver(data: data)
-        generator = Generator(data: data, solver: solver)
+        if let lastSavedGame = GameController.lastSavedGame {
+            data = lastSavedGame
+        } else {
+            data = BoardData()
+        }
 
         selectedItem = data.selectedItem()
         selectedRow = data.selectedRow()
         selectedColumn = data.selectedColumn()
 
-        if let row = selectedRow, let column = selectedColumn {
-            highlight(row: row, column: column)
-        }
-
+        highlight()
         updateNumpad()
     }
     
@@ -88,13 +80,16 @@ class GameController: ObservableObject {
         self.selectedRow = row
         self.selectedColumn = column
         
-        highlight(row: row, column: column)
+        highlight()
         save()
     }
     
-    func highlight(row: Int, column: Int) {
+    func highlight() {
+
+        guard let row = selectedRow, let column = selectedColumn else { return }
+
         self.data.unhighlightAll()
-        
+
         if highlightRow {
             self.data.row(at: row).forEach { $0.highlighted = true }
         }
@@ -131,7 +126,7 @@ class GameController: ObservableObject {
         }
                 
         selectedItem.number = number
-        highlight(row: selectedRow, column: selectedColumn)
+        highlight()
         updateNumpad()
                         
         if validate(number: selectedItem.number, atRow: selectedRow, column: selectedColumn) {
@@ -168,7 +163,8 @@ class GameController: ObservableObject {
     }
     
     func generate(difficulty: BoardData.Difficulty) {
-        generator.generate(difficulty: difficulty)
+        let generator = Generator()
+        generator.generate(data: data, difficulty: difficulty)
         if let indexOfFirstNonFixedItem = data.grid.firstIndex(where: { !$0.fixed }) {
             let row = indexOfFirstNonFixedItem / data.columns
             let column = indexOfFirstNonFixedItem % data.columns
