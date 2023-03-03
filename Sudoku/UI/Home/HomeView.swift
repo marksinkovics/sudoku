@@ -35,10 +35,17 @@ struct HomeView: View {
     @State private var showingActionSheet: Bool = false
     @State private var showDetail: Bool = false
     @State private var selectedOption: Option? = nil
+
+    @EnvironmentObject var history: History
         
     func checkForSavedGame() {
-        GameController.loadSavedGame() { game in
-            self.isContinueActive = game != nil
+        Task {
+            do {
+                try await history.load();
+                self.isContinueActive = !history.isEmpty
+            } catch {
+                debugPrint(error)
+            }
         }
     }
                     

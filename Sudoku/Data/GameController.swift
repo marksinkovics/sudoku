@@ -2,12 +2,22 @@ import SwiftUI
 
 class GameController: ObservableObject {
     
-    var data: BoardData
+    @Published var data: BoardData {
+        didSet {
+            selectedItem = data.selectedItem()
+            selectedRow = data.selectedRow()
+            selectedColumn = data.selectedColumn()
+            highlight()
+            updateNumpad()
+        }
+    }
     var selectedItem: Item?
     var selectedRow: Int?
     var selectedColumn: Int?
     let numpadItems: [NumpadItem] = (1...9).map { NumpadItem(value: .number($0)) }
-    
+
+    @EnvironmentObject var userSettings: UserSettings
+
     @AppStorage(UserSettings.Keys.highlightRow.rawValue) var highlightRow: Bool = false {
         didSet {
             highlight()
@@ -24,26 +34,18 @@ class GameController: ObservableObject {
        }
    }
         
-    @Published var draft: Bool
-    @Published var finished: Bool
+    @Published var draft: Bool = false
+    @Published var finished: Bool = false
     @Published var shouldResettingAlert: Bool = false
-    
+
+    var history: History? = nil
+
     init() {
-        
-        finished = false
-        draft = false
-        if let lastSavedGame = GameController.lastSavedGame {
-            data = lastSavedGame
-        } else {
-            data = BoardData()
-        }
+        data = BoardData()
+    }
 
-        selectedItem = data.selectedItem()
-        selectedRow = data.selectedRow()
-        selectedColumn = data.selectedColumn()
-
-        highlight()
-        updateNumpad()
+    init(data: BoardData) {
+        self.data = data
     }
     
     func solve() {
@@ -70,6 +72,7 @@ class GameController: ObservableObject {
     }
     
     func select(row: Int, column: Int) {
+
         guard selectedRow != row || selectedColumn != column else {
             return
         }
@@ -81,29 +84,28 @@ class GameController: ObservableObject {
         self.selectedColumn = column
         
         highlight()
-        save()
+        history?.save()
     }
     
     func highlight() {
-
         guard let row = selectedRow, let column = selectedColumn else { return }
 
-        self.data.unhighlightAll()
+        data.unhighlightAll()
 
         if highlightRow {
-            self.data.row(at: row).forEach { $0.highlighted = true }
+            data.row(at: row).forEach { $0.highlighted = true }
         }
         
         if highlightColumn {
-            self.data.column(at: column).forEach { $0.highlighted = true }
+            data.column(at: column).forEach { $0.highlighted = true }
         }
         
         if highlightBlock {
-            self.data.block(at: row, column).forEach { $0.highlighted = true }
+            data.block(at: row, column).forEach { $0.highlighted = true }
         }
                 
         // same numbers
-        self.data.grid.filter { $0.number == selectedItem!.number }.forEach {
+        data.grid.filter { $0.number == selectedItem!.number }.forEach {
             if $0.number > 0 {
                 $0.highlighted = true;
             }
@@ -136,7 +138,7 @@ class GameController: ObservableObject {
             selectedItem.error = true
         }
         
-        save();
+        history?.save();
     }
     
     func validate(number: Int, atRow row: Int, column: Int) -> Bool {
@@ -171,42 +173,6 @@ class GameController: ObservableObject {
             select(row: row, column: column)
         }
         updateNumpad()
-        save()
-    }
-    
-    static var lastSavedGame: BoardData? = nil
-
-    func save() {
-        let encoder = JSONEncoder()
-        do {
-            GameController.lastSavedGame = data
-            let encodedData = try encoder.encode(data)
-            UserDefaults.standard.set(encodedData, forKey: "saved")
-        } catch {
-            debugPrint(error)
-        }
-    }
-        
-    static func loadSavedGame(completion: @escaping (BoardData?) -> Void) {
-        guard let encodedData = UserDefaults.standard.data(forKey: "saved") else {
-            completion(nil)
-            return
-        }
-
-        DispatchQueue.global(qos: .background).async {
-            do {
-                let decoder = JSONDecoder()
-                let result = try decoder.decode(BoardData.self, from: encodedData)
-                GameController.lastSavedGame = result
-                completion(result)
-            } catch {
-                completion(nil)
-            }
-        }
-    }
-    
-    static func cleanSaved() {
-        GameController.lastSavedGame = nil
-        UserDefaults.standard.removeObject(forKey: "saved")
+        history?.save()
     }
 }

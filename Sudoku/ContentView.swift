@@ -65,7 +65,8 @@ extension View {
 struct ContentView: View {
     
     @EnvironmentObject var userSettings: UserSettings
-    
+    @EnvironmentObject var history: History
+
     init() {
         UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = UIColor.sText
     }
@@ -80,7 +81,8 @@ struct ContentView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarColor(backgroundColor: .sBackground, tintColor: .sText)
         .toolBarColor(backgroundColor: .sBackground, tintColor: .sText)
-
+        .environmentObject(history)
+        .environmentObject(userSettings)
     }
 }
 

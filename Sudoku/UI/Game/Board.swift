@@ -7,8 +7,10 @@ extension CGRect {
 }
 
 struct Board: View {
-    
-    let controller: GameController
+
+    @EnvironmentObject var history: History
+
+    @ObservedObject var controller: GameController
     var longTapAction: (_ frame: CGRect) -> Void = { _ in }
     
     init(controller: GameController) {

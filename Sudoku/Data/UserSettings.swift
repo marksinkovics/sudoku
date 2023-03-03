@@ -51,6 +51,9 @@ class UserSettings: ObservableObject {
 
     @AppStorage(UserSettings.Keys.appereance.rawValue) var appereance: Appereance =  .system
     @AppStorage(UserSettings.Keys.numpadType.rawValue) var numpadType: NumpadType =  .row
+    @AppStorage(UserSettings.Keys.highlightRow.rawValue) var highlightRow: Bool = false
+    @AppStorage(UserSettings.Keys.highlightColumn.rawValue) var highlightColumn: Bool = false
+    @AppStorage(UserSettings.Keys.highlightBlock.rawValue) var highlightBlock: Bool = false
 
     var suggestedUserInterfaceStyle: UIUserInterfaceStyle {
         if appereance == .dark {

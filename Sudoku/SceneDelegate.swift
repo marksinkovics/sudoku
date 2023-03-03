@@ -12,13 +12,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         let userSettings = UserSettings()
+        let history = History()
         
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
+
             let contentView = ContentView()
                                     .environmentObject(userSettings)
+                                    .environmentObject(history)
                                     .environmentObject(AppData(window: window))
+            
             window.rootViewController = UIHostingController(rootView: contentView)
             window.overrideUserInterfaceStyle = userSettings.suggestedUserInterfaceStyle
             self.window = window
