@@ -2,7 +2,7 @@ import SwiftUI
 import UIKit
 
 extension View {
-    
+
     func userInterfaceStyle(_ style: UIUserInterfaceStyle) -> Self {
         let keyWindow = UIApplication.shared.connectedScenes
             .filter({$0.activationState == .foregroundActive})
@@ -13,7 +13,7 @@ extension View {
 
         keyWindow?.overrideUserInterfaceStyle = style
         keyWindow?.setNeedsDisplay()
-        
+
         return self
     }
 }
@@ -46,7 +46,7 @@ struct ToolBarColor: ViewModifier {
         UIToolbar.appearance().backgroundColor = backgroundColor
         UIToolbar.appearance().setShadowImage(nil, forToolbarPosition: .any)
     }
-    
+
     func body(content: Content) -> some View {
       content
     }
@@ -56,16 +56,17 @@ extension View {
     func navigationBarColor(backgroundColor: UIColor, tintColor: UIColor) -> some View {
         self.modifier(NavigationBarColor(backgroundColor: backgroundColor, tintColor: tintColor))
     }
-    
+
     func toolBarColor(backgroundColor: UIColor, tintColor: UIColor) -> some View {
         self.modifier(ToolBarColor(backgroundColor: backgroundColor, tintColor: tintColor))
     }
 }
 
 struct ContentView: View {
-    
+
     @EnvironmentObject var userSettings: UserSettings
-    
+    @EnvironmentObject var history: History
+
     init() {
         UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = UIColor.sText
     }
@@ -80,7 +81,8 @@ struct ContentView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarColor(backgroundColor: .sBackground, tintColor: .sText)
         .toolBarColor(backgroundColor: .sBackground, tintColor: .sText)
-        .accentColor(.sText)
+        .environmentObject(history)
+        .environmentObject(userSettings)
     }
 }
 

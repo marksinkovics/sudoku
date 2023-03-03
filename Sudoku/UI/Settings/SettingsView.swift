@@ -35,12 +35,9 @@ struct SettingsView: View {
         }
     }
 
-    @AppStorage(UserSettings.Keys.highlightRow.rawValue) var highlightRow: Bool = false
-    @AppStorage(UserSettings.Keys.highlightColumn.rawValue) var highlightColumn: Bool = false
-    @AppStorage(UserSettings.Keys.highlightBlock.rawValue) var highlightBlock: Bool = false
-    
     @EnvironmentObject var userSettings: UserSettings
-    
+    @EnvironmentObject var history: History
+
     let projectPageURL = URL(string: "https://marksinkovics.com/projects/sudoku")!
     let privacyPolicyURL = URL(string: "https://marksinkovics.com/projects/sudoku/privacy-policy")!
     
@@ -55,11 +52,11 @@ struct SettingsView: View {
     var body: some View {
         Form {
             Section(header: Text("Highlight")) {
-                Toggle(isOn: $highlightRow) { Text("Row") }
+                Toggle(isOn: $userSettings.highlightRow) { Text("Row") }
                     .toggleStyle(SwitchToggleStyle(tint: Color.App.Home.secondary_button_background))
-                Toggle(isOn: $highlightColumn) { Text("Column") }
+                Toggle(isOn: $userSettings.highlightColumn) { Text("Column") }
                     .toggleStyle(SwitchToggleStyle(tint: Color.App.Home.secondary_button_background))
-                Toggle(isOn: $highlightBlock) { Text("Block") }
+                Toggle(isOn: $userSettings.highlightBlock) { Text("Block") }
                     .toggleStyle(SwitchToggleStyle(tint: Color.App.Home.secondary_button_background))
             }
             .listRowBackground(Color.App.List.cellBackground)
@@ -83,7 +80,7 @@ struct SettingsView: View {
             Section(header: Text("Game")) {
                 HStack {
                     Button("Erase saved game") {
-                        GameController.cleanSaved()
+                        history.cleanAll();
                         showDeleteSuccessToast = true
                     }
                     .foregroundColor(Color.App.List.cellText)
@@ -136,6 +133,7 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static let userSettings = UserSettings()
+    static let history = History()
     
     static var previews: some View {
         SettingsView()

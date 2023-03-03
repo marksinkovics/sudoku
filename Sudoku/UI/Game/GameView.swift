@@ -50,17 +50,29 @@ struct GameView: View {
         let id: AlertType
     }
         
-    @ObservedObject var controller: GameController
-    @AppStorage(UserSettings.Keys.numpadType.rawValue) var numpadType: UserSettings.NumpadType = .row
+    @ObservedObject var controller: GameController = GameController()
     @State var showingCongratsToast: Bool = false
     @State var alertInfo: AlertInfo? = nil
     
     @State private var boardMaxWidth: CGFloat?
-        
+
+    @EnvironmentObject var userSettings: UserSettings
+    @EnvironmentObject var history: History
+
+    let initialState: GameInitialState
+
     public init(state: GameInitialState) {
-        self.controller = GameController()
-        if case .new(let difficulty) = state {
+        self.initialState = state
+    }
+
+    func prepareBoard() {
+        self.controller.history = history
+        if case .continue = self.initialState {
+            self.controller.data = history.items.first!
+        } else if case .new(let difficulty) = self.initialState {
             self.controller.generate(difficulty: difficulty)
+            history.set(data: self.controller.data)
+            history.save();
         }
     }
     
@@ -78,7 +90,7 @@ struct GameView: View {
                         boardMaxWidth = $0
                     }
                 Spacer()
-                if numpadType == .row {
+                if userSettings.numpadType == .row {
                     RowNumpad(controller: controller)
                         .frame(maxWidth: .infinity, maxHeight: 100)
                         .padding([.top], 20)
@@ -156,16 +168,20 @@ struct GameView: View {
                          message: Text("Are you sure you want to reset the game board? It cannot be undone."),
                          primaryButton: .destructive(Text("Reset"), action: { self.controller.reset() }),
                          secondaryButton: .cancel { self.controller.shouldResettingAlert = false } )
+        }.onAppear {
+            prepareBoard()
         }
     }
 }
 
 struct GameView_Previews: PreviewProvider {
     private static let userSettings = UserSettings()
+    private static let history = History()
 
     static var previews: some View {
         GameView(state: .new(difficulty: .easy))
             .environmentObject(userSettings)
+            .environmentObject(history)
             .preferredColorScheme(.dark)
     }
 }
