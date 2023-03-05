@@ -20,14 +20,19 @@ class History: ObservableObject {
         }
     }
 
-    func load() async throws {
+    func load() async {
         guard let encodedData = UserDefaults.standard.data(forKey: Keys.saved.rawValue) else {
+            debugPrint("No saved game")
             return
         }
 
         let decoder = JSONDecoder()
-        let result = try decoder.decode(BoardData.self, from: encodedData)
-        self.items.append(result)
+        do {
+            let result = try decoder.decode(BoardData.self, from: encodedData)
+            self.items.append(result)
+        } catch {
+            debugPrint(error)
+        }
     }
 
     func save() {

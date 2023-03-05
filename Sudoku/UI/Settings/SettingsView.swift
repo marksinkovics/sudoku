@@ -22,10 +22,10 @@ struct FormBackgroundColorModifier: ViewModifier {
 }
 
 struct SettingsView: View {
-        
+
     enum NavigationOption {
         case debug
-        
+
         @ViewBuilder
         static func view(for option: Self) -> some View {
             switch option {
@@ -40,15 +40,15 @@ struct SettingsView: View {
 
     let projectPageURL = URL(string: "https://marksinkovics.com/projects/sudoku")!
     let privacyPolicyURL = URL(string: "https://marksinkovics.com/projects/sudoku/privacy-policy")!
-    
+
     @State private var navigationOption: NavigationOption? = nil
-    
+
     @State private var showDeleteSuccessToast = false
-    
+
     #if DEBUG
     @State var showingConfettiToast: Bool = false
     #endif
-        
+
     var body: some View {
         Form {
             Section(header: Text("Highlight")) {
@@ -60,7 +60,7 @@ struct SettingsView: View {
                     .toggleStyle(SwitchToggleStyle(tint: Color.App.Home.secondary_button_background))
             }
             .listRowBackground(Color.App.List.cellBackground)
-            
+
             Section(header: Text("Appearance")) {
                 SPicker(selection: $userSettings.appereance, label: "Appearance", items: UserSettings.Appereance.allCases) {
                     Text($0.description).foregroundColor(Color.App.List.cellText)
@@ -76,7 +76,7 @@ struct SettingsView: View {
                 }
             }
             .listRowBackground(Color.App.List.cellBackground)
-            
+
             Section(header: Text("Game")) {
                 HStack {
                     Button("Erase saved game") {
@@ -89,7 +89,7 @@ struct SettingsView: View {
             }
             .listRowBackground(Color.App.List.cellBackground)
 
-                
+
             Section(header: Text("About")) {
                 HStack {
                     Button("Visit the project's website") { UIApplication.shared.open(self.projectPageURL) }
@@ -108,7 +108,7 @@ struct SettingsView: View {
                 }
             }
             .listRowBackground(Color.App.List.cellBackground)
-            
+
             #if DEBUG
             Section(header: Text("Debug")) {
                 HStack {
@@ -119,7 +119,7 @@ struct SettingsView: View {
             }
             .listRowBackground(Color.App.List.cellBackground)
             #endif
-            
+
         }
         .listStyle(GroupedListStyle())
         .navigationBarTitleDisplayMode(.inline)
@@ -128,13 +128,13 @@ struct SettingsView: View {
         .navigate(using: $navigationOption, destination: NavigationOption.view(for:))
         .modifier(FormBackgroundColorModifier(color: Color.App.List.background))
     }
-    
+
 }
 
 struct SettingsView_Previews: PreviewProvider {
     static let userSettings = UserSettings()
     static let history = History()
-    
+
     static var previews: some View {
         SettingsView()
         .environmentObject(userSettings)

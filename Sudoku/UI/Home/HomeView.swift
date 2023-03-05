@@ -1,17 +1,18 @@
 import SwiftUI
 import UIKit
 
+
 struct HomeView: View {
-    
-    enum Option {
-        
+
+    enum Option: Hashable {
+
         case easy
         case medium
         case hard
         case expert
         case `continue`
         case settings
-        
+
         @ViewBuilder
         static func buildView(for option: Option) -> some View {
             switch option {
@@ -30,25 +31,16 @@ struct HomeView: View {
             }
         }
     }
-    
+
+
     @State private var isContinueActive: Bool = false
     @State private var showingActionSheet: Bool = false
     @State private var showDetail: Bool = false
     @State private var selectedOption: Option? = nil
 
     @EnvironmentObject var history: History
-        
-    func checkForSavedGame() {
-        Task {
-            do {
-                try await history.load();
-                self.isContinueActive = !history.isEmpty
-            } catch {
-                debugPrint(error)
-            }
-        }
-    }
-                    
+    @EnvironmentObject var router: Router
+
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             Spacer()
@@ -62,12 +54,12 @@ struct HomeView: View {
             MenuItemView("New game") { self.showingActionSheet = true }
                 .padding(30)
             if self.isContinueActive {
-                MenuItemView("Continue") { selectedOption = .continue }
-                    .padding(30)
-            }
-            MenuItemView("Settings", style: .secondary) { selectedOption = .settings }
-                .padding(.top, 130)
+                MenuItemView("Continue") { router.path.append(Option.continue) }
                 .padding(30)
+            }
+            MenuItemView("Settings", style: .secondary) { router.path.append(Option.settings) }
+            .padding(.top, 130)
+            .padding(30)
             Spacer()
         }
         .navigationBarHidden(true)
@@ -78,26 +70,30 @@ struct HomeView: View {
             DifficultySheetView(items: [
                 MenuItemView("Easy") {
                     showingActionSheet = false
-                    selectedOption = .easy
+                    router.path.append(Option.easy)
                 },
                 MenuItemView("Medium") {
                     showingActionSheet = false
-                    selectedOption = .medium
+                    router.path.append(Option.medium)
                 },
                 MenuItemView("Hard") {
                     showingActionSheet = false
-                    selectedOption = .hard
+                    router.path.append(Option.hard)
                 },
                 MenuItemView("Expert") {
                     showingActionSheet = false
-                    selectedOption = .expert
+                    router.path.append(Option.expert)
                 },
             ])
         }
-        .onAppear {
-            checkForSavedGame()
+        .task {
+            await history.load();
+            self.isContinueActive = !history.isEmpty
         }
-        .navigate(using: $selectedOption, destination: Option.buildView)
+        .navigationDestination(for: Option.self) { option in
+            Option.buildView(for: option)
+        }
+
     }
 }
 

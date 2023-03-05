@@ -2,14 +2,13 @@ import SwiftUI
 
 struct SPicker<SelectionValue: Hashable & Identifiable & CustomStringConvertible, Content: View> : View {
 
-    @State var isLinkActive = false
+    @State private var showLiist = false
     @Binding var selection: SelectionValue
     
     let label: String
     let items: [SelectionValue]
     let content: (SelectionValue) -> Content
-    
-    
+
     public init(selection: Binding<SelectionValue>, label: String, items: [SelectionValue], @ViewBuilder content: @escaping (SelectionValue) -> Content) {
         self._selection = selection
         self.label = label
@@ -18,13 +17,20 @@ struct SPicker<SelectionValue: Hashable & Identifiable & CustomStringConvertible
     }
         
     var body: some View {
-        NavigationLink(destination: selectionView, isActive: $isLinkActive, label: {
+        Button {
+            showLiist.toggle()
+        } label: {
             HStack {
-                Text("Appearances")
+                Text(label)
                 Spacer()
                 content(selection)
+                Image(systemName: "chevron.forward")
+                    .foregroundColor(Color.App.List.cellText)
             }
-        })
+        }
+        .navigationDestination(isPresented: $showLiist) {
+            selectionView
+        }
     }
     
     var selectionView: some View {
@@ -32,7 +38,6 @@ struct SPicker<SelectionValue: Hashable & Identifiable & CustomStringConvertible
             ForEach(items) { item in
                 Button(action: {
                     self.selection = item
-//                    self.isLinkActive = false
                 }) {
                     HStack {
                         content(item)

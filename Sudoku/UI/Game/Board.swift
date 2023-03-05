@@ -9,13 +9,9 @@ extension CGRect {
 struct Board: View {
 
     @EnvironmentObject var history: History
+    @EnvironmentObject var controller: GameController
 
-    @ObservedObject var controller: GameController
     var longTapAction: (_ frame: CGRect) -> Void = { _ in }
-    
-    init(controller: GameController) {
-        self.controller = controller
-    }
 
     var body: some View {
         GeometryReader { geometry in
@@ -63,6 +59,7 @@ struct Board_Previews: PreviewProvider {
     private static var controller: GameController = GameController()
 
     static var previews: some View {
-        Board(controller: controller)
+        Board()
+            .environmentObject(controller)
     }
 }

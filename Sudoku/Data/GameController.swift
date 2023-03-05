@@ -11,6 +11,7 @@ class GameController: ObservableObject {
             updateNumpad()
         }
     }
+
     var selectedItem: Item?
     var selectedRow: Int?
     var selectedColumn: Int?
@@ -37,8 +38,6 @@ class GameController: ObservableObject {
     @Published var draft: Bool = false
     @Published var finished: Bool = false
     @Published var shouldResettingAlert: Bool = false
-
-    var history: History? = nil
 
     init() {
         data = BoardData()
@@ -84,7 +83,6 @@ class GameController: ObservableObject {
         self.selectedColumn = column
         
         highlight()
-        history?.save()
     }
     
     func highlight() {
@@ -137,8 +135,6 @@ class GameController: ObservableObject {
         } else {
             selectedItem.error = true
         }
-        
-        history?.save();
     }
     
     func validate(number: Int, atRow row: Int, column: Int) -> Bool {
@@ -172,7 +168,10 @@ class GameController: ObservableObject {
             let column = indexOfFirstNonFixedItem % data.columns
             select(row: row, column: column)
         }
+        selectedItem = data.selectedItem()
+        selectedRow = data.selectedRow()
+        selectedColumn = data.selectedColumn()
+        highlight()
         updateNumpad()
-        history?.save()
     }
 }

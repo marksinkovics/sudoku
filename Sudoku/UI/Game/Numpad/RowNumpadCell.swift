@@ -14,12 +14,11 @@ struct RowNumpadCellButtonStyle: ButtonStyle {
 }
 
 struct RowNumpadCell: View {
-    
+
+    @EnvironmentObject var controller: GameController
     @ObservedObject var item: NumpadItem
-    var controller: GameController
     
-    init(item: NumpadItem, controller: GameController) {
-        self.controller = controller
+    init(item: NumpadItem) {
         self.item = item
     }
     
@@ -51,7 +50,8 @@ struct NumpadCell_Previews: PreviewProvider {
 
     static var previews: some View {
         Group {
-            RowNumpadCell(item: NumpadItem(value: .number(1)), controller: controller)
+            RowNumpadCell(item: NumpadItem(value: .number(1)))
+                .environmentObject(controller)
                 .frame(width: 80, height: 80)
                 .previewLayout(.sizeThatFits)
         }
