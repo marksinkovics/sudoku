@@ -50,7 +50,6 @@ struct GameView: View {
         let id: AlertType
     }
         
-    @ObservedObject var controller: GameController = GameController()
     @State var showingCongratsToast: Bool = false
     @State var alertInfo: AlertInfo? = nil
     
@@ -58,6 +57,7 @@ struct GameView: View {
 
     @EnvironmentObject var userSettings: UserSettings
     @EnvironmentObject var history: History
+    @EnvironmentObject var controller: GameController
 
     let initialState: GameInitialState
 
@@ -65,14 +65,12 @@ struct GameView: View {
         self.initialState = state
     }
 
-    func prepareBoard() {
-        self.controller.history = history
+    func prepareBoard() async {
         if case .continue = self.initialState {
             self.controller.data = history.items.first!
         } else if case .new(let difficulty) = self.initialState {
             self.controller.generate(difficulty: difficulty)
             history.set(data: self.controller.data)
-            history.save();
         }
     }
     
@@ -83,7 +81,7 @@ struct GameView: View {
                 .ignoresSafeArea()
             VStack {
                 Spacer()
-                Board(controller: controller)
+                Board()
                     .aspectRatio(1.0, contentMode: .fit)
                     .modifier(SizeModifier())
                     .onPreferenceChange(SizePreferenceKey.self) {
@@ -91,7 +89,7 @@ struct GameView: View {
                     }
                 Spacer()
                 if userSettings.numpadType == .row {
-                    RowNumpad(controller: controller)
+                    RowNumpad()
                         .frame(maxWidth: .infinity, maxHeight: 100)
                         .padding([.top], 20)
                         .padding([.bottom], 40)
@@ -168,8 +166,10 @@ struct GameView: View {
                          message: Text("Are you sure you want to reset the game board? It cannot be undone."),
                          primaryButton: .destructive(Text("Reset"), action: { self.controller.reset() }),
                          secondaryButton: .cancel { self.controller.shouldResettingAlert = false } )
-        }.onAppear {
-            prepareBoard()
+        }.task {
+            await prepareBoard()
+        }.onDisappear {
+            history.save()
         }
     }
 }

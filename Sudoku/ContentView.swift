@@ -62,28 +62,36 @@ extension View {
     }
 }
 
+final class Router: ObservableObject {
+    @Published var path = NavigationPath()
+}
+
 struct ContentView: View {
-    
+
+    @StateObject var router = Router()
+    @StateObject var gameController = GameController()
+
     @EnvironmentObject var userSettings: UserSettings
-    @EnvironmentObject var history: History
 
     init() {
         UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = UIColor.sText
     }
 
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $router.path) {
             HomeView()
                 .accentColor(Color.sText)
                 .userInterfaceStyle(userSettings.suggestedUserInterfaceStyle)
+
         }
         .background(Color.App.background)
         .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarColor(backgroundColor: .sBackground, tintColor: .sText)
         .toolBarColor(backgroundColor: .sBackground, tintColor: .sText)
-        .environmentObject(history)
-        .environmentObject(userSettings)
+        .environmentObject(router)
+        .environmentObject(gameController)
         .accentColor(.sText)
+
     }
 }
 

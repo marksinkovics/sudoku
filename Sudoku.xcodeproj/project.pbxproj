@@ -31,7 +31,6 @@
 		C32D6E25266BE69800E7DC82 /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D6E24266BE69800E7DC82 /* Debug.swift */; };
 		C34F79A6266EFE8F009F4C41 /* Shape+Fill.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34F79A5266EFE8F009F4C41 /* Shape+Fill.swift */; };
 		C3538A4D27834AAA00405D93 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3538A4C27834AAA00405D93 /* DebugView.swift */; };
-		C3538A4F27834C7E00405D93 /* NavigationLink+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3538A4E27834C7E00405D93 /* NavigationLink+Utils.swift */; };
 		C356FF3627EFFE06003BF6E1 /* DifficultySheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C356FF3527EFFE06003BF6E1 /* DifficultySheetView.swift */; };
 		C35D341D27F9309F00CF833E /* SudokuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35D341C27F9309F00CF833E /* SudokuUITests.swift */; };
 		C35D341F27F9309F00CF833E /* SudokuUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35D341E27F9309F00CF833E /* SudokuUITestsLaunchTests.swift */; };
@@ -103,7 +102,6 @@
 		C32D6E24266BE69800E7DC82 /* Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		C34F79A5266EFE8F009F4C41 /* Shape+Fill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shape+Fill.swift"; sourceTree = "<group>"; };
 		C3538A4C27834AAA00405D93 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
-		C3538A4E27834C7E00405D93 /* NavigationLink+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationLink+Utils.swift"; sourceTree = "<group>"; };
 		C356FF3527EFFE06003BF6E1 /* DifficultySheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultySheetView.swift; sourceTree = "<group>"; };
 		C35D341A27F9309F00CF833E /* SudokuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudokuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C35D341C27F9309F00CF833E /* SudokuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuUITests.swift; sourceTree = "<group>"; };
@@ -274,7 +272,6 @@
 				C30A7C332468673900423889 /* HiddenModifier.swift */,
 				C34F79A5266EFE8F009F4C41 /* Shape+Fill.swift */,
 				C3A152AF26DC2A7B00BDA451 /* Angle.swift */,
-				C3538A4E27834C7E00405D93 /* NavigationLink+Utils.swift */,
 				C314ED4A29B2316500C450E5 /* Collection+Utils.swift */,
 			);
 			path = Utils;
@@ -472,7 +469,6 @@
 				1190F9D02403445D001A940F /* AppDelegate.swift in Sources */,
 				C368AC6D243760690076BB88 /* HomeView.swift in Sources */,
 				C3AE5FF4245C6F7400F2DAC0 /* LazyView.swift in Sources */,
-				C3538A4F27834C7E00405D93 /* NavigationLink+Utils.swift in Sources */,
 				C3D0E5BF24243B2F00DE7FFA /* GameController.swift in Sources */,
 				1190F9F6240B5930001A940F /* RowNumpad.swift in Sources */,
 				C314ED4D29B232DC00C450E5 /* BoardData+Codable.swift in Sources */,
@@ -605,7 +601,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -660,7 +656,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
