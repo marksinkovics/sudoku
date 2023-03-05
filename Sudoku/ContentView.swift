@@ -83,6 +83,7 @@ struct ContentView: View {
         .toolBarColor(backgroundColor: .sBackground, tintColor: .sText)
         .environmentObject(history)
         .environmentObject(userSettings)
+        .accentColor(.sText)
     }
 }
 
