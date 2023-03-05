@@ -99,31 +99,25 @@ struct GameView: View {
                     Button(action: {
                         self.controller.shouldResettingAlert = true
                     }, label: {
-                        Image(systemName: "arrow.counterclockwise")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 20)
-                            .foregroundColor(Color.App.Game.toolbarIcon)
+                        ToolBarItem(text: "Reset all", systemName: "trash")
+                            .foregroundStyle(Color.App.Game.toolbarTrash)
                     })
                     Spacer()
-                    Button(action: {
-                        self.controller.delete()
-                    }, label: {
-                        Image(systemName: "trash")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 20)
-                            .foregroundColor(Color.App.Game.toolbarIcon)
+                    Button(action: self.controller.delete, label: {
+                        ToolBarItem(text: "Erase", systemName: "eraser.line.dashed")
+                            .foregroundStyle(.cyan, .yellow)
                     })
                     Spacer()
                     Button(action: {
                         self.controller.draft.toggle()
                     }, label: {
-                        Image(systemName: self.controller.draft ? "pencil.circle.fill" : "pencil.circle")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 20)
-                            .foregroundColor(Color.App.Game.toolbarIcon)
+                        if self.controller.draft {
+                            ToolBarItem(text: "Draft", systemName: "square.and.pencil")
+                                .foregroundStyle(.yellow, Color.App.Game.toolbarRed)
+                        } else {
+                            ToolBarItem(text: "Final", systemName: "pencil.line")
+                                .foregroundStyle(.yellow, Color.App.Game.toolbarRed)
+                        }
                     })
                 }
                 .padding([.leading, .trailing], 15)
@@ -150,7 +144,7 @@ struct GameView: View {
                     self.alertInfo = AlertInfo(id: .solveAll)
                 }, label: {
                     Image(systemName: "wand.and.stars")
-                        .foregroundColor(Color.App.Game.toolbarIcon)
+                        .foregroundStyle(Color.App.Game.toolbarWand, .purple)
                 })
             }
         }

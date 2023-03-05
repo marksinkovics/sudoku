@@ -35,6 +35,10 @@ extension Color {
         
         struct Game {
             static let toolbarIcon = Color("game_toolbar_icon")
+            static let toolbarText = Color("toolbar_text")
+            static let toolbarRed = Color("selected_color")
+            static let toolbarTrash = Color("toolbar_trash")
+            static let toolbarWand = Color("toolbar_wand")
         }
     }
 }
@@ -81,4 +85,3 @@ extension Color {
         )
     }
 }
-

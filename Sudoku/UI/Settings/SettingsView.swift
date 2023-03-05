@@ -125,7 +125,6 @@ struct SettingsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle("Settings")
         .toast(isPresenting: $showDeleteSuccessToast, duration: 1, toast: { CheckmarkToast() })
-        .navigate(using: $navigationOption, destination: NavigationOption.view(for:))
         .modifier(FormBackgroundColorModifier(color: Color.App.List.background))
     }
 

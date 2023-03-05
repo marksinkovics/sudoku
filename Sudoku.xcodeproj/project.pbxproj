@@ -27,6 +27,7 @@
 		C314ED4B29B2316500C450E5 /* Collection+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C314ED4A29B2316500C450E5 /* Collection+Utils.swift */; };
 		C314ED4D29B232DC00C450E5 /* BoardData+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C314ED4C29B232DC00C450E5 /* BoardData+Codable.swift */; };
 		C314ED4F29B2353E00C450E5 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = C314ED4E29B2353E00C450E5 /* History.swift */; };
+		C314ED5729B54D6F00C450E5 /* ToolBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C314ED5629B54D6F00C450E5 /* ToolBarItem.swift */; };
 		C32D6E21266B36B800E7DC82 /* ArcNumpad.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D6E20266B36B800E7DC82 /* ArcNumpad.swift */; };
 		C32D6E25266BE69800E7DC82 /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D6E24266BE69800E7DC82 /* Debug.swift */; };
 		C34F79A6266EFE8F009F4C41 /* Shape+Fill.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34F79A5266EFE8F009F4C41 /* Shape+Fill.swift */; };
@@ -98,6 +99,7 @@
 		C314ED4A29B2316500C450E5 /* Collection+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Utils.swift"; sourceTree = "<group>"; };
 		C314ED4C29B232DC00C450E5 /* BoardData+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoardData+Codable.swift"; sourceTree = "<group>"; };
 		C314ED4E29B2353E00C450E5 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		C314ED5629B54D6F00C450E5 /* ToolBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBarItem.swift; sourceTree = "<group>"; };
 		C32D6E20266B36B800E7DC82 /* ArcNumpad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcNumpad.swift; sourceTree = "<group>"; };
 		C32D6E24266BE69800E7DC82 /* Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		C34F79A5266EFE8F009F4C41 /* Shape+Fill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shape+Fill.swift"; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 				C368AC6E243760780076BB88 /* GameView.swift */,
 				1190F9E62404A520001A940F /* Board.swift */,
 				1190F9EA2407E367001A940F /* BoardCell.swift */,
+				C314ED5629B54D6F00C450E5 /* ToolBarItem.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -500,6 +503,7 @@
 				C32D6E21266B36B800E7DC82 /* ArcNumpad.swift in Sources */,
 				1190F9D42403445D001A940F /* ContentView.swift in Sources */,
 				C34F79A6266EFE8F009F4C41 /* Shape+Fill.swift in Sources */,
+				C314ED5729B54D6F00C450E5 /* ToolBarItem.swift in Sources */,
 				C3C37869267F85A600F65AB4 /* ArcNumpadView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
