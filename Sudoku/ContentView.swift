@@ -80,7 +80,7 @@ struct ContentView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarColor(backgroundColor: .sBackground, tintColor: .sText)
         .toolBarColor(backgroundColor: .sBackground, tintColor: .sText)
-
+        .accentColor(.sText)
     }
 }
 
