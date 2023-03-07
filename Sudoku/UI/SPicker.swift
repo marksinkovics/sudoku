@@ -49,6 +49,7 @@ struct SPicker<SelectionValue: Hashable & Identifiable & CustomStringConvertible
             }
             .listRowBackground(Color.App.List.cellBackground)
         }
+        .modifier(FormBackgroundColorModifier(color: Color.App.List.background))
         .navigationBarTitle(label)
     }
 }

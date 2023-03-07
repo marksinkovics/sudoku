@@ -26,6 +26,7 @@ struct DebugView: View {
             }
             .listRowBackground(Color.App.List.cellBackground)
         }
+        .modifier(FormBackgroundColorModifier(color: Color.App.List.background))
         .listStyle(GroupedListStyle())
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle("Debug")

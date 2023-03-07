@@ -1,6 +1,26 @@
 import SwiftUI
 import UIKit
 
+struct FormBackgroundColorModifier: ViewModifier {
+    var color: Color
+
+    func body(content: Content) -> some View {
+        ZStack {
+            color.edgesIgnoringSafeArea(.all)
+            if #available(iOS 16.0, *) {
+                content.scrollContentBackground(.hidden)
+            } else {
+                content.onAppear {
+                    UITableView.appearance().backgroundColor = .clear
+                }
+                .onDisappear {
+                    UITableView.appearance().backgroundColor = .systemGroupedBackground
+                }
+            }
+        }
+    }
+}
+
 struct SettingsView: View {
         
     enum NavigationOption {
@@ -28,11 +48,7 @@ struct SettingsView: View {
     #if DEBUG
     @State var showingConfettiToast: Bool = false
     #endif
-    
-    init() {
-        UITableView.appearance().backgroundColor = UIColor.App.List.background
-    }
-    
+        
     var body: some View {
         Form {
             Section(header: Text("Highlight")) {
@@ -110,6 +126,7 @@ struct SettingsView: View {
         .navigationBarTitle("Settings")
         .toast(isPresenting: $showDeleteSuccessToast, duration: 1, toast: { CheckmarkToast() })
         .navigate(using: $navigationOption, destination: NavigationOption.view(for:))
+        .modifier(FormBackgroundColorModifier(color: Color.App.List.background))
     }
     
 }
