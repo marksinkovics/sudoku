@@ -13,7 +13,6 @@
 		1190F9D624034461001A940F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1190F9D524034461001A940F /* Assets.xcassets */; };
 		1190F9D924034461001A940F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1190F9D824034461001A940F /* Preview Assets.xcassets */; };
 		1190F9DC24034461001A940F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1190F9DA24034461001A940F /* LaunchScreen.storyboard */; };
-		1190F9E524034560001A940F /* GridStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1190F9E424034560001A940F /* GridStack.swift */; };
 		1190F9E72404A520001A940F /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1190F9E62404A520001A940F /* Board.swift */; };
 		1190F9EB2407E367001A940F /* BoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1190F9EA2407E367001A940F /* BoardCell.swift */; };
 		1190F9EE2408967E001A940F /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1190F9ED2408967E001A940F /* Item.swift */; };
@@ -44,6 +43,9 @@
 		C3A152B026DC2A7B00BDA451 /* Angle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A152AF26DC2A7B00BDA451 /* Angle.swift */; };
 		C3A9BFEE2759936600CB3B3B /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9BFED2759936600CB3B3B /* Toast.swift */; };
 		C3AE5FF4245C6F7400F2DAC0 /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE5FF3245C6F7400F2DAC0 /* LazyView.swift */; };
+		C3B9148529C6526C00A4A825 /* DraftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B9148429C6526C00A4A825 /* DraftCell.swift */; };
+		C3B9148729C652CE00A4A825 /* View+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B9148629C652CE00A4A825 /* View+Border.swift */; };
+		C3B9148929C6535B00A4A825 /* SizeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B9148829C6535B00A4A825 /* SizeModifier.swift */; };
 		C3C36A642437FAC000F96CBB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C36A632437FAC000F96CBB /* SettingsView.swift */; };
 		C3C37869267F85A600F65AB4 /* ArcNumpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C37868267F85A600F65AB4 /* ArcNumpadView.swift */; };
 		C3C3786B267F863200F65AB4 /* ArcNumpadUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C3786A267F863200F65AB4 /* ArcNumpadUIView.swift */; };
@@ -83,7 +85,6 @@
 		1190F9D824034461001A940F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1190F9DB24034461001A940F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1190F9DD24034461001A940F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1190F9E424034560001A940F /* GridStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridStack.swift; sourceTree = "<group>"; };
 		1190F9E62404A520001A940F /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		1190F9EA2407E367001A940F /* BoardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardCell.swift; sourceTree = "<group>"; };
 		1190F9ED2408967E001A940F /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -117,6 +118,9 @@
 		C3A152AF26DC2A7B00BDA451 /* Angle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Angle.swift; sourceTree = "<group>"; };
 		C3A9BFED2759936600CB3B3B /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		C3AE5FF3245C6F7400F2DAC0 /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
+		C3B9148429C6526C00A4A825 /* DraftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftCell.swift; sourceTree = "<group>"; };
+		C3B9148629C652CE00A4A825 /* View+Border.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Border.swift"; sourceTree = "<group>"; };
+		C3B9148829C6535B00A4A825 /* SizeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeModifier.swift; sourceTree = "<group>"; };
 		C3C36A632437FAC000F96CBB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C3C37868267F85A600F65AB4 /* ArcNumpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcNumpadView.swift; sourceTree = "<group>"; };
 		C3C3786A267F863200F65AB4 /* ArcNumpadUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcNumpadUIView.swift; sourceTree = "<group>"; };
@@ -214,9 +218,6 @@
 			isa = PBXGroup;
 			children = (
 				C3EB804B275AD5420081A6C4 /* Toast */,
-				1190F9E424034560001A940F /* GridStack.swift */,
-				C3AE5FF3245C6F7400F2DAC0 /* LazyView.swift */,
-				C37F8ACA26E9B1F700C90E73 /* SPicker.swift */,
 				C386A562246423A400DEEDE3 /* Home */,
 				C386A5672464ECF400DEEDE3 /* Game */,
 				C30A7C2D2466E06900423889 /* Settings */,
@@ -275,6 +276,10 @@
 				C34F79A5266EFE8F009F4C41 /* Shape+Fill.swift */,
 				C3A152AF26DC2A7B00BDA451 /* Angle.swift */,
 				C314ED4A29B2316500C450E5 /* Collection+Utils.swift */,
+				C3B9148629C652CE00A4A825 /* View+Border.swift */,
+				C3AE5FF3245C6F7400F2DAC0 /* LazyView.swift */,
+				C3B9148829C6535B00A4A825 /* SizeModifier.swift */,
+				C37F8ACA26E9B1F700C90E73 /* SPicker.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -319,6 +324,7 @@
 				1190F9E62404A520001A940F /* Board.swift */,
 				1190F9EA2407E367001A940F /* BoardCell.swift */,
 				C314ED5629B54D6F00C450E5 /* ToolBarItem.swift */,
+				C3B9148429C6526C00A4A825 /* DraftCell.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -486,14 +492,15 @@
 				C368AC6F243760780076BB88 /* GameView.swift in Sources */,
 				C30A7C382468A59100423889 /* NumpadItem.swift in Sources */,
 				1190F9E72404A520001A940F /* Board.swift in Sources */,
-				1190F9E524034560001A940F /* GridStack.swift in Sources */,
 				C356FF3627EFFE06003BF6E1 /* DifficultySheetView.swift in Sources */,
 				C3D0E5BD242042B000DE7FFA /* Generator.swift in Sources */,
 				C32D6E25266BE69800E7DC82 /* Debug.swift in Sources */,
+				C3B9148729C652CE00A4A825 /* View+Border.swift in Sources */,
 				1190F9F9240C5B1C001A940F /* BoardData.swift in Sources */,
 				1190F9EE2408967E001A940F /* Item.swift in Sources */,
 				C3A152B026DC2A7B00BDA451 /* Angle.swift in Sources */,
 				C3EB804F275AD8F50081A6C4 /* CheckmarkToast.swift in Sources */,
+				C3B9148929C6535B00A4A825 /* SizeModifier.swift in Sources */,
 				1190F9EB2407E367001A940F /* BoardCell.swift in Sources */,
 				C386A5662464258600DEEDE3 /* MenuItemView.swift in Sources */,
 				C37F8ACB26E9B1F700C90E73 /* SPicker.swift in Sources */,
@@ -501,6 +508,7 @@
 				C314ED4F29B2353E00C450E5 /* History.swift in Sources */,
 				C314ED4B29B2316500C450E5 /* Collection+Utils.swift in Sources */,
 				C32D6E21266B36B800E7DC82 /* ArcNumpad.swift in Sources */,
+				C3B9148529C6526C00A4A825 /* DraftCell.swift in Sources */,
 				1190F9D42403445D001A940F /* ContentView.swift in Sources */,
 				C34F79A6266EFE8F009F4C41 /* Shape+Fill.swift in Sources */,
 				C314ED5729B54D6F00C450E5 /* ToolBarItem.swift in Sources */,

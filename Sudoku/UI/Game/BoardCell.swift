@@ -1,30 +1,19 @@
 import SwiftUI
 
-struct DraftCell: View {
-    
-    @ObservedObject var item: DraftItem
-    
-    var body: some View {
-        GeometryReader { gridGeometry in
-            Text(self.item.text)
-                .font(.system(size: 12))
-                .foregroundColor(Color.sFixed)
-                .frame(width: gridGeometry.size.width, height: gridGeometry.size.height)
-                .isHidden(self.item.hidden)
-        }
-    }
-}
-
 struct BoardCell: View {
-    
-    public enum ActionType {
-        case single
-        case double
-        case long
-    }
-    
+
     @ObservedObject var item: Item
-    var action: (ActionType, CGRect) -> Void = { _,_  in }
+    let row: Int
+    let column: Int
+
+    var action: () -> Void = {}
+
+    init(item: Item, row: Int, column: Int, action: @escaping () -> Void = {}) {
+        self.item = item
+        self.row = row
+        self.column = column
+        self.action = action
+    }
 
     func backgroundColor() -> Color {
         if item.error {
@@ -37,7 +26,7 @@ struct BoardCell: View {
         
         return .sBackground
     }
-        
+
     func textColor() -> Color {
         item.fixed ? .sFixed  : .sText
     }
@@ -49,33 +38,62 @@ struct BoardCell: View {
     func borderSize() -> CGFloat {
         item.selected ? 4 : 1
     }
-            
+
+    func calculateEdges() -> [Edge] {
+        if (item.selected) {
+            return [.top, .bottom, .leading, .trailing]
+        }
+        var edges: [Edge] = []
+
+        if (row) % 3 == 0 {
+            edges.append(.top)
+        }
+
+        if (row + 1) % 3 == 0 {
+            edges.append(.bottom)
+        }
+
+        if (column) % 3 == 0 {
+            edges.append(.leading)
+        }
+
+        if (column + 1) % 3 == 0 {
+            edges.append(.trailing)
+        }
+        return edges
+    }
+
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                GridStack(rows: 3, columns: 3, spacing: 1) { row, column in
-                    DraftCell(item: self.item.draftNumbers[3 * row + column])
+        ZStack {
+            Grid(horizontalSpacing: 1, verticalSpacing: 1) {
+                ForEach(0..<3) { row in
+                    GridRow {
+                        ForEach(0..<3) { column in
+                            DraftCell(item: self.item.draftNumbers[3 * row + column])
+                        }
+                    }
                 }
-                .padding(3)
-                Text(self.item.str)
-                    .font(Font.system(size: 30))
-                    .foregroundColor(self.textColor())
-                    .frame(width: geometry.size.width, height: geometry.size.height)
-                    .border(self.borderColor(), width: self.borderSize())
             }
-            .background(self.backgroundColor())
-            .onTapGesture {
-                self.action(.single, geometry.frame(in: .global))
-            }
+            .padding(5)
+            Text(self.item.str)
+                .font(Font.system(size: 30))
+
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .foregroundColor(self.textColor())
+        .border(width: 1, edges: [.top, .bottom, .leading, .trailing], color: .sText)
+        .border(width: borderSize(), edges: calculateEdges(), color: borderColor())
+        .background(self.backgroundColor())
+        .onTapGesture {
+            self.action()
         }
     }
     
-    func action(action: @escaping (ActionType, CGRect) -> Void) -> Self {
+    func action(action: @escaping () -> Void) -> Self {
         var copy = self
         copy.action = action
         return copy
     }
-
 }
 
 struct BoardCell_Previews: PreviewProvider {
@@ -91,15 +109,15 @@ struct BoardCell_Previews: PreviewProvider {
         DraftItem(number: 7, hidden: true),
         DraftItem(number: 8, hidden: false),
         DraftItem(number: 9, hidden: true)
-    
+
     ])
 
     static var previews: some View {
         Group {
-            BoardCell(item: item)
+            BoardCell(item: item, row: 1, column: 1)
                 .frame(width: 40, height: 40)
                 .previewLayout(.sizeThatFits)
-            BoardCell(item: item2)
+            BoardCell(item: item2, row: 1, column: 1)
                 .frame(width: 40, height: 40)
                 .previewLayout(.sizeThatFits)
 

@@ -1,32 +1,37 @@
 import SwiftUI
 
-extension CGRect {
-    var mid: CGPoint {
-        CGPoint(x: self.midX, y: self.midY)
-    }
-}
-
 struct Board: View {
 
     @EnvironmentObject var history: History
     @EnvironmentObject var controller: GameController
 
-    var longTapAction: (_ frame: CGRect) -> Void = { _ in }
+    func shouldAddSpacer(value: Int) -> Bool {
+        return (value + 1) % 3 == 0
+    }
 
     var body: some View {
         GeometryReader { geometry in
-            GridStack(rows: 3, columns: 3, spacing: 4, content: { outerRow, outerColumn in
-                GridStack(rows: 3, columns: 3) { row, column in
-                    GeometryReader { cellGeometry in
-                        let selecterRow = (3 * outerRow) + row
-                        let selectedColumn = (3 * outerColumn) + column
-                        BoardCell(item: self.controller.data[selecterRow, selectedColumn])
-                            .action() { type, frame in
-                                self.controller.select(row: selecterRow, column: selectedColumn)
+            Grid(horizontalSpacing: 0, verticalSpacing: 0) {
+                ForEach(0..<9) { row in
+                    GridRow {
+                        ForEach(0..<9) { column in
+                            let item = self.controller.data[row, column]
+                            BoardCell(item: item, row: row, column: column) {
+                                self.controller.select(row: row, column: column)
+                            }
+                            if (shouldAddSpacer(value: column))
+                            {
+                                Spacer(minLength: 2)
                             }
                         }
+                    }
+
+                    if (shouldAddSpacer(value: row))
+                    {
+                        Spacer(minLength: 2)
+                    }
                 }
-            })
+            }
         }
         .scaledToFill()
     }
@@ -44,13 +49,6 @@ struct Board: View {
     func hightlightBlock(_ value: Bool) -> Self {
         self.controller.highlightBlock = value
         return self
-    }
-
-    
-    func longTap(action: @escaping (_ frame: CGRect) -> Void) -> Self {
-        var copy = self
-        copy.longTapAction = action
-        return copy
     }
 }
 
